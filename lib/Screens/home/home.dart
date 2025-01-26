@@ -1,6 +1,8 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/Screens/home/widgets/grid_button.dart';
+import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
 
 class Home extends StatelessWidget {
   final List gridList = [
@@ -94,101 +96,6 @@ class Home extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class GridContainerButton extends StatelessWidget {
-  final String title;
-  final String imagePath;
-
-  const GridContainerButton({
-    super.key,
-    required this.title,
-    required this.imagePath,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        switch (title) {
-          case "SCAN QR":
-            log("scan qr");
-            break;
-
-          case "ADD DEVICE":
-            log("ADD DEVICE");
-            break;
-
-          case "VIEW TASKS":
-            log("VIEW TASKS");
-            break;
-
-          case "SERVICE\nHISTORY":
-            log("SERVICE HISTORY");
-            break;
-          default:
-        }
-      },
-      child: Container(
-        height: 17,
-        width: 17,
-        padding: EdgeInsets.only(top: 30),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30), color: Color(0xff165069)),
-        child: Column(
-          children: [
-            Container(
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(imagePath))),
-            ),
-            Text(
-              title,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 16),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class ContainerTextRow extends StatelessWidget {
-  final String title;
-  final String value;
-  const ContainerTextRow({
-    super.key,
-    required this.title,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(value,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ))
-      ],
     );
   }
 }

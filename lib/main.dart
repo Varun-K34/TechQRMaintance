@@ -1,3 +1,5 @@
+import 'package:techqrmaintance/Screens/signup_screen.dart';
+
 import 'Screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/home/home.dart';
@@ -20,6 +22,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home:  Home());
+        home:  SignupScreen());
   }
 }
