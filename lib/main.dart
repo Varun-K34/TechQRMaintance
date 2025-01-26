@@ -1,5 +1,6 @@
 import 'package:techqrmaintance/Screens/Authentication/signup_screen.dart';
-import 'package:techqrmaintance/Screens/Widgets/services_history.dart';
+import 'package:techqrmaintance/Screens/history/history_overview.dart';
+import 'package:techqrmaintance/Screens/history/services_history.dart';
 import 'package:techqrmaintance/Screens/repair_overview.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
@@ -26,6 +27,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: TaskOverviewScreen());
+        home: HistoryOverviewScreen());
   }
 }
