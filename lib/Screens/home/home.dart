@@ -1,9 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
   final List gridList = [
     GridContainerButton(
-      title: "SCAN Q",
+      title: "SCAN QR",
       imagePath: 'assets/images/qr-code 1.png',
     ),
     GridContainerButton(
@@ -42,7 +44,7 @@ class Home extends StatelessWidget {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 70),
             child: Container(
               height: 170,
               width: 401,
@@ -99,6 +101,7 @@ class Home extends StatelessWidget {
 class GridContainerButton extends StatelessWidget {
   final String title;
   final String imagePath;
+
   const GridContainerButton({
     super.key,
     required this.title,
@@ -107,27 +110,51 @@ class GridContainerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 17,
-      width: 17,
-      padding: EdgeInsets.only(top: 30),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30), color: Color(0xff165069)),
-      child: Column(
-        children: [
-          Container(
-            height: 80,
-            width: 80,
-            decoration: BoxDecoration(
-                image: DecorationImage(image: AssetImage(imagePath))),
-          ),
-          Text(
-            title,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16),
-          ),
-        ],
+    return GestureDetector(
+      onTap: () {
+        switch (title) {
+          case "SCAN QR":
+            log("scan qr");
+            break;
+
+          case "ADD DEVICE":
+            log("ADD DEVICE");
+            break;
+
+          case "VIEW TASKS":
+            log("VIEW TASKS");
+            break;
+
+          case "SERVICE\nHISTORY":
+            log("SERVICE HISTORY");
+            break;
+          default:
+        }
+      },
+      child: Container(
+        height: 17,
+        width: 17,
+        padding: EdgeInsets.only(top: 30),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30), color: Color(0xff165069)),
+        child: Column(
+          children: [
+            Container(
+              height: 80,
+              width: 80,
+              decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage(imagePath))),
+            ),
+            Text(
+              title,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w900,
+                  fontSize: 16),
+            ),
+          ],
+        ),
       ),
     );
   }
