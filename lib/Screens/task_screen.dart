@@ -12,18 +12,24 @@ class TaskScreen extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: AppBar(
+            backgroundColor: Colors.white,
             title: Text(
               "Tasks",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
             ),
             centerTitle: true,
             bottom: TabBar(
               labelColor: Color(0xff165069),
               labelStyle: TextStyle(
                 fontSize: 20,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w700,
               ),
               tabs: [
                 Tab(
