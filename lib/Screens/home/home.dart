@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Home extends StatelessWidget {
   final List gridList = [
     GridContainerButton(
-      title: "SCAN QR",
+      title: "SCAN Q",
       imagePath: 'assets/images/qr-code 1.png',
     ),
     GridContainerButton(
