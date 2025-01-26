@@ -1,7 +1,8 @@
 import 'package:techqrmaintance/Screens/Authentication/signup_screen.dart';
 import 'package:techqrmaintance/Screens/Widgets/services_history.dart';
 import 'package:techqrmaintance/Screens/repair_overview.dart';
-import 'package:techqrmaintance/Screens/task_screen.dart';
+import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
+import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 
 import 'Screens/Authentication/login_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: ServicesHistoryScreen());
+        home: TaskOverviewScreen());
   }
 }
