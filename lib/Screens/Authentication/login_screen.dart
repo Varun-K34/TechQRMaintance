@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/Screens/Authentication/signup_screen.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
+import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/home/home.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -49,8 +52,12 @@ class LoginScreen extends StatelessWidget {
               height: 40,
             ),
             CustomMaterialButton(
+              key: Key('loginButton'),
               text: 'Login',
-              onPressed: () {},
+              onPressed: () {
+                // Navigate to the home screen
+                Navigator.of(context).push(createRoute(Home()));
+              },
             ),
             SizedBox(
               height: 10,
@@ -59,7 +66,12 @@ class LoginScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Dont have an account ? '),
-                GestureDetector(child: Text('Signup')),
+                GestureDetector(
+                    onTap: () {
+                      // Navigate to the signup screen
+                      Navigator.of(context).push(createRoute(SignupScreen()));
+                    },
+                    child: Text('Signup')),
               ],
             ),
           ],
