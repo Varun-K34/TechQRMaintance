@@ -1,6 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/history/services_history.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
+import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 
 class GridContainerButton extends StatelessWidget {
   final String title;
@@ -21,12 +25,21 @@ class GridContainerButton extends StatelessWidget {
             break;
 
           case "ADD DEVICE":
+            Navigator.of(context).push(createRoute(DeviceRegFormScreen(
+              key: UniqueKey(),
+            )));
             break;
 
           case "VIEW TASKS":
+            Navigator.of(context).push(createRoute(TaskScreen(
+              key: UniqueKey(),
+            )));
             break;
 
           case "SERVICE\nHISTORY":
+            Navigator.of(context).push(createRoute(ServicesHistoryScreen(
+              key: UniqueKey(),
+            )));
             break;
           default:
         }

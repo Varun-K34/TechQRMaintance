@@ -6,8 +6,10 @@ class CustomMaterialButton extends StatelessWidget {
   final Color textColor;
   final double height;
   final double width;
+  final Key? key;
 
   CustomMaterialButton({
+    this.key,
     required this.text,
     required this.onPressed,
     this.textColor = Colors.white, // Default text color is white
