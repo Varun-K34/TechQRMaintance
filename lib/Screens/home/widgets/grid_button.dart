@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/history/services_history.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
+import 'package:techqrmaintance/Screens/qrscan/scan_qr.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 
 class GridContainerButton extends StatelessWidget {
@@ -22,6 +23,7 @@ class GridContainerButton extends StatelessWidget {
       onTap: () {
         switch (title) {
           case "SCAN QR":
+          Navigator.of(context).push(createRoute(ScanQr()));
             break;
 
           case "ADD DEVICE":
