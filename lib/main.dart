@@ -1,3 +1,5 @@
+import 'package:techqrmaintance/Screens/qrscan/scan_qr.dart';
+
 import 'Screens/Authentication/login_screen.dart';
 import 'package:flutter/material.dart';
 
