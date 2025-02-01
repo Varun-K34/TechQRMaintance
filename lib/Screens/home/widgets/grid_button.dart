@@ -23,7 +23,7 @@ class GridContainerButton extends StatelessWidget {
       onTap: () {
         switch (title) {
           case "SCAN QR":
-          Navigator.of(context).push(createRoute(ScanQr()));
+            Navigator.of(context).push(createRoute(ScanQr()));
             break;
 
           case "ADD DEVICE":
