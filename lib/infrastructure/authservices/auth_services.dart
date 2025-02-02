@@ -16,6 +16,7 @@ class AuthServices implements AuthRepoReg {
   Future<Either<MainFailurs, AuthRegModel>> getAuthRespo(
       {required AuthRegModel authModel}) async {
     try {
+      log(authModel.toJson().toString(),name: "AuthServices");
       final Response response =
           await api.dio.post(kBaseURL + kuserADD, data: authModel.toJson());
       log(response.data.toString());

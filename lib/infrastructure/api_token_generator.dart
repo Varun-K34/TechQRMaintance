@@ -1,65 +1,77 @@
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techqrmaintance/core/strings.dart';
 
 class ApiServices {
-  final Dio dio = Dio();
+  final Dio dio;
+  bool isFetchingToken = false; // Flag to prevent infinite calls
 
-  ApiServices() {
-    dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) async {
-        try {
-          final token = await getOrFetchToken();
-          //log("hello");
-          options.headers['Authorization'] = token;
-          handler.next(options);
-          log("Request Headers: ${options.headers}");
-        } catch (e) {
-          log(e.toString());
-          handler.reject(DioException(requestOptions: options, error: e));
-        }
-      },
-    ));
+  ApiServices() : dio = Dio() {
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          try {
+            final token = await getOrFetchToken();
+            options.headers['Authorization'] = "Bearer $token";
+            handler.next(options);
+            log("Request Headers: ${options.headers}");
+          } catch (e) {
+            log("Request Interceptor Error: $e");
+            handler.reject(DioException(requestOptions: options, error: e));
+          }
+        },
+      ),
+    );
   }
 
-  Future<String> getOrFetchToken() async {
-    //log("hello");
-    final prefs = await SharedPreferences.getInstance();
-
-    // Fetch token from shared preferences
-    final storedToken = prefs.getString('auth_token');
-    //log("stored token: $storedToken", name: 'ApiServices');
-
-    if (storedToken != null) {
-      return storedToken.toString();
+  Future<String?> getOrFetchToken() async {
+    if (isFetchingToken) {
+      log("Token is already being fetched, waiting...");
+      await Future.delayed(const Duration(seconds: 1));
+      return await getStoredToken();
     }
 
-    final newToken = await fetchNewToken();
-    log("message: $newToken");
-    await prefs.setString('auth_token', newToken);
-    log("stored token: $newToken");
-    return newToken.toString();
-  }
-
-// If token is not available, fetch from server
-  Future<String> fetchNewToken() async {
     try {
-      //log("hello futch token");
-      final newtoken = await dio.post(
-        kBaseURL + kLogin,
-        data: {
-          "email": kauthEmail,
-          "password": kauthpassword,
+      final token = await getStoredToken();
+      if (token != null) {
+        return token;
+      }
+
+      isFetchingToken = true;
+      log("Fetching new token...");
+
+      final response = await dio.post(
+        '$kBaseURL$kLogin',
+        queryParameters: {
+          'email': kauthEmail,
+          'password': kauthpassword,
         },
       );
-      log(newtoken.data['token'].toString());
-      //final data = jsonDecode(newtoken.data);
-      return newtoken.data['token'].toString();
-    } on DioException catch (e) {
-      log(e.toString(), name: 'ApiServices');
-      return Future.error(e);
+
+      final newToken = response.data["token"];
+      if (newToken != null) {
+        await storeToken(newToken);
+        return newToken;
+      } else {
+        throw Exception("Token not found in response");
+      }
+    } catch (e) {
+      log("Token Fetch Error: $e");
+      return Future.error("Failed to fetch token");
+    } finally {
+      isFetchingToken = false;
     }
+  }
+
+  Future<String?> getStoredToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('auth_token');
+  }
+
+  Future<void> storeToken(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_token', token);
+    log("Token stored successfully");
   }
 }
