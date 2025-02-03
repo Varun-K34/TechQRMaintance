@@ -53,20 +53,6 @@ class TaskScreen extends StatelessWidget {
         ),
         body: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: CupertinoSearchTextField(
-                onChanged: (value) {
-                  // Handle search input changes
-                  log("Search text: $value");
-                },
-                onSubmitted: (value) {
-                  // Handle search submission
-                  log("Submitted text: $value");
-                },
-                placeholder: "Search tasks...",
-              ),
-            ),
             Expanded(child: BlocBuilder<ComplaintblocBloc, ComplaintblocState>(
               builder: (context, state) {
                 if (state.isLoading) {
