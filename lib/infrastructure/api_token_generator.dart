@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:techqrmaintance/core/credentials.dart';
 import 'package:techqrmaintance/core/strings.dart';
 
 class ApiServices {
   final Dio dio;
-  bool isFetchingToken = false; // Flag to prevent infinite calls
+  bool isFetchingToken = false;
 
   ApiServices() : dio = Dio() {
     dio.interceptors.add(
@@ -21,15 +22,35 @@ class ApiServices {
             handler.reject(DioException(requestOptions: options, error: e));
           }
         },
+        onError: (DioException e, handler) async {
+          if (e.response?.statusCode == 401) {
+            log("Unauthorized request detected. Fetching new token...");
+            await clearStoredToken();
+
+            try {
+              final newToken = await getOrFetchToken();
+              final options = e.requestOptions;
+              options.headers['Authorization'] = "Bearer $newToken";
+
+              // Retry the failed request with a new token
+              final retryResponse = await dio.fetch(options);
+              handler.resolve(retryResponse);
+            } catch (e) {
+              handler.reject(e as DioException);
+            }
+          } else {
+            handler.next(e);
+          }
+        },
       ),
     );
   }
 
-  Future<String?> getOrFetchToken() async {
+  Future<String> getOrFetchToken() async {
     if (isFetchingToken) {
       log("Token is already being fetched, waiting...");
       await Future.delayed(const Duration(seconds: 1));
-      return await getStoredToken();
+      return await getStoredToken() ?? "";
     }
 
     try {
@@ -73,5 +94,11 @@ class ApiServices {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('auth_token', token);
     log("Token stored successfully");
+  }
+
+  Future<void> clearStoredToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('auth_token');
+    log("Stored token cleared");
   }
 }

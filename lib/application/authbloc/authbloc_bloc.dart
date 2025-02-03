@@ -9,19 +9,19 @@ part 'authbloc_event.dart';
 part 'authbloc_state.dart';
 part 'authbloc_bloc.freezed.dart';
 
-
 @Injectable()
 class AuthblocBloc extends Bloc<AuthblocEvent, AuthblocState> {
   final AuthRepoReg authServices;
   AuthblocBloc(this.authServices) : super(AuthblocState.initial()) {
     on<Signup>((event, emit) async {
-      final result =
-          await authServices.getAuthRespo(authModel: event.authmodel);
       emit(AuthblocState.authenticatedstate(
         authlist: [],
         isloading: true,
         isError: false,
       ));
+      final result =
+          await authServices.getAuthRespo(authModel: event.authmodel);
+
       final state = result.fold(
         (MainFailurs l) {
           return AuthblocState.authenticatedstate(

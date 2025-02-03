@@ -1,4 +1,5 @@
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
+import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 
 import 'Screens/Authentication/login_screen.dart';
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getit<AuthblocBloc>(),
         ),
+        BlocProvider(
+          create: (context) => getit<ComplaintblocBloc>(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
