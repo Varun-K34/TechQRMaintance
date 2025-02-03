@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/home/widgets/grid_button.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
+import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 
 class Home extends StatelessWidget {
   final List gridList = [
@@ -25,6 +27,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<ComplaintblocBloc>().add(ComplaintblocEvent.getComplaintsTasks());
+    },);
     return Scaffold(
       appBar: AppBar(
         leading: Icon(
@@ -52,28 +57,73 @@ class Home extends StatelessWidget {
               decoration: BoxDecoration(
                   color: Color(0xff165069),
                   borderRadius: BorderRadius.circular(30)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ContainerTextRow(
-                    title: "Tasks today:",
-                    value: "0",
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ContainerTextRow(
-                    title: "Pending Tasks:",
-                    value: "0",
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ContainerTextRow(
-                    title: "Completed Task:",
-                    value: "0",
-                  ),
-                ],
+              child: BlocBuilder<ComplaintblocBloc, ComplaintblocState>(
+                builder: (context, state) {
+                  if (state.isLoading) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else if (state.complaints.isEmpty) {
+                    return Center(
+                      child: Text(
+                        "No tasks found",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  } else if (state.isFailure) {
+                    return Center(
+                      child: Text(
+                        "Oops! Something went wrong. Please try again later.",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    );
+                  }
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ContainerTextRow(
+                        title: "Tasks today:",
+                        value: state.complaints
+                            .where((task) => task.status == "unassigned")
+                            .toList()
+                            .length
+                            .toString(),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ContainerTextRow(
+                        title: "Pending Tasks:",
+                        value: state.complaints
+                            .where((task) => task.status == "pending")
+                            .toList()
+                            .length
+                            .toString(),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ContainerTextRow(
+                        title: "Completed Task:",
+                        value: state.complaints
+                            .where((task) => task.status == "completed")
+                            .toList()
+                            .length
+                            .toString(),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ),
