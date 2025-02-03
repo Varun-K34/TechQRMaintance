@@ -5,5 +5,6 @@ class AuthblocEvent with _$AuthblocEvent {
   /*
    * signup
    */
-  const factory AuthblocEvent.signup({required AuthRegModel authmodel}) = Signup;
+  const factory AuthblocEvent.signup({required AuthRegModel authmodel}) =
+      Signup;
 }
