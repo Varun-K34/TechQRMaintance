@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/home/widgets/grid_button.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
+import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 
 class Home extends StatelessWidget {
@@ -36,10 +38,13 @@ class Home extends StatelessWidget {
     );
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(
-          Icons.account_circle_outlined,
-          size: 35,
-          color: Color(0xff165069),
+        leading: InkWell(
+          onTap: () => onPressProfile(context),
+          child: Icon(
+            Icons.account_circle_outlined,
+            size: 35,
+            color: Color(0xff165069),
+          ),
         ),
         title: Text(
           "Welcome",
@@ -149,5 +154,9 @@ class Home extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void onPressProfile(BuildContext context) {
+    Navigator.of(context).push(createRoute(PortfolioScreen()));
   }
 }
