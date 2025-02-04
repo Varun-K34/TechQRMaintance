@@ -1,0 +1,70 @@
+import 'dart:developer';
+
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
+import 'package:techqrmaintance/core/strings.dart';
+import 'package:techqrmaintance/domain/complaintmodel/complanits_list/customer.dart';
+import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
+import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart';
+import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list.dart';
+import 'package:techqrmaintance/infrastructure/api_token_generator.dart';
+
+@LazySingleton(as: UserLogRepo)
+class UserLogServices implements UserLogRepo {
+  ApiServices userLogApi = ApiServices();
+  @override
+  Future<Either<MainFailurs, Customer>> getUserLogList(email) async {
+    try {
+      final response = await userLogApi.dio.get(kBaseURL + kuserADD);
+      //log('API Response: ${response.data}');
+
+      if (response.statusCode == 200) {
+        final userList = UserModelList.fromJson(response.data);
+        //log('Parsed User List: ${userList.data}');
+
+        // Check if data is null or empty
+        if (userList.data == null || userList.data!.isEmpty) {
+          //log('No users found in the response');
+          return Left(MainFailurs.clientFailure());
+        }
+
+        // Sanitize the input email
+        final sanitizedEmail = email.trim().toLowerCase();
+        //log('Searching for email: $sanitizedEmail');
+
+        // Log all emails for debugging
+        //final emails =
+            userList.data!.map((u) => u.email?.toLowerCase()).toList();
+        //log('Available emails: $emails');
+
+        // Find matching user with case-insensitive comparison
+        final matchingUser = userList.data!.firstWhere(
+          (user) =>
+              user.email != null &&
+              user.email!.trim().toLowerCase() == sanitizedEmail,
+          orElse: () => Customer(), // Return empty Customer if not found
+        );
+
+        if (matchingUser.email == null) {
+          log('No user found with email: $sanitizedEmail');
+          return Left(MainFailurs.clientFailure());
+        }
+
+        //log('Found user: ${matchingUser.toJson()}');
+        return Right(matchingUser);
+      } else {
+        userLogApi.clearStoredToken();
+        log('API Error: Status code ${response.statusCode}');
+        return Left(MainFailurs.serverFailure());
+      }
+    } on DioException catch (e) {
+      userLogApi.clearStoredToken();
+      log('DioException: ${e.message}');
+      return Left(MainFailurs.clientFailure());
+    } catch (e) {
+      log('Unexpected Error: $e');
+      return Left(MainFailurs.clientFailure());
+    }
+  }
+}

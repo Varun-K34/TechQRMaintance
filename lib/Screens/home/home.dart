@@ -27,9 +27,13 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<ComplaintblocBloc>().add(ComplaintblocEvent.getComplaintsTasks());
-    },);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (timeStamp) {
+        context
+            .read<ComplaintblocBloc>()
+            .add(ComplaintblocEvent.getComplaintsTasks());
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         leading: Icon(

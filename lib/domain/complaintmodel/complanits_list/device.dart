@@ -22,7 +22,7 @@ class Device {
   int? registeredByUser;
   @JsonKey(name: 'registered_at')
   String? registeredAt;
-  
+
   Device({
     this.id,
     this.qrCode,

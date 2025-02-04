@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Authentication/signup_screen.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/home.dart';
+import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +36,17 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               height: 40,
             ),
-            CustomTextField(hintText: 'Email'),
+            CustomTextField(
+              hintText: 'Email',
+              controller: emailController,
+            ),
             SizedBox(
               height: 20,
             ),
-            CustomTextField(hintText: 'Password'),
+            CustomTextField(
+              hintText: 'Password',
+              controller: passwordController,
+            ),
             SizedBox(
               height: 10,
             ),
@@ -51,14 +62,58 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               height: 40,
             ),
-            CustomMaterialButton(
-              key: Key('loginButton'),
-              text: 'Login',
-              onPressed: () {
+            BlocListener<LogblocBloc, LogblocState>(listener: (context, state) {
+              if (state.isFailure) {
+                CustomSnackbar.shows(
+                  context,
+                  message: "Oops! Something went wrong. Please try again.",
+                );
+              } else if (state.isSuccess) {
                 // Navigate to the home screen
                 Navigator.of(context).push(createRoute(Home()));
+              }
+            }, child: BlocBuilder<LogblocBloc, LogblocState>(
+              builder: (context, state) {
+                return state.isLoading == true
+                    ? Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : CustomMaterialButton(
+                        key: Key('loginButton'),
+                        text: 'Login',
+                        onPressed: state.isLoading == true
+                            ? () {}
+                            : () {
+                                final email = emailController.text.trim();
+                                final password = passwordController.text.trim();
+                                // Validate the email and password
+                                if (email.isEmpty || password.isEmpty) {
+                                  CustomSnackbar.shows(
+                                    context,
+                                    message:
+                                        "Please enter valid email and password",
+                                  );
+                                  return;
+                                } else if (email.isEmpty) {
+                                  CustomSnackbar.shows(
+                                    context,
+                                    message: "Please enter valid email",
+                                  );
+                                  return;
+                                } else if (password.isEmpty) {
+                                  CustomSnackbar.shows(
+                                    context,
+                                    message: "Please enter valid password",
+                                  );
+                                  return;
+                                }
+                                context.read<LogblocBloc>().add(
+                                      LogblocEvent.login(email: email),
+                                    );
+                              },
+                      );
               },
-            ),
+            )),
             SizedBox(
               height: 10,
             ),
