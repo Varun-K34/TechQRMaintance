@@ -6,10 +6,16 @@ class MiddleWidget extends StatelessWidget {
     super.key,
     required this.height,
     required this.width,
+    required this.name,
+    required this.dob,
+    required this.role,
   });
 
   final double height;
   final double width;
+  final String name;
+  final String dob;
+  final String role;
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +31,15 @@ class MiddleWidget extends StatelessWidget {
         children: [
           ContainerInsidevaluesWidgets(
             icon: Icons.account_circle_outlined,
-            text: "Name",
+            text: name.toUpperCase(),
           ),
           ContainerInsidevaluesWidgets(
             icon: Icons.cake_outlined,
-            text: "DOB",
+            text: dob,
           ),
           ContainerInsidevaluesWidgets(
             icon: Icons.work_outline_outlined,
-            text: "Role",
+            text: role.toUpperCase(),
           ),
         ],
       ),

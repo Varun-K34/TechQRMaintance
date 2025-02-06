@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TopWidgetportfolio extends StatelessWidget {
+  final String emailid;
   const TopWidgetportfolio({
-    super.key,
+    super.key, required this.emailid,
   });
 
   @override
@@ -30,7 +31,7 @@ class TopWidgetportfolio extends StatelessWidget {
             ),
           ),
           Text(
-            "example@gmail.com",
+            emailid,
             style: TextStyle(
               color: Color(0xff165069),
               fontSize: 16,

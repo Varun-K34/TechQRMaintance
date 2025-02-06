@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techqrmaintance/core/strings.dart';
 import 'package:techqrmaintance/domain/complaintmodel/complanits_list/customer.dart';
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
@@ -17,26 +19,20 @@ class UserLogServices implements UserLogRepo {
   Future<Either<MainFailurs, Customer>> getUserLogList(email) async {
     try {
       final response = await userLogApi.dio.get(kBaseURL + kuserADD);
-      //log('API Response: ${response.data}');
 
       if (response.statusCode == 200) {
         final userList = UserModelList.fromJson(response.data);
-        //log('Parsed User List: ${userList.data}');
 
         // Check if data is null or empty
         if (userList.data == null || userList.data!.isEmpty) {
-          //log('No users found in the response');
           return Left(MainFailurs.clientFailure());
         }
 
         // Sanitize the input email
         final sanitizedEmail = email.trim().toLowerCase();
-        //log('Searching for email: $sanitizedEmail');
 
         // Log all emails for debugging
-        //final emails =
             userList.data!.map((u) => u.email?.toLowerCase()).toList();
-        //log('Available emails: $emails');
 
         // Find matching user with case-insensitive comparison
         final matchingUser = userList.data!.firstWhere(
@@ -50,11 +46,15 @@ class UserLogServices implements UserLogRepo {
           log('No user found with email: $sanitizedEmail');
           return Left(MainFailurs.clientFailure());
         }
+        // store the user to SP
+        final SharedPreferences user  = await SharedPreferences.getInstance();
+        String jsonUser = jsonEncode(matchingUser);
+        await user.setString("userItem",jsonUser);
+        log("saving completed");
 
-        //log('Found user: ${matchingUser.toJson()}');
         return Right(matchingUser);
       } else {
-        userLogApi.clearStoredToken();
+        //userLogApi.clearStoredToken();
         log('API Error: Status code ${response.statusCode}');
         return Left(MainFailurs.serverFailure());
       }

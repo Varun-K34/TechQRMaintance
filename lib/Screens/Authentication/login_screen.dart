@@ -70,7 +70,10 @@ class LoginScreen extends StatelessWidget {
                 );
               } else if (state.isSuccess) {
                 // Navigate to the home screen
-                Navigator.of(context).push(createRoute(Home()));
+                Navigator.of(context).pushAndRemoveUntil(
+                  createRoute(Home()),
+                  (route) => false,
+                );
               }
             }, child: BlocBuilder<LogblocBloc, LogblocState>(
               builder: (context, state) {
