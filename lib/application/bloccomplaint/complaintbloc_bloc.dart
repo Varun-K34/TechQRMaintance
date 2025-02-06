@@ -20,8 +20,8 @@ class ComplaintblocBloc extends Bloc<ComplaintblocEvent, ComplaintblocState> {
         complaints.fold(
           (MainFailurs l) =>
               emit(state.copyWith(isLoading: false, isFailure: true)),
-          (ComplanitsList r) => emit(state
-              .copyWith(isLoading: false, isFailure: false, complaints: r.data!)),
+          (ComplanitsList r) => emit(state.copyWith(
+              isLoading: false, isFailure: false, complaints: r.data!)),
         );
       });
     });

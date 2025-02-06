@@ -1,5 +1,9 @@
+import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
+import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
+import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
+import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 
 import 'Screens/Authentication/login_screen.dart';
@@ -25,6 +29,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<ComplaintblocBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<LogblocBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<SpblocBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<CheckblocBloc>(),
         )
       ],
       child: MaterialApp(
@@ -34,7 +47,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: LoginScreen(),
+        home: SplashScreen(),
       ),
     );
   }

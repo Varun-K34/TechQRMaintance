@@ -22,6 +22,10 @@ class Customer {
   String? role;
   @JsonKey(name: 'assigned_area')
   dynamic assignedArea;
+  @JsonKey(name: 'created_at')
+  DateTime? createdAt;
+  @JsonKey(name: 'updated_at')
+  DateTime? updatedAt;
 
   Customer({
     this.id,
@@ -33,6 +37,8 @@ class Customer {
     this.avatar,
     this.role,
     this.assignedArea,
+    this.createdAt,
+    this.updatedAt,
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) {
@@ -41,3 +47,4 @@ class Customer {
 
   Map<String, dynamic> toJson() => _$CustomerToJson(this);
 }
+
