@@ -50,6 +50,7 @@ class UserLogServices implements UserLogRepo {
         final SharedPreferences user  = await SharedPreferences.getInstance();
         String jsonUser = jsonEncode(matchingUser);
         await user.setString("userItem",jsonUser);
+        await user.setInt('userID', matchingUser.id!);
         log("saving completed");
 
         return Right(matchingUser);

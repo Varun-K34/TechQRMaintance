@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techqrmaintance/core/strings.dart';
 import 'package:techqrmaintance/domain/authregmodel/auth_repo.dart';
 import 'package:techqrmaintance/domain/authregmodel/model/auth_reg_model.dart';

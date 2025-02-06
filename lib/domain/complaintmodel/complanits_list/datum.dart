@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 
 import 'complaint_type.dart';
@@ -17,12 +18,16 @@ class Datum {
   ComplaintType? complaintType;
   @JsonKey(name: 'status')
   String? status;
+  @JsonKey(name: 'assigned_technician_id')
+  int? assignedTechnicianId;
   @JsonKey(name: 'appointment_time')
   String? appointmentTime;
   @JsonKey(name: 'device')
   Device? device;
   @JsonKey(name: 'customer')
   Customer? customer;
+  @JsonKey(name: 'assigned_technician')
+  Customer? assignedTechnician;
 
   Datum({
     this.id,
@@ -30,9 +35,11 @@ class Datum {
     this.customerId,
     this.complaintType,
     this.status,
+    this.assignedTechnicianId,
     this.appointmentTime,
     this.device,
     this.customer,
+    this.assignedTechnician,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);

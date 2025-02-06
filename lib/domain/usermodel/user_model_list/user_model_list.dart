@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/complaintmodel/complanits_list/customer.dart';
 

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/home/widgets/grid_button.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
 import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 
+// ignore: must_be_immutable
 class Home extends StatelessWidget {
   final List gridList = [
     GridContainerButton(
@@ -27,13 +29,18 @@ class Home extends StatelessWidget {
   ];
   Home({super.key});
 
+  int? ids;
+
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
+      (_) async {
         context
             .read<ComplaintblocBloc>()
             .add(ComplaintblocEvent.getComplaintsTasks());
+        final sp = await SharedPreferences.getInstance();
+        final id = sp.getInt("userID");
+        ids = id;
       },
     );
     return Scaffold(
@@ -114,7 +121,9 @@ class Home extends StatelessWidget {
                       ContainerTextRow(
                         title: "Pending Tasks:",
                         value: state.complaints
-                            .where((task) => task.status == "pending")
+                            .where((task) =>
+                                task.status == "pending" &&
+                                task.assignedTechnicianId == ids)
                             .toList()
                             .length
                             .toString(),
@@ -125,7 +134,8 @@ class Home extends StatelessWidget {
                       ContainerTextRow(
                         title: "Completed Task:",
                         value: state.complaints
-                            .where((task) => task.status == "completed")
+                            .where((task) => task.status == "completed" &&
+                                task.assignedTechnicianId == ids)
                             .toList()
                             .length
                             .toString(),

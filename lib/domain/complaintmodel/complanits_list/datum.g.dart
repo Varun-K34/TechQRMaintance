@@ -15,6 +15,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
           : ComplaintType.fromJson(
               json['complaint_type'] as Map<String, dynamic>),
       status: json['status'] as String?,
+      assignedTechnicianId: (json['assigned_technician_id'] as num?)?.toInt(),
       appointmentTime: json['appointment_time'] as String?,
       device: json['device'] == null
           ? null
@@ -22,6 +23,10 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       customer: json['customer'] == null
           ? null
           : Customer.fromJson(json['customer'] as Map<String, dynamic>),
+      assignedTechnician: json['assigned_technician'] == null
+          ? null
+          : Customer.fromJson(
+              json['assigned_technician'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
@@ -30,7 +35,9 @@ Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'customer_id': instance.customerId,
       'complaint_type': instance.complaintType,
       'status': instance.status,
+      'assigned_technician_id': instance.assignedTechnicianId,
       'appointment_time': instance.appointmentTime,
       'device': instance.device,
       'customer': instance.customer,
+      'assigned_technician': instance.assignedTechnician,
     };

@@ -1,8 +1,7 @@
-import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techqrmaintance/Screens/Widgets/table_widget.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 
@@ -11,11 +10,15 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     int? ids;
     WidgetsBinding.instance.addPostFrameCallback(
-      (timeStamp) {
+      (_) async {
         context
             .read<ComplaintblocBloc>()
             .add(ComplaintblocEvent.getComplaintsTasks());
+        final sp = await SharedPreferences.getInstance();
+        final id = sp.getInt("userID");
+        ids = id;
       },
     );
     return DefaultTabController(
@@ -98,11 +101,15 @@ class TaskScreen extends StatelessWidget {
                     ),
                     TaskTable(
                       statevalues: state.complaints
-                          .where((task) => task.status == "pending")
+                          .where((task) =>
+                              task.status == "pending" &&
+                              task.assignedTechnicianId == ids)
                           .toList(),
                       title: "Pending Task",
                       rowCount: state.complaints
-                          .where((task) => task.status == "pending")
+                          .where((task) =>
+                              task.status == "pending" &&
+                              task.assignedTechnicianId == ids)
                           .toList()
                           .length,
                     ),
