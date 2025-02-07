@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/history/history_overview.dart';
@@ -83,6 +82,7 @@ class TaskTable extends StatelessWidget {
                               if (title == "Pending Task") {
                                 Navigator.of(context)
                                     .push(createRoute(TaskOverviewScreen(
+                                  currentUserId: complaint.id.toString(),
                                   key: UniqueKey(),
                                 )));
                               } else if (title == "Today's Task") {

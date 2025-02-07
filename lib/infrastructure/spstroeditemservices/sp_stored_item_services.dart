@@ -17,7 +17,7 @@ class SpStoredItem implements SpStoredUser {
       if (userString != null) {
         final userData = Customer.fromJson(jsonDecode(userString));
         return Right(userData);
-      }else{
+      } else {
         return Left(MainFailurs.clientFailure());
       }
     } catch (e) {

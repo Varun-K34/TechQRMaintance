@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class TopWidgetportfolio extends StatelessWidget {
   final String emailid;
   const TopWidgetportfolio({
-    super.key, required this.emailid,
+    super.key,
+    required this.emailid,
   });
 
   @override

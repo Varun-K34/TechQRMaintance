@@ -3,5 +3,5 @@ import 'package:techqrmaintance/domain/complaintmodel/complanits_list/customer.d
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
 
 abstract class SpStoredUser {
-  Future<Either<MainFailurs,Customer>> getSpUser();
+  Future<Either<MainFailurs, Customer>> getSpUser();
 }

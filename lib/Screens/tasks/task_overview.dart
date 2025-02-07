@@ -1,11 +1,23 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
+import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart';
 
 class TaskOverviewScreen extends StatelessWidget {
-  const TaskOverviewScreen({super.key});
+  final String? currentUserId;
+  const TaskOverviewScreen({super.key, this.currentUserId});
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        context.read<ComplaintdetailblocBloc>().add(
+            ComplaintdetailblocEvent.getindividualComplaint(
+                id: currentUserId!));
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -25,37 +37,63 @@ class TaskOverviewScreen extends StatelessWidget {
           bottom: 70,
           right: 20,
         ),
-        child: Column(
-          children: [
-            Table(
-              columnWidths: {
-                0: FlexColumnWidth(), // Adjusts column widths
-                1: FlexColumnWidth(),
-              },
+        child: BlocBuilder<ComplaintdetailblocBloc, ComplaintdetailblocState>(
+          builder: (context, state) {
+            if (state.isFailure) {
+              return Center(
+                child: Text(
+                  "Oops! Something went wrong. Please try again later.",
+                  style: TextStyle(
+                    color: Color(0xff165069),
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
+            log(state.complaints.toJson().toString());
+            final brand =
+                state.complaints.device?.brand ?? "no brand name";
+            log(brand);
+            final model =
+                state.complaints.device?.model ?? "no model name";
+            final customer = state.complaints.customer?.name ?? "no name";
+            return Column(
               children: [
-                _buildTableRow("Brand", "samsung"),
-                _buildTableRow("Model", "AC123"),
-                _buildTableRow("Device", "AC"),
-                _buildTableRow("Device ID", "D#122344"),
-                _buildTableRow("Warranty", "12/01/2025"),
-                _buildTableRow("Complaint Type", "AC Repair"),
-                _buildTableRow("Complaint ID", "C#12345"),
-                _buildTableRow("Status", "Unassigned"),
+                state.isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : Table(
+                        columnWidths: {
+                          0: FlexColumnWidth(), // Adjusts column widths
+                          1: FlexColumnWidth(),
+                        },
+                        children: [
+                          _buildTableRow("Brand", brand),
+                          _buildTableRow("Model", model),
+                          _buildTableRow("Customer", customer),
+                          _buildTableRow("Device ID", "D#122344"),
+                          _buildTableRow("Warranty", "12/01/2025"),
+                          _buildTableRow("Complaint Type", "AC Repair"),
+                          _buildTableRow("Complaint ID", "C#12345"),
+                          _buildTableRow("Status", "Unassigned"),
+                        ],
+                      ),
+                Spacer(),
+                CustomMaterialButton(
+                  text: "ACCEPT",
+                  onPressed: () {},
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                CustomMaterialButton(
+                  text: "REJECT",
+                  onPressed: () {},
+                ),
               ],
-            ),
-            Spacer(),
-            CustomMaterialButton(
-              text: "ACCEPT",
-              onPressed: () {},
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            CustomMaterialButton(
-              text: "REJECT",
-              onPressed: () {},
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

@@ -7,7 +7,6 @@ import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 
-
 class Home extends StatelessWidget {
   final List gridList = [
     GridContainerButton(

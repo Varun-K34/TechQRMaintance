@@ -48,4 +48,3 @@ class Customer {
 
   Map<String, dynamic> toJson() => _$CustomerToJson(this);
 }
-
