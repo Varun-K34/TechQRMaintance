@@ -34,11 +34,27 @@ class SplashScreen extends StatelessWidget {
       child: BlocBuilder<CheckblocBloc, CheckblocState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xff165069),
             body: Center(
               child: state.failure
                   ? Text("Somthing went Wrong!")
-                  : CircularProgressIndicator(),
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage(
+                                "assets/aminations/helmet.gif",
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
             ),
           );
         },
