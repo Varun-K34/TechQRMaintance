@@ -1,6 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
-import 'package:techqrmaintance/domain/complaintindetail/detail_complaint_model/assigned_technician.dart';
+import 'package:techqrmaintance/domain/complaintmodel/complanits_list/Technician.dart';
 
 import 'complaint_type.dart';
 import 'customer.dart';

@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:techqrmaintance/domain/complaintindetail/complaint_in_detail.dart';
-import 'package:techqrmaintance/domain/complaintindetail/detail_complaint_model/data.dart';
-import 'package:techqrmaintance/domain/complaintindetail/detail_complaint_model/detail_complaint_model.dart';
 import 'package:techqrmaintance/domain/complaintmodel/complanits_list/datum.dart';
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
 
