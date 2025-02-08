@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Skeleton extends StatelessWidget {
-  const Skeleton({super.key, this.height, this.width});
+  const Skeleton({super.key, this.height, this.width, this.color});
 
   final double? height, width;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +13,13 @@ class Skeleton extends StatelessWidget {
       width: width,
       padding: const EdgeInsets.all(16.0 / 2),
       decoration: BoxDecoration(
-          color: Colors.black.withAlpha(400),
-          borderRadius:
-              const BorderRadius.all(Radius.circular(16.0))),
+        color: color,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(
+            8.0,
+          ),
+        ),
+      ),
     );
   }
 }
@@ -30,7 +35,9 @@ class CircleSkeleton extends StatelessWidget {
       height: size,
       width: size,
       decoration: BoxDecoration(
-        color: Theme.of(context).primaryColor.withAlpha(200),
+        color: Theme.of(context).primaryColor.withAlpha(
+              200,
+            ),
         shape: BoxShape.circle,
       ),
     );

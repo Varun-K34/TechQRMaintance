@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
 import 'package:techqrmaintance/Screens/home/widgets/grid_button.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
 import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
@@ -74,7 +75,67 @@ class Home extends StatelessWidget {
                     builder: (context, state) {
                       if (state.isLoading) {
                         return Center(
-                          child: CircularProgressIndicator(),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 30,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Skeleton(
+                                    color: Color(0xffe0f2f5),
+                                    height: 22,
+                                    width: 180,
+                                  ),
+                                  Skeleton(
+                                    color: Color(0xffe0f2f5),
+                                    height: 22,
+                                    width: 40,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Skeleton(
+                                    color: Color(0xffe0f2f5),
+                                    height: 22,
+                                    width: 180,
+                                  ),
+                                  Skeleton(
+                                    color: Color(0xffe0f2f5),
+                                    height: 22,
+                                    width: 40,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Skeleton(
+                                    color: Color(0xffe0f2f5),
+                                    height: 22,
+                                    width: 180,
+                                  ),
+                                  Skeleton(
+                                    color: Color(0xffe0f2f5),
+                                    height: 22,
+                                    width: 40,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         );
                       } else if (state.complaints.isEmpty) {
                         return Center(
