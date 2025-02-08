@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
+import 'package:techqrmaintance/Screens/tasks/widgets/skel_column.dart';
 import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart';
 
 class TaskOverviewScreen extends StatelessWidget {
@@ -17,6 +18,7 @@ class TaskOverviewScreen extends StatelessWidget {
       },
     );
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
           "Task Overview",
@@ -66,7 +68,7 @@ class TaskOverviewScreen extends StatelessWidget {
             return Column(
               children: [
                 state.isLoading
-                    ? Center(child: CircularProgressIndicator())
+                    ? ColumnSkel()
                     : Table(
                         columnWidths: {
                           0: FlexColumnWidth(), // Adjusts column widths
