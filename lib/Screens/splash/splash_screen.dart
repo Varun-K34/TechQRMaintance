@@ -10,9 +10,13 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      return context.read<CheckblocBloc>().add(CheckblocEvent.checkLogOrNot());
-    },);
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        return context
+            .read<CheckblocBloc>()
+            .add(CheckblocEvent.checkLogOrNot());
+      },
+    );
     return BlocListener<CheckblocBloc, CheckblocState>(
       listener: (context, state) {
         if (state.authenticated == true) {

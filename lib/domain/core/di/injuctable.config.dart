@@ -17,9 +17,13 @@ import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dar
     as _i941;
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart'
     as _i794;
+import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart'
+    as _i638;
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart' as _i651;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
 import 'package:techqrmaintance/domain/authregmodel/auth_repo.dart' as _i291;
+import 'package:techqrmaintance/domain/complaintindetail/complaint_in_detail.dart'
+    as _i942;
 import 'package:techqrmaintance/domain/complaintmodel/complaint_repo.dart'
     as _i308;
 import 'package:techqrmaintance/domain/core/splashcheck/splash_check.dart'
@@ -33,6 +37,8 @@ import 'package:techqrmaintance/infrastructure/checkloginservices/check_login_se
     as _i757;
 import 'package:techqrmaintance/infrastructure/complaintgetservices/complaint_get_services.dart'
     as _i396;
+import 'package:techqrmaintance/infrastructure/getcomplaintindetailservices/get_complaint_in_detail_services.dart'
+    as _i305;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
     as _i1027;
 import 'package:techqrmaintance/infrastructure/userlogservices/user_log_services.dart'
@@ -50,12 +56,16 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.lazySingleton<_i829.SplashCheckRepo>(() => _i757.CheckLoginServices());
+    gh.lazySingleton<_i942.DetailComplaintRepo>(
+        () => _i305.GetComplaintInDetailServices());
     gh.lazySingleton<_i158.SpStoredUser>(() => _i1027.SpStoredItem());
     gh.lazySingleton<_i765.UserLogRepo>(() => _i819.UserLogServices());
     gh.lazySingleton<_i308.ComplaintRepo>(() => _i396.ComplaintGetServices());
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());
     gh.factory<_i651.LogblocBloc>(
         () => _i651.LogblocBloc(gh<_i765.UserLogRepo>()));
+    gh.factory<_i638.ComplaintdetailblocBloc>(
+        () => _i638.ComplaintdetailblocBloc(gh<_i942.DetailComplaintRepo>()));
     gh.factory<_i941.ComplaintblocBloc>(
         () => _i941.ComplaintblocBloc(gh<_i308.ComplaintRepo>()));
     gh.factory<_i15.SpblocBloc>(

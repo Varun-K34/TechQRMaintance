@@ -1,10 +1,8 @@
-// ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 
-part 'customer.g.dart';
-
+part 'Technician.g.dart';
 @JsonSerializable()
-class Customer {
+class AssignedTechnician {
   @JsonKey(name: 'id')
   int? id;
   @JsonKey(name: 'qr_code')
@@ -28,7 +26,7 @@ class Customer {
   @JsonKey(name: 'updated_at')
   DateTime? updatedAt;
 
-  Customer({
+  AssignedTechnician({
     this.id,
     this.qrCode,
     this.name,
@@ -42,9 +40,9 @@ class Customer {
     this.updatedAt,
   });
 
-  factory Customer.fromJson(Map<String, dynamic> json) {
-    return _$CustomerFromJson(json);
+  factory AssignedTechnician.fromJson(Map<String, dynamic> json) {
+    return _$AssignedTechnicianFromJson(json);
   }
 
-  Map<String, dynamic> toJson() => _$CustomerToJson(this);
+  Map<String, dynamic> toJson() => _$AssignedTechnicianToJson(this);
 }

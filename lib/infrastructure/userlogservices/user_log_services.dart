@@ -32,7 +32,7 @@ class UserLogServices implements UserLogRepo {
         final sanitizedEmail = email.trim().toLowerCase();
 
         // Log all emails for debugging
-            userList.data!.map((u) => u.email?.toLowerCase()).toList();
+        userList.data!.map((u) => u.email?.toLowerCase()).toList();
 
         // Find matching user with case-insensitive comparison
         final matchingUser = userList.data!.firstWhere(
@@ -47,9 +47,10 @@ class UserLogServices implements UserLogRepo {
           return Left(MainFailurs.clientFailure());
         }
         // store the user to SP
-        final SharedPreferences user  = await SharedPreferences.getInstance();
+        final SharedPreferences user = await SharedPreferences.getInstance();
         String jsonUser = jsonEncode(matchingUser);
-        await user.setString("userItem",jsonUser);
+        await user.setString("userItem", jsonUser);
+        await user.setInt('userID', matchingUser.id!);
         log("saving completed");
 
         return Right(matchingUser);
