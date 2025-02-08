@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'datum.dart';
+part of 'data.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
+Data _$DataFromJson(Map<String, dynamic> json) => Data(
       id: (json['id'] as num?)?.toInt(),
       deviceId: (json['device_id'] as num?)?.toInt(),
       customerId: (json['customer_id'] as num?)?.toInt(),
@@ -17,6 +17,12 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
       status: json['status'] as String?,
       assignedTechnicianId: (json['assigned_technician_id'] as num?)?.toInt(),
       appointmentTime: json['appointment_time'] as String?,
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updatedAt: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
       device: json['device'] == null
           ? null
           : Device.fromJson(json['device'] as Map<String, dynamic>),
@@ -29,7 +35,7 @@ Datum _$DatumFromJson(Map<String, dynamic> json) => Datum(
               json['assigned_technician'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
+Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'id': instance.id,
       'device_id': instance.deviceId,
       'customer_id': instance.customerId,
@@ -37,6 +43,8 @@ Map<String, dynamic> _$DatumToJson(Datum instance) => <String, dynamic>{
       'status': instance.status,
       'assigned_technician_id': instance.assignedTechnicianId,
       'appointment_time': instance.appointmentTime,
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
       'device': instance.device,
       'customer': instance.customer,
       'assigned_technician': instance.assignedTechnician,

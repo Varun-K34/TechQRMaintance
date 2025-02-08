@@ -52,13 +52,19 @@ class TaskOverviewScreen extends StatelessWidget {
                 ),
               );
             }
-            log(state.complaints.toJson().toString());
-            final brand =
-                state.complaints.device?.brand ?? "no brand name";
-            log(brand);
-            final model =
-                state.complaints.device?.model ?? "no model name";
+
+            final brand = state.complaints.device?.brand ?? "";
+            final model = state.complaints.device?.model ?? "no model name";
             final customer = state.complaints.customer?.name ?? "no name";
+            final deviceId = state.complaints.deviceId ?? "no device id";
+            final warranty =
+                state.complaints.device?.warrantyExpiry ?? "no warranty";
+            final complaintType =
+                state.complaints.complaintType?.name ?? "no cpmplaint type";
+            final complaintId = state.complaints.complaintType?.id.toString() ??
+                "no complaintType id";
+            final status = state.complaints.status ?? "no status";
+
             return Column(
               children: [
                 state.isLoading
@@ -70,13 +76,13 @@ class TaskOverviewScreen extends StatelessWidget {
                         },
                         children: [
                           _buildTableRow("Brand", brand),
-                          _buildTableRow("Model", model),
+                          _buildTableRow("Model", model.toString()),
                           _buildTableRow("Customer", customer),
-                          _buildTableRow("Device ID", "D#122344"),
-                          _buildTableRow("Warranty", "12/01/2025"),
-                          _buildTableRow("Complaint Type", "AC Repair"),
-                          _buildTableRow("Complaint ID", "C#12345"),
-                          _buildTableRow("Status", "Unassigned"),
+                          _buildTableRow("Device ID", deviceId.toString()),
+                          _buildTableRow("Warranty", warranty),
+                          _buildTableRow("Complaint Type", complaintType),
+                          _buildTableRow("Complaint ID", complaintId),
+                          _buildTableRow("Status", status),
                         ],
                       ),
                 Spacer(),

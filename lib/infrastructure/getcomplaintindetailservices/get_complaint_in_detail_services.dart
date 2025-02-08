@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:techqrmaintance/core/strings.dart';
 import 'package:techqrmaintance/domain/complaintindetail/complaint_in_detail.dart';
+import 'package:techqrmaintance/domain/complaintindetail/detail_complaint_model/data.dart';
 import 'package:techqrmaintance/domain/complaintindetail/detail_complaint_model/detail_complaint_model.dart';
 import 'package:techqrmaintance/domain/complaintmodel/complanits_list/datum.dart';
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
@@ -17,14 +18,21 @@ class GetComplaintInDetailServices implements DetailComplaintRepo {
   Future<Either<MainFailurs, Datum>> getComplaintInDetail(
       {required String id}) async {
     try {
-      log(kBaseURL + kCompliantsGet + id);
       final detailincomplaint =
-          await detailApi.dio.get(kBaseURL + kCompliantsGet + id);
-      //log(detailincomplaint.data.toString());
+          await detailApi.dio.get('$kBaseURL$kCompliantsGet$id');
+
       if (detailincomplaint.statusCode == 200) {
-        final complaintSuccess = DetailComplaintModel.fromJson(detailincomplaint.data);
-        log(complaintSuccess.data!.toJson().toString());
-        return Right(complaintSuccess.data!);
+        final jsonResponse = detailincomplaint.data;
+
+        // Ensure nested data is mapped correctly
+        if (jsonResponse != null && jsonResponse['data'] != null) {
+          final complaintSuccess = Datum.fromJson(jsonResponse['data']);
+          log(complaintSuccess.toJson().toString());
+          return Right(complaintSuccess);
+        } else {
+          log("Empty data in response");
+          return Left(MainFailurs.serverFailure());
+        }
       } else {
         return Left(MainFailurs.clientFailure());
       }
@@ -36,4 +44,5 @@ class GetComplaintInDetailServices implements DetailComplaintRepo {
       return Left(MainFailurs.clientFailure());
     }
   }
+
 }

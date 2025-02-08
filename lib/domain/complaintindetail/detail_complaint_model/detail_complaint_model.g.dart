@@ -11,7 +11,7 @@ DetailComplaintModel _$DetailComplaintModelFromJson(
     DetailComplaintModel(
       data: json['data'] == null
           ? null
-          : Datum.fromJson(json['data'] as Map<String, dynamic>),
+          : Data.fromJson(json['data'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$DetailComplaintModelToJson(

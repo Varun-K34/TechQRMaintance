@@ -1,15 +1,14 @@
-// ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
-import 'package:techqrmaintance/domain/complaintindetail/detail_complaint_model/assigned_technician.dart';
 
+import 'assigned_technician.dart';
 import 'complaint_type.dart';
 import 'customer.dart';
 import 'device.dart';
 
-part 'datum.g.dart';
+part 'data.g.dart';
 
 @JsonSerializable()
-class Datum {
+class Data {
   @JsonKey(name: 'id')
   int? id;
   @JsonKey(name: 'device_id')
@@ -24,6 +23,10 @@ class Datum {
   int? assignedTechnicianId;
   @JsonKey(name: 'appointment_time')
   String? appointmentTime;
+  @JsonKey(name: 'created_at')
+  DateTime? createdAt;
+  @JsonKey(name: 'updated_at')
+  DateTime? updatedAt;
   @JsonKey(name: 'device')
   Device? device;
   @JsonKey(name: 'customer')
@@ -31,7 +34,7 @@ class Datum {
   @JsonKey(name: 'assigned_technician')
   AssignedTechnician? assignedTechnician;
 
-  Datum({
+  Data({
     this.id,
     this.deviceId,
     this.customerId,
@@ -39,12 +42,14 @@ class Datum {
     this.status,
     this.assignedTechnicianId,
     this.appointmentTime,
+    this.createdAt,
+    this.updatedAt,
     this.device,
     this.customer,
     this.assignedTechnician,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => _$DatumFromJson(json);
+  factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
-  Map<String, dynamic> toJson() => _$DatumToJson(this);
+  Map<String, dynamic> toJson() => _$DataToJson(this);
 }
