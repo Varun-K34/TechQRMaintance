@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   final String text;
@@ -11,7 +12,7 @@ class CustomMaterialButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.onPressed,
-    this.textColor = Colors.white, // Default text color is white
+    this.textColor = primaryWhite, // Default text color is white
     this.height = 60.0, // Default height
     this.width = 280.0, // Default width
   });
@@ -20,7 +21,7 @@ class CustomMaterialButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: onPressed,
-      color: Color(0xFF165069), // Button color
+      color: primaryBlue, // Button color
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30), // Rounded corners
       ),

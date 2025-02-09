@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_textfield.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class DeviceRegFormScreen extends StatelessWidget {
   const DeviceRegFormScreen({super.key});
@@ -13,12 +14,12 @@ class DeviceRegFormScreen extends StatelessWidget {
         title: Text(
           "Device Registration",
           style: TextStyle(
-              color: Color(0xff165069),
+              color: primaryBlue,
               fontSize: 22,
               fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: primaryWhite,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class ContainerTextRow extends StatelessWidget {
   final String title;
@@ -17,14 +18,14 @@ class ContainerTextRow extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: Colors.white,
+            color: primaryWhite,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(value,
             style: TextStyle(
-              color: Colors.white,
+              color: primaryWhite,
               fontSize: 22,
               fontWeight: FontWeight.bold,
             ))

@@ -4,6 +4,7 @@ import 'package:techqrmaintance/Screens/Authentication/login_screen.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/home/home.dart';
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -34,7 +35,7 @@ class SplashScreen extends StatelessWidget {
       child: BlocBuilder<CheckblocBloc, CheckblocState>(
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: Color(0xff165069),
+            backgroundColor: primaryBlue,
             body: Center(
               child: state.failure
                   ? Text("Somthing went Wrong!")

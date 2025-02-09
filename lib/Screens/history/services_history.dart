@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/table_widget.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 // ignore: must_be_immutable
 class ServicesHistoryScreen extends StatelessWidget {
@@ -19,9 +20,9 @@ class ServicesHistoryScreen extends StatelessWidget {
       },
     );
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: primaryWhite,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: primaryWhite,
         title: Text(
           "Service History",
           style: TextStyle(
@@ -46,7 +47,7 @@ class ServicesHistoryScreen extends StatelessWidget {
                       child: Text(
                         "No tasks found",
                         style: TextStyle(
-                          color: Color(0xff165069),
+                          color: primaryBlue,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -58,7 +59,7 @@ class ServicesHistoryScreen extends StatelessWidget {
                       child: Text(
                         "Oops! Something went wrong. Please try again later.",
                         style: TextStyle(
-                          color: Color(0xff165069),
+                          color: primaryBlue,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),

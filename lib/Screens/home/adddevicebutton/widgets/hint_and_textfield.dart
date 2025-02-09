@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class HintAndTextFieldWidget extends StatelessWidget {
   final String hintText;
@@ -20,7 +21,7 @@ class HintAndTextFieldWidget extends StatelessWidget {
           child: Text(
             labelText,
             style: TextStyle(
-                color: Color(0xff165069),
+                color: primaryBlue,
                 fontSize: 20,
                 fontWeight: FontWeight.w600),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/history/history_overview.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
+import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/complaintmodel/complanits_list/datum.dart';
 
 class TaskTable extends StatelessWidget {
@@ -25,7 +26,7 @@ class TaskTable extends StatelessWidget {
               child: Text(
                 "No Tasks!",
                 style: TextStyle(
-                  color: Color(0xff165069),
+                  color: primaryBlue,
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
@@ -41,7 +42,7 @@ class TaskTable extends StatelessWidget {
               children: [
                 // Table Header
                 TableRow(
-                  decoration: BoxDecoration(color: Colors.white),
+                  decoration: BoxDecoration(color: primaryWhite),
                   children: const [
                     Padding(
                       padding: EdgeInsets.all(8.0),
