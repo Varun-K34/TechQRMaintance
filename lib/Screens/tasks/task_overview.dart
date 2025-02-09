@@ -1,9 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
+import 'package:techqrmaintance/Screens/tasks/widgets/skel_column.dart';
 import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class TaskOverviewScreen extends StatelessWidget {
   final String? currentUserId;
@@ -19,16 +19,15 @@ class TaskOverviewScreen extends StatelessWidget {
       },
     );
     return Scaffold(
+      backgroundColor: primaryWhite,
       appBar: AppBar(
         title: Text(
           "Task Overview",
           style: TextStyle(
-              color: Color(0xff165069),
-              fontSize: 22,
-              fontWeight: FontWeight.w600),
+              color: primaryBlue, fontSize: 22, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: primaryWhite,
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -44,7 +43,7 @@ class TaskOverviewScreen extends StatelessWidget {
                 child: Text(
                   "Oops! Something went wrong. Please try again later.",
                   style: TextStyle(
-                    color: Color(0xff165069),
+                    color: primaryBlue,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
@@ -68,7 +67,7 @@ class TaskOverviewScreen extends StatelessWidget {
             return Column(
               children: [
                 state.isLoading
-                    ? Center(child: CircularProgressIndicator())
+                    ? ColumnSkel()
                     : Table(
                         columnWidths: {
                           0: FlexColumnWidth(), // Adjusts column widths
@@ -116,9 +115,7 @@ class TaskOverviewScreen extends StatelessWidget {
             textAlign: TextAlign.left,
             label,
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Color(0xff165069),
-                fontSize: 20),
+                fontWeight: FontWeight.bold, color: primaryBlue, fontSize: 20),
           ),
         ),
         Padding(
@@ -127,7 +124,7 @@ class TaskOverviewScreen extends StatelessWidget {
             textAlign: TextAlign.right,
             overflow: TextOverflow.visible,
             value,
-            style: TextStyle(color: Color(0xff165069), fontSize: 20),
+            style: TextStyle(color: primaryBlue, fontSize: 20),
           ),
         ),
       ],

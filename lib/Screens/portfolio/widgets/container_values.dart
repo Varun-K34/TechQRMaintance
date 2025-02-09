@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class ContainerInsidevaluesWidgets extends StatelessWidget {
   final IconData icon;
@@ -28,7 +29,7 @@ class ContainerInsidevaluesWidgets extends StatelessWidget {
             ),
             child: Icon(
               icon,
-              color: Color(0xff165069),
+              color: primaryBlue,
               size: 35,
             ),
           ),
@@ -38,7 +39,7 @@ class ContainerInsidevaluesWidgets extends StatelessWidget {
           Text(
             text,
             style: TextStyle(
-              color: Color(0xff165069),
+              color: primaryBlue,
               fontSize: 16,
               fontWeight: FontWeight.w400,
             ),

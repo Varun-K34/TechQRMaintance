@@ -6,6 +6,7 @@ import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/authregmodel/model/auth_reg_model.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -20,19 +21,19 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFFFFFF),
+      backgroundColor: primaryWhite,
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: true,
         title: Text(
           "Sign Up",
           style: TextStyle(
-            color: Color(0xff165069),
+            color: primaryBlue,
             fontSize: 26,
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: primaryWhite,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class RepairOverviewScreen extends StatelessWidget {
   const RepairOverviewScreen({super.key});
@@ -7,17 +8,17 @@ class RepairOverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: primaryWhite,
       appBar: AppBar(
         title: Text(
           "Technician Repair Overview",
           style: TextStyle(
-              color: Color(0xff165069),
+              color: primaryBlue,
               fontSize: 22,
               fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: primaryWhite,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -51,7 +52,7 @@ class RepairOverviewScreen extends StatelessWidget {
                 height: 200,
                 width: 200,
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: primaryBlack,
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage("assets/images/qr-code 1.png"),
@@ -90,7 +91,7 @@ class RepairOverviewScreen extends StatelessWidget {
             label,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xff165069),
+                color: primaryBlue,
                 fontSize: 20),
           ),
         ),
@@ -99,7 +100,7 @@ class RepairOverviewScreen extends StatelessWidget {
           child: Text(
             overflow: TextOverflow.visible,
             value,
-            style: TextStyle(color: Color(0xff165069), fontSize: 20),
+            style: TextStyle(color: primaryBlue, fontSize: 20),
           ),
         ),
       ],

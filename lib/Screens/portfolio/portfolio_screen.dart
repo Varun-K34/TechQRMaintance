@@ -7,6 +7,7 @@ import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/middle_widget.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/top_widget.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class PortfolioScreen extends StatelessWidget {
   const PortfolioScreen({super.key});
@@ -23,15 +24,15 @@ class PortfolioScreen extends StatelessWidget {
     final height = MediaQuery.sizeOf(context).height;
     final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: primaryWhite,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: primaryWhite,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(30.0),
           child: Text(
             "portfolio",
             style: TextStyle(
-              color: Color(0xff165069),
+              color: primaryBlue,
               fontSize: 24,
               fontWeight: FontWeight.w700,
             ),

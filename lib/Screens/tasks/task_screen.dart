@@ -1,9 +1,9 @@
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/table_widget.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
@@ -21,11 +21,11 @@ class TaskScreen extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: primaryWhite,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
           child: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: primaryWhite,
             title: Text(
               "Tasks",
               style: TextStyle(
@@ -35,7 +35,7 @@ class TaskScreen extends StatelessWidget {
             ),
             centerTitle: true,
             bottom: TabBar(
-              labelColor: Color(0xff165069),
+              labelColor: primaryBlue,
               labelStyle: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
@@ -67,7 +67,7 @@ class TaskScreen extends StatelessWidget {
                           child: Text(
                             "No tasks found",
                             style: TextStyle(
-                              color: Color(0xff165069),
+                              color: primaryBlue,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -79,7 +79,7 @@ class TaskScreen extends StatelessWidget {
                           child: Text(
                             "Oops! Something went wrong. Please try again later.",
                             style: TextStyle(
-                              color: Color(0xff165069),
+                              color: primaryBlue,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),

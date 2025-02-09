@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class CustomSnackbar {
   static void shows(
     BuildContext context, {
     required String message,
     Color? backgroundColor,
-    Color textColor = Colors.white,
+    Color textColor = primaryWhite,
     Duration duration = const Duration(seconds: 3),
     IconData? icon,
   }) {
-    backgroundColor ??= Colors.transparent.withAlpha(200);
+    backgroundColor ??= primaryTransparent.withAlpha(200);
 
     final snackBar = SnackBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: primaryTransparent,
       elevation: 0,
       duration: duration,
       content: Container(
@@ -22,7 +23,7 @@ class CustomSnackbar {
           borderRadius: BorderRadius.circular(12),
           boxShadow: const [
             BoxShadow(
-              color: Colors.transparent,
+              color: primaryTransparent,
               blurRadius: 10,
               offset: Offset(0, 2),
             ),

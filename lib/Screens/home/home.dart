@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/home/widgets/grid_button.dart';
+import 'package:techqrmaintance/Screens/home/widgets/skelton_home.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
 import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class Home extends StatelessWidget {
   final List gridList = [
@@ -45,7 +47,7 @@ class Home extends StatelessWidget {
           child: Icon(
             Icons.account_circle_outlined,
             size: 35,
-            color: Color(0xff165069),
+            color: primaryBlue,
           ),
         ),
         title: Text(
@@ -53,7 +55,7 @@ class Home extends StatelessWidget {
           style: TextStyle(
             fontSize: 26,
             fontWeight: FontWeight.w500,
-            color: Color(0xff165069),
+            color: primaryBlue,
           ),
         ),
       ),
@@ -66,7 +68,7 @@ class Home extends StatelessWidget {
               width: 401,
               padding: EdgeInsets.only(right: 30, left: 20),
               decoration: BoxDecoration(
-                  color: Color(0xff165069),
+                  color: primaryBlue,
                   borderRadius: BorderRadius.circular(30)),
               child: BlocBuilder<SpblocBloc, SpblocState>(
                 builder: (context, spState) {
@@ -74,14 +76,14 @@ class Home extends StatelessWidget {
                     builder: (context, state) {
                       if (state.isLoading) {
                         return Center(
-                          child: CircularProgressIndicator(),
+                          child: SkeltonHome(),
                         );
                       } else if (state.complaints.isEmpty) {
                         return Center(
                           child: Text(
                             "No tasks found",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: primaryWhite,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -93,7 +95,7 @@ class Home extends StatelessWidget {
                           child: Text(
                             "Oops! Something went wrong. Please try again later.",
                             style: TextStyle(
-                              color: Colors.white,
+                              color: primaryWhite,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -172,3 +174,4 @@ class Home extends StatelessWidget {
     Navigator.of(context).push(createRoute(PortfolioScreen()));
   }
 }
+

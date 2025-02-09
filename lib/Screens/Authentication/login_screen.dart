@@ -7,6 +7,7 @@ import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/home.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
@@ -16,7 +17,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffFFFFFF),
+      backgroundColor: primaryWhite,
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -25,7 +26,7 @@ class LoginScreen extends StatelessWidget {
               width: 428,
               height: 280,
               decoration: BoxDecoration(
-                  color: Color(0xFF165069), // Hexadecimal color code
+                  color: primaryBlue, // Hexadecimal color code
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(
                         80), // Adjust this value to match the corner curve

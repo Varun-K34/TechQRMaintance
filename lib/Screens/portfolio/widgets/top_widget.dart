@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class TopWidgetportfolio extends StatelessWidget {
   final String emailid;
@@ -17,7 +18,7 @@ class TopWidgetportfolio extends StatelessWidget {
             height: 150,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blue,
+              color: primaryBlue,
             ),
           ),
           SizedBox(
@@ -26,7 +27,7 @@ class TopWidgetportfolio extends StatelessWidget {
           Text(
             "E-mail",
             style: TextStyle(
-              color: Color(0xff165069),
+              color: primaryBlue,
               fontSize: 20,
               fontWeight: FontWeight.w700,
             ),
@@ -34,7 +35,7 @@ class TopWidgetportfolio extends StatelessWidget {
           Text(
             emailid,
             style: TextStyle(
-              color: Color(0xff165069),
+              color: primaryBlue,
               fontSize: 16,
               fontWeight: FontWeight.w400,
             ),

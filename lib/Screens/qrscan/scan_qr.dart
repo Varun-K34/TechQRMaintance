@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class ScanQr extends StatelessWidget {
   final MobileScannerController controller = MobileScannerController();
@@ -11,7 +12,7 @@ class ScanQr extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: primaryTransparent,
         title: const Text('QR Code Scanner'),
         actions: [
           IconButton(
@@ -42,15 +43,15 @@ class ScanQr extends StatelessWidget {
               width: constraints.maxWidth * 0.8,
               height: constraints.maxWidth * 0.8,
               decoration: BoxDecoration(
-                color: Colors.transparent,
+                color: primaryTransparent,
                 border: Border(
                   top: BorderSide(
-                      color: Colors.white,
+                      color: primaryWhite,
                       width: 2,
                       strokeAlign: BorderSide.strokeAlignInside),
-                  left: BorderSide(color: Colors.white, width: 2),
-                  right: BorderSide(color: Colors.white, width: 2),
-                  bottom: BorderSide(color: Colors.white, width: 2),
+                  left: BorderSide(color: primaryWhite, width: 2),
+                  right: BorderSide(color: primaryWhite, width: 2),
+                  bottom: BorderSide(color: primaryWhite, width: 2),
                 ),
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),

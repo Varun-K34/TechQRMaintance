@@ -4,6 +4,7 @@ import 'package:techqrmaintance/Screens/history/services_history.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/Screens/qrscan/scan_qr.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class GridContainerButton extends StatelessWidget {
   final String title;
@@ -49,7 +50,9 @@ class GridContainerButton extends StatelessWidget {
         width: 17,
         padding: EdgeInsets.only(top: 30),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30), color: Color(0xff165069)),
+          borderRadius: BorderRadius.circular(30),
+          color: primaryBlue,
+        ),
         child: Column(
           children: [
             Container(
@@ -62,7 +65,7 @@ class GridContainerButton extends StatelessWidget {
               title,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                  color: Colors.white,
+                  color: primaryWhite,
                   fontWeight: FontWeight.w900,
                   fontSize: 16),
             ),

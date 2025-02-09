@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class HistoryOverviewScreen extends StatelessWidget {
   const HistoryOverviewScreen({super.key});
@@ -10,12 +11,12 @@ class HistoryOverviewScreen extends StatelessWidget {
         title: Text(
           "Repair Overview",
           style: TextStyle(
-              color: Color(0xff165069),
+              color: primaryBlue,
               fontSize: 22,
               fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: primaryWhite,
       ),
       body: Padding(
         padding: const EdgeInsets.only(
@@ -67,7 +68,7 @@ class HistoryOverviewScreen extends StatelessWidget {
             label,
             style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Color(0xff165069),
+                color: primaryBlue,
                 fontSize: 20),
           ),
         ),
@@ -77,7 +78,7 @@ class HistoryOverviewScreen extends StatelessWidget {
             textAlign: TextAlign.right,
             overflow: TextOverflow.visible,
             value,
-            style: TextStyle(color: Color(0xff165069), fontSize: 20),
+            style: TextStyle(color: primaryBlue, fontSize: 20),
           ),
         ),
       ],
