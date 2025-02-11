@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'Technician.g.dart';
+
 @JsonSerializable()
 class AssignedTechnician {
   @JsonKey(name: 'id')

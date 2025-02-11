@@ -68,8 +68,7 @@ class Home extends StatelessWidget {
               width: 401,
               padding: EdgeInsets.only(right: 30, left: 20),
               decoration: BoxDecoration(
-                  color: primaryBlue,
-                  borderRadius: BorderRadius.circular(30)),
+                  color: primaryBlue, borderRadius: BorderRadius.circular(30)),
               child: BlocBuilder<SpblocBloc, SpblocState>(
                 builder: (context, spState) {
                   return BlocBuilder<ComplaintblocBloc, ComplaintblocState>(
@@ -174,4 +173,3 @@ class Home extends StatelessWidget {
     Navigator.of(context).push(createRoute(PortfolioScreen()));
   }
 }
-

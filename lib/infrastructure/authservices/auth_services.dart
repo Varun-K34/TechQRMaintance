@@ -16,10 +16,10 @@ class AuthServices implements AuthRepoReg {
   Future<Either<MainFailurs, AuthRegModel>> getAuthRespo(
       {required AuthRegModel authModel}) async {
     try {
-      log(authModel.toJson().toString(), name: "AuthServices");
+      //log(authModel.toJson().toString(), name: "AuthServices");
       final Response response =
           await api.dio.post(kBaseURL + kuserADD, data: authModel.toJson());
-      log(response.data.toString());
+      //log(response.data.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         final authSucessList = AuthRegModel.fromJson(response.data);
         return Right(authSucessList);

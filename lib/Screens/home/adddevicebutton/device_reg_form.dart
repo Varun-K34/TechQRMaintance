@@ -160,6 +160,5 @@ class DeviceRegFormScreen extends StatelessWidget {
     }
   }
 
-  void onPressedButton() {
-  }
+  void onPressedButton() {}
 }
