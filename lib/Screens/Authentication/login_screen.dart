@@ -40,6 +40,8 @@ class LoginScreen extends StatelessWidget {
             CustomTextField(
               hintText: 'Email',
               controller: emailController,
+              curveRadius: 30,
+              boolVal: false,
             ),
             SizedBox(
               height: 20,
@@ -47,6 +49,8 @@ class LoginScreen extends StatelessWidget {
             CustomTextField(
               hintText: 'Password',
               controller: passwordController,
+              curveRadius: 30,
+              boolVal: false,
             ),
             SizedBox(
               height: 10,
