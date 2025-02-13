@@ -1,6 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
+import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_textfield.dart';
+import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
 class DeviceRegFormScreen extends StatelessWidget {
@@ -15,6 +20,7 @@ class DeviceRegFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int? id;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -51,11 +57,53 @@ class DeviceRegFormScreen extends StatelessWidget {
               ),
               HintAndTextFieldWidget(
                 textController: regByController,
-                hintText: "Enter Registered User",
+                hintText: "Enter Registered User Email",
                 labelText: "Registered By",
                 containerLen: 60,
                 curve: 30,
                 valEdit: false,
+                suffix: BlocConsumer<GetidregblocBloc, GetidregblocState>(
+                  listener: (context, state) {
+                    if (state.isFailure && state.id == null) {
+                      CustomSnackbar.shows(
+                        context,
+                        message:
+                            "The email address you entered was not found. Please check and try again.",
+                      );
+                    } else if (state.id != null) {
+                      id = state.id;
+                      log(id.toString());
+                      CustomSnackbar.shows(
+                        context,
+                        message:
+                            "Email found successfully. User ID has been retrieved $id.",
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return IconButton(
+                      onPressed: state.isLoading
+                          ? () {}
+                          : () => onPressedFindId(context, state),
+                      icon: state.isLoading
+                          ? CircularProgressIndicator(
+                              strokeWidth: 2.0,
+                            )
+                          : Icon(
+                              state.id != null
+                                  ? Icons.done
+                                  : state.isFailure && state.id == null
+                                      ? Icons.error_outline_rounded
+                                      : Icons.arrow_forward_rounded,
+                              color: state.id != null
+                                  ? Colors.green
+                                  : state.isFailure && state.id == null
+                                      ? Colors.red
+                                      : primaryBlack,
+                            ),
+                    );
+                  },
+                ),
               ),
               HintAndTextFieldWidget(
                 textController: locController,
@@ -98,7 +146,9 @@ class DeviceRegFormScreen extends StatelessWidget {
                 curve: 20,
                 valEdit: false,
               ),
-
+              SizedBox(
+                height: 10,
+              ),
               // CustomButton
               CustomMaterialButton(
                 text: "REGISTER",
@@ -161,4 +211,18 @@ class DeviceRegFormScreen extends StatelessWidget {
   }
 
   void onPressedButton() {}
+
+  void onPressedFindId(BuildContext context, GetidregblocState id) {
+    final email = regByController.text.trim();
+    if (email.isEmpty) {
+      CustomSnackbar.shows(
+        context,
+        message: "Please enter an email address.",
+      );
+      return;
+    }
+    context.read<GetidregblocBloc>().add(
+          GetidregblocEvent.getid(email: email),
+        );
+  }
 }

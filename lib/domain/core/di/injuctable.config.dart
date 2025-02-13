@@ -21,6 +21,8 @@ import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailb
     as _i638;
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart'
     as _i91;
+import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart'
+    as _i32;
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart' as _i651;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
 import 'package:techqrmaintance/domain/authregmodel/auth_repo.dart' as _i291;
@@ -28,6 +30,8 @@ import 'package:techqrmaintance/domain/complaintindetail/complaint_in_detail.dar
     as _i942;
 import 'package:techqrmaintance/domain/complaintmodel/complaint_repo.dart'
     as _i308;
+import 'package:techqrmaintance/domain/core/getidfordevicereg/get_id_for_device_reg.dart'
+    as _i1051;
 import 'package:techqrmaintance/domain/core/splashcheck/splash_check.dart'
     as _i829;
 import 'package:techqrmaintance/domain/core/spstoreduser/sp_stored_repo.dart'
@@ -45,6 +49,8 @@ import 'package:techqrmaintance/infrastructure/deviceregservices/device_reg_seer
     as _i1016;
 import 'package:techqrmaintance/infrastructure/getcomplaintindetailservices/get_complaint_in_detail_services.dart'
     as _i305;
+import 'package:techqrmaintance/infrastructure/getiddeviceregservices/get_id_for_device_reg_services.dart'
+    as _i670;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
     as _i1027;
 import 'package:techqrmaintance/infrastructure/userlogservices/user_log_services.dart'
@@ -66,6 +72,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i942.DetailComplaintRepo>(
         () => _i305.GetComplaintInDetailServices());
     gh.lazySingleton<_i158.SpStoredUser>(() => _i1027.SpStoredItem());
+    gh.lazySingleton<_i1051.GetIdForDeviceRegRepo>(
+        () => _i670.GetIdForDeviceRegServices());
     gh.lazySingleton<_i765.UserLogRepo>(() => _i819.UserLogServices());
     gh.lazySingleton<_i308.ComplaintRepo>(() => _i396.ComplaintGetServices());
     gh.lazySingleton<_i489.DeviceRegRepo>(() => _i1016.DeviceRegService());
@@ -80,6 +88,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i15.SpblocBloc(gh<_i158.SpStoredUser>()));
     gh.factory<_i794.CheckblocBloc>(
         () => _i794.CheckblocBloc(gh<_i829.SplashCheckRepo>()));
+    gh.factory<_i32.GetidregblocBloc>(
+        () => _i32.GetidregblocBloc(gh<_i1051.GetIdForDeviceRegRepo>()));
     gh.factory<_i600.AuthblocBloc>(
         () => _i600.AuthblocBloc(gh<_i291.AuthRepoReg>()));
     return this;
