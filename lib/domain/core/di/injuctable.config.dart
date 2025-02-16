@@ -67,7 +67,6 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i91.DeviceregblocBloc>(() => _i91.DeviceregblocBloc());
     gh.lazySingleton<_i829.SplashCheckRepo>(() => _i757.CheckLoginServices());
     gh.lazySingleton<_i942.DetailComplaintRepo>(
         () => _i305.GetComplaintInDetailServices());
@@ -92,6 +91,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i32.GetidregblocBloc(gh<_i1051.GetIdForDeviceRegRepo>()));
     gh.factory<_i600.AuthblocBloc>(
         () => _i600.AuthblocBloc(gh<_i291.AuthRepoReg>()));
+    gh.factory<_i91.DeviceregblocBloc>(
+        () => _i91.DeviceregblocBloc(gh<_i489.DeviceRegRepo>()));
     return this;
   }
 }

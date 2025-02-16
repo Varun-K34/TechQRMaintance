@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_textfield.dart';
+import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
+import 'package:techqrmaintance/domain/deviceregmodel/device_reg_model/device_reg_model.dart';
 
 class DeviceRegFormScreen extends StatelessWidget {
   final TextEditingController brandController = TextEditingController();
@@ -150,9 +152,30 @@ class DeviceRegFormScreen extends StatelessWidget {
                 height: 10,
               ),
               // CustomButton
-              CustomMaterialButton(
-                text: "REGISTER",
-                onPressed: onPressedButton,
+              BlocConsumer<DeviceregblocBloc, DeviceregblocState>(
+                listener: (context, state) {
+                  if (state.isFailure) {
+                    CustomSnackbar.shows(
+                      context,
+                      message: "Device registration failed. Please try again.",
+                    );
+                  } else if (state.text.isNotEmpty) {
+                    CustomSnackbar.shows(
+                      context,
+                      message: state.text,
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  return state.isLoading
+                      ? CircularProgressIndicator(
+                          strokeWidth: 2,
+                        )
+                      : CustomMaterialButton(
+                          text: "REGISTER",
+                          onPressed: () => onPressedButton(context, id),
+                        );
+                },
               ),
             ],
           ),
@@ -165,8 +188,8 @@ class DeviceRegFormScreen extends StatelessWidget {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(const Duration(days: 30)),
-      lastDate: DateTime.now(),
+      firstDate: DateTime.now(),
+      lastDate: DateTime.now().add(Duration(days: 365)), 
     );
     if (pickedDate != null) {
       expiryController.text =
@@ -210,7 +233,43 @@ class DeviceRegFormScreen extends StatelessWidget {
     }
   }
 
-  void onPressedButton() {}
+  void onPressedButton(BuildContext buttoncontext, int? id) {
+    final String brand = brandController.text.trim();
+    final String model = modelController.text.trim();
+    final int? regBy = id;
+    final String loc = locController.text.trim();
+    final String wExpiry = expiryController.text.trim();
+    final String regDate = regDateController.text.trim();
+    final String invoceDetails = invoiceController.text.trim();
+
+    if (brand.isEmpty ||
+        model.isEmpty ||
+        regBy == null ||
+        loc.isEmpty ||
+        wExpiry.isEmpty ||
+        regDate.isEmpty ||
+        invoceDetails.isEmpty) {
+      CustomSnackbar.shows(
+        buttoncontext,
+        message: "Please fill in all the fields.",
+      );
+      return;
+    }
+
+    final DeviceRegModel regModel = DeviceRegModel(
+      brand: brand,
+      model: model,
+      registeredBy: regBy,
+      location: loc,
+      warrantyExpiry: wExpiry,
+      registeredAt: regDate,
+      invoiceDetails: invoceDetails,
+    );
+
+    buttoncontext.read<DeviceregblocBloc>().add(DeviceregblocEvent.regDevice(
+          model: regModel,
+        ));
+  }
 
   void onPressedFindId(BuildContext context, GetidregblocState id) {
     final email = regByController.text.trim();

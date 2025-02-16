@@ -9,7 +9,7 @@ class DeviceRegModel {
   @JsonKey(name: 'model')
   String? model;
   @JsonKey(name: 'registered_by')
-  String? registeredBy;
+  int? registeredBy;
   @JsonKey(name: 'location')
   String? location;
   @JsonKey(name: 'warranty_expiry')

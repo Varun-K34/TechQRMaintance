@@ -18,18 +18,23 @@ class DeviceRegService implements DeviceRegRepo {
     try {
       final Response device = await deviceApi.dio
           .post(kBaseURL + kDevice, data: deviceModel.toJson());
-      if (device.statusCode == 200 && device.statusCode == 201) {
+          
+      if (device.statusCode == 201) {
         return Right("Device Registration Completed");
       } else {
-        await deviceApi.clearStoredToken();
+        //await deviceApi.clearStoredToken();
         return Left(MainFailurs.clientFailure());
       }
     } on DioException catch (e) {
-      await deviceApi.clearStoredToken();
+      log('DioException: ${e.message}', error: e);
+      //await deviceApi.clearStoredToken();
       if (e.response?.statusCode == 302) {
         log('Redirect detected to: ${e.response?.headers.value('location')}');
       }
       return Left(MainFailurs.serverFailure());
+    } catch (e) {
+      log('Unexpected error: ${e.toString()}', error: e, stackTrace: StackTrace.current);
+      return Left(MainFailurs.clientFailure());
     }
   }
 }
