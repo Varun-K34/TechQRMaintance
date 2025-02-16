@@ -42,5 +42,4 @@ class GetComplaintInDetailServices implements DetailComplaintRepo {
       return Left(MainFailurs.clientFailure());
     }
   }
-
 }

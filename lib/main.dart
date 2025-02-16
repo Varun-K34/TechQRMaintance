@@ -3,6 +3,8 @@ import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
 import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart';
+import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
+import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
@@ -41,6 +43,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<ComplaintdetailblocBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<DeviceregblocBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<GetidregblocBloc>(),
         )
       ],
       child: MaterialApp(

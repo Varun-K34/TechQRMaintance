@@ -44,22 +44,32 @@ class SignupScreen extends StatelessWidget {
           CustomTextField(
             hintText: "username",
             controller: _usernameController,
+            curveRadius: 30,
+            boolVal: false,
           ),
           CustomTextField(
             hintText: "email",
             controller: _emailController,
+            curveRadius: 30,
+            boolVal: false,
           ),
           CustomTextField(
             hintText: "phone",
             controller: _phoneController,
+            curveRadius: 30,
+            boolVal: false,
           ),
           CustomTextField(
             hintText: "password",
             controller: _passwordController,
+            curveRadius: 30,
+            boolVal: false,
           ),
           CustomTextField(
             hintText: "confirm password",
             controller: _confirmPasswordController,
+            curveRadius: 30,
+            boolVal: false,
           ),
           BlocListener<AuthblocBloc, AuthblocState>(listener: (context, state) {
             if (state.isError) {

@@ -13,9 +13,7 @@ class RepairOverviewScreen extends StatelessWidget {
         title: Text(
           "Technician Repair Overview",
           style: TextStyle(
-              color: primaryBlue,
-              fontSize: 22,
-              fontWeight: FontWeight.w600),
+              color: primaryBlue, fontSize: 22, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
         backgroundColor: primaryWhite,
@@ -90,9 +88,7 @@ class RepairOverviewScreen extends StatelessWidget {
             overflow: TextOverflow.visible,
             label,
             style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: primaryBlue,
-                fontSize: 20),
+                fontWeight: FontWeight.bold, color: primaryBlue, fontSize: 20),
           ),
         ),
         Padding(
