@@ -1,3 +1,4 @@
+import 'package:techqrmaintance/Screens/home/adddevicebutton/customer_finder.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: SplashScreen(),
+        home: CustomerFinder(),
       ),
     );
   }

@@ -6,7 +6,6 @@ import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_textfield.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
-import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/deviceregmodel/device_reg_model/device_reg_model.dart';
 
@@ -18,11 +17,15 @@ class DeviceRegFormScreen extends StatelessWidget {
   final TextEditingController expiryController = TextEditingController();
   final TextEditingController regDateController = TextEditingController();
   final TextEditingController invoiceController = TextEditingController();
-  DeviceRegFormScreen({super.key});
+  DeviceRegFormScreen({
+    super.key,
+    this.id,
+  });
+
+  final int? id;
 
   @override
   Widget build(BuildContext context) {
-    int? id;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -58,55 +61,21 @@ class DeviceRegFormScreen extends StatelessWidget {
                 valEdit: false,
               ),
               HintAndTextFieldWidget(
-                textController: regByController,
-                hintText: "Enter Registered User Email",
-                labelText: "Registered By",
+                hintText: "Enter Serial No",
+                labelText: "Serial No.",
                 containerLen: 60,
                 curve: 30,
                 valEdit: false,
-                suffix: BlocConsumer<GetidregblocBloc, GetidregblocState>(
-                  listener: (context, state) {
-                    if (state.isFailure && state.id == null) {
-                      CustomSnackbar.shows(
-                        context,
-                        message:
-                            "The email address you entered was not found. Please check and try again.",
-                      );
-                    } else if (state.id != null) {
-                      id = state.id;
-                      log(id.toString());
-                      CustomSnackbar.shows(
-                        context,
-                        message:
-                            "Email found successfully. User ID has been retrieved $id.",
-                      );
-                    }
-                  },
-                  builder: (context, state) {
-                    return IconButton(
-                      onPressed: state.isLoading
-                          ? () {}
-                          : () => onPressedFindId(context, state),
-                      icon: state.isLoading
-                          ? CircularProgressIndicator(
-                              strokeWidth: 2.0,
-                            )
-                          : Icon(
-                              state.id != null
-                                  ? Icons.done
-                                  : state.isFailure && state.id == null
-                                      ? Icons.error_outline_rounded
-                                      : Icons.arrow_forward_rounded,
-                              color: state.id != null
-                                  ? Colors.green
-                                  : state.isFailure && state.id == null
-                                      ? Colors.red
-                                      : primaryBlack,
-                            ),
-                    );
-                  },
-                ),
               ),
+              HintAndTextFieldWidget(
+                textController: regByController,
+                hintText: "$id",
+                labelText: "Registered By",
+                containerLen: 60,
+                curve: 30,
+                valEdit: true,
+              ),
+
               HintAndTextFieldWidget(
                 textController: locController,
                 hintText: "Enter Location",
@@ -189,7 +158,7 @@ class DeviceRegFormScreen extends StatelessWidget {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)), 
+      lastDate: DateTime.now().add(Duration(days: 365)),
     );
     if (pickedDate != null) {
       expiryController.text =
@@ -269,19 +238,5 @@ class DeviceRegFormScreen extends StatelessWidget {
     buttoncontext.read<DeviceregblocBloc>().add(DeviceregblocEvent.regDevice(
           model: regModel,
         ));
-  }
-
-  void onPressedFindId(BuildContext context, GetidregblocState id) {
-    final email = regByController.text.trim();
-    if (email.isEmpty) {
-      CustomSnackbar.shows(
-        context,
-        message: "Please enter an email address.",
-      );
-      return;
-    }
-    context.read<GetidregblocBloc>().add(
-          GetidregblocEvent.getid(email: email),
-        );
   }
 }

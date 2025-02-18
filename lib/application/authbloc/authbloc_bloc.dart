@@ -20,8 +20,9 @@ class AuthblocBloc extends Bloc<AuthblocEvent, AuthblocState> {
         isloading: true,
         isError: false,
       ));
-      final result =
-          await authServices.getAuthRespo(authModel: event.authmodel);
+      final result = await authServices.getAuthRespo(
+        authModel: event.authmodel,
+      );
 
       final state = result.fold(
         (MainFailurs l) {
