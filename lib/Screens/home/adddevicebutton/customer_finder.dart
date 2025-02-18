@@ -14,8 +14,14 @@ class CustomerFinder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        context.read<GetidregblocBloc>().add(GetidregblocEvent.reset());
+      },
+    );
     return Scaffold(
       backgroundColor: primaryWhite,
+      appBar: AppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -39,11 +45,11 @@ class CustomerFinder extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          BlocBuilder<GetidregblocBloc, GetidregblocState>(
-            builder: (context, state) {
+          BlocConsumer<GetidregblocBloc, GetidregblocState>(
+            listener: (context, state) {
               if (state.id != null) {
                 WidgetsBinding.instance.addPostFrameCallback(
-                  (timeStamp) {
+                  (_) {
                     Navigator.of(context).push(
                       createRoute(
                         DeviceRegFormScreen(
@@ -53,15 +59,24 @@ class CustomerFinder extends StatelessWidget {
                     );
                   },
                 );
-              } else if (state.isLoading) {
-                return CircularProgressIndicator();
               }
-              return CustomMaterialButton(
-                text: "Find",
-                onPressed: () => onPressedFind(
-                  context,
-                ),
-              );
+            },
+            builder: (context, state) {
+              return state.isFailure
+                  ? Text(
+                        "Oops, something went wrong. Please try again.",
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : state.isLoading
+                      ? CircularProgressIndicator()
+                      : CustomMaterialButton(
+                          text: "Find",
+                          onPressed: () => onPressedFind(context, state.id),
+                        );
             },
           ),
         ],
@@ -69,7 +84,7 @@ class CustomerFinder extends StatelessWidget {
     );
   }
 
-  void onPressedFind(BuildContext context) {
+  void onPressedFind(BuildContext context, int? id) {
     final email = emailController.text.trim();
     if (email.isEmpty) {
       CustomSnackbar.shows(

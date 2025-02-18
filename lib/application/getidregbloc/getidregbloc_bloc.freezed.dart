@@ -16,44 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$GetidregblocEvent {
-  String get email => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email) getid,
+    required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email)? getid,
+    TResult? Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email)? getid,
+    TResult Function()? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Getid value) getid,
+    required TResult Function(Reset value) reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Getid value)? getid,
+    TResult? Function(Reset value)? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Getid value)? getid,
+    TResult Function(Reset value)? reset,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  /// Create a copy of GetidregblocEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $GetidregblocEventCopyWith<GetidregblocEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -62,8 +61,6 @@ abstract class $GetidregblocEventCopyWith<$Res> {
   factory $GetidregblocEventCopyWith(
           GetidregblocEvent value, $Res Function(GetidregblocEvent) then) =
       _$GetidregblocEventCopyWithImpl<$Res, GetidregblocEvent>;
-  @useResult
-  $Res call({String email});
 }
 
 /// @nodoc
@@ -78,27 +75,13 @@ class _$GetidregblocEventCopyWithImpl<$Res, $Val extends GetidregblocEvent>
 
   /// Create a copy of GetidregblocEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? email = null,
-  }) {
-    return _then(_value.copyWith(
-      email: null == email
-          ? _value.email
-          : email // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$GetidImplCopyWith<$Res>
-    implements $GetidregblocEventCopyWith<$Res> {
+abstract class _$$GetidImplCopyWith<$Res> {
   factory _$$GetidImplCopyWith(
           _$GetidImpl value, $Res Function(_$GetidImpl) then) =
       __$$GetidImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String email});
 }
@@ -163,6 +146,7 @@ class _$GetidImpl implements Getid {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String email) getid,
+    required TResult Function() reset,
   }) {
     return getid(email);
   }
@@ -171,6 +155,7 @@ class _$GetidImpl implements Getid {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String email)? getid,
+    TResult? Function()? reset,
   }) {
     return getid?.call(email);
   }
@@ -179,6 +164,7 @@ class _$GetidImpl implements Getid {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String email)? getid,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (getid != null) {
@@ -191,6 +177,7 @@ class _$GetidImpl implements Getid {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Getid value) getid,
+    required TResult Function(Reset value) reset,
   }) {
     return getid(this);
   }
@@ -199,6 +186,7 @@ class _$GetidImpl implements Getid {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Getid value)? getid,
+    TResult? Function(Reset value)? reset,
   }) {
     return getid?.call(this);
   }
@@ -207,6 +195,7 @@ class _$GetidImpl implements Getid {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Getid value)? getid,
+    TResult Function(Reset value)? reset,
     required TResult orElse(),
   }) {
     if (getid != null) {
@@ -219,15 +208,118 @@ class _$GetidImpl implements Getid {
 abstract class Getid implements GetidregblocEvent {
   const factory Getid({required final String email}) = _$GetidImpl;
 
-  @override
   String get email;
 
   /// Create a copy of GetidregblocEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetidImplCopyWith<_$GetidImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ResetImplCopyWith<$Res> {
+  factory _$$ResetImplCopyWith(
+          _$ResetImpl value, $Res Function(_$ResetImpl) then) =
+      __$$ResetImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ResetImplCopyWithImpl<$Res>
+    extends _$GetidregblocEventCopyWithImpl<$Res, _$ResetImpl>
+    implements _$$ResetImplCopyWith<$Res> {
+  __$$ResetImplCopyWithImpl(
+      _$ResetImpl _value, $Res Function(_$ResetImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of GetidregblocEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ResetImpl implements Reset {
+  const _$ResetImpl();
+
+  @override
+  String toString() {
+    return 'GetidregblocEvent.reset()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ResetImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String email) getid,
+    required TResult Function() reset,
+  }) {
+    return reset();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String email)? getid,
+    TResult? Function()? reset,
+  }) {
+    return reset?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String email)? getid,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Getid value) getid,
+    required TResult Function(Reset value) reset,
+  }) {
+    return reset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Getid value)? getid,
+    TResult? Function(Reset value)? reset,
+  }) {
+    return reset?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Getid value)? getid,
+    TResult Function(Reset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Reset implements GetidregblocEvent {
+  const factory Reset() = _$ResetImpl;
 }
 
 /// @nodoc
