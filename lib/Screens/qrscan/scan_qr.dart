@@ -63,10 +63,24 @@ class ScanQr extends StatelessWidget {
             ),
           );
         },
-        onDetect: (barcodes) {
-          final List<Barcode> detectbarcodes = barcodes.barcodes;
+        onDetect: (capture) {
+          final List<Barcode> detectbarcodes = capture.barcodes;
           for (final barcode in detectbarcodes) {
-            log(barcode.rawValue.toString());
+            if (barcode.rawValue != null) {
+              log('Scanned QR Code: ${barcode.rawValue}');
+
+              // Stop scanning to prevent continuous scans
+              controller.stop();
+
+              // Handle the scanned data (e.g., navigate or show a dialog)
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Scanned: ${barcode.rawValue}')),
+              );
+
+              
+
+              break; // Exit loop after first valid scan
+            }
           }
         },
       ),
