@@ -64,7 +64,7 @@ class CustomerFinder extends StatelessWidget {
             builder: (context, state) {
               return state.isFailure
                   ? Text(
-                        "Oops, something went wrong. Please try again.",
+                      "Oops, something went wrong. Please try again.",
                       style: TextStyle(
                         color: Colors.red,
                         fontSize: 16,

@@ -1,7 +1,8 @@
-const kBaseURL = "https://papayawhip-barracuda-192723.hostingersite.com";
+const kBaseURL = "https://papayawhip-barracuda-192723.hostingersite.com/";
 
 //APIS
-const kLogin = "/api/login";
-const kuserADD = "/api/users";
-const kCompliantsGet = "/api/complaints/";
-const kDevice = "/api/devices";
+const kLogin = "api/login";
+const kuserADD = "api/users";
+const kCompliantsGet = "api/complaints/";
+const kDevice = "api/devices";
+const kScanQr = "api/qr-complaints/scan/";

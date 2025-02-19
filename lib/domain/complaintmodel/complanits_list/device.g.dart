@@ -16,10 +16,11 @@ Device _$DeviceFromJson(Map<String, dynamic> json) => Device(
       invoiceDetails: json['invoice_details'] as String?,
       registeredByUser: (json['registered_by'] as num?)?.toInt(),
       registeredAt: json['registered_at'] as String?,
-    );
+    )..serialNo = json['serial_no'] as String?;
 
 Map<String, dynamic> _$DeviceToJson(Device instance) => <String, dynamic>{
       'id': instance.id,
+      'serial_no': instance.serialNo,
       'qr_code': instance.qrCode,
       'brand': instance.brand,
       'model': instance.model,

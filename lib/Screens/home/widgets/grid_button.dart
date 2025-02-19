@@ -9,7 +9,6 @@ import 'package:techqrmaintance/Screens/qrscan/scan_qr.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
-
 class GridContainerButton extends StatelessWidget {
   final String title;
   final String imagePath;

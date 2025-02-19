@@ -37,8 +37,10 @@ class GetidregblocBloc extends Bloc<GetidregblocEvent, GetidregblocState> {
       );
     });
 
-    on<Reset>((event, emit) {
-      emit(GetidregblocState.initial());
-    },);
+    on<Reset>(
+      (event, emit) {
+        emit(GetidregblocState.initial());
+      },
+    );
   }
 }
