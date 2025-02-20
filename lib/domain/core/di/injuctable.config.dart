@@ -19,6 +19,8 @@ import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart'
     as _i794;
 import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart'
     as _i638;
+import 'package:techqrmaintance/application/custbloc/customer_bloc.dart'
+    as _i134;
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart'
     as _i91;
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart'
@@ -38,6 +40,8 @@ import 'package:techqrmaintance/domain/core/splashcheck/splash_check.dart'
     as _i829;
 import 'package:techqrmaintance/domain/core/spstoreduser/sp_stored_repo.dart'
     as _i158;
+import 'package:techqrmaintance/domain/customer_model/customer_repo.dart'
+    as _i509;
 import 'package:techqrmaintance/domain/deviceregmodel/device_reg_repo.dart'
     as _i489;
 import 'package:techqrmaintance/domain/scanqrmodel/scan_qr_repo.dart' as _i899;
@@ -48,6 +52,8 @@ import 'package:techqrmaintance/infrastructure/checkloginservices/check_login_se
     as _i757;
 import 'package:techqrmaintance/infrastructure/complaintgetservices/complaint_get_services.dart'
     as _i396;
+import 'package:techqrmaintance/infrastructure/custservices/cust_services.dart'
+    as _i338;
 import 'package:techqrmaintance/infrastructure/deviceregservices/device_reg_seervices.dart'
     as _i1016;
 import 'package:techqrmaintance/infrastructure/getcomplaintindetailservices/get_complaint_in_detail_services.dart'
@@ -75,6 +81,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i829.SplashCheckRepo>(() => _i757.CheckLoginServices());
     gh.lazySingleton<_i942.DetailComplaintRepo>(
         () => _i305.GetComplaintInDetailServices());
+    gh.lazySingleton<_i509.CustomerRepo>(() => _i338.CustomerServices());
     gh.lazySingleton<_i158.SpStoredUser>(() => _i1027.SpStoredItem());
     gh.lazySingleton<_i899.ScanQRRepo>(() => _i649.ScanQrServices());
     gh.lazySingleton<_i1051.GetIdForDeviceRegRepo>(
@@ -97,6 +104,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i794.CheckblocBloc(gh<_i829.SplashCheckRepo>()));
     gh.factory<_i32.GetidregblocBloc>(
         () => _i32.GetidregblocBloc(gh<_i1051.GetIdForDeviceRegRepo>()));
+    gh.factory<_i134.CustomerBloc>(
+        () => _i134.CustomerBloc(gh<_i509.CustomerRepo>()));
     gh.factory<_i600.AuthblocBloc>(
         () => _i600.AuthblocBloc(gh<_i291.AuthRepoReg>()));
     gh.factory<_i91.DeviceregblocBloc>(
