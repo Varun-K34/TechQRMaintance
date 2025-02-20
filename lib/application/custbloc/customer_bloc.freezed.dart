@@ -235,27 +235,24 @@ abstract class CustomerSignup implements CustomerEvent {
 
 /// @nodoc
 mixin _$CustomerState {
-  List<CustomerModel> get customerList => throw _privateConstructorUsedError;
+  int? get customerList => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isError => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<CustomerModel> customerList, bool isLoading, bool isError)
+    required TResult Function(int? customerList, bool isLoading, bool isError)
         signupState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<CustomerModel> customerList, bool isLoading, bool isError)?
+    TResult? Function(int? customerList, bool isLoading, bool isError)?
         signupState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<CustomerModel> customerList, bool isLoading, bool isError)?
+    TResult Function(int? customerList, bool isLoading, bool isError)?
         signupState,
     required TResult orElse(),
   }) =>
@@ -290,7 +287,7 @@ abstract class $CustomerStateCopyWith<$Res> {
           CustomerState value, $Res Function(CustomerState) then) =
       _$CustomerStateCopyWithImpl<$Res, CustomerState>;
   @useResult
-  $Res call({List<CustomerModel> customerList, bool isLoading, bool isError});
+  $Res call({int? customerList, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -308,15 +305,15 @@ class _$CustomerStateCopyWithImpl<$Res, $Val extends CustomerState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customerList = null,
+    Object? customerList = freezed,
     Object? isLoading = null,
     Object? isError = null,
   }) {
     return _then(_value.copyWith(
-      customerList: null == customerList
+      customerList: freezed == customerList
           ? _value.customerList
           : customerList // ignore: cast_nullable_to_non_nullable
-              as List<CustomerModel>,
+              as int?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -337,7 +334,7 @@ abstract class _$$SignupStateImplCopyWith<$Res>
       __$$SignupStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<CustomerModel> customerList, bool isLoading, bool isError});
+  $Res call({int? customerList, bool isLoading, bool isError});
 }
 
 /// @nodoc
@@ -353,15 +350,15 @@ class __$$SignupStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? customerList = null,
+    Object? customerList = freezed,
     Object? isLoading = null,
     Object? isError = null,
   }) {
     return _then(_$SignupStateImpl(
-      customerList: null == customerList
-          ? _value._customerList
+      customerList: freezed == customerList
+          ? _value.customerList
           : customerList // ignore: cast_nullable_to_non_nullable
-              as List<CustomerModel>,
+              as int?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -378,19 +375,12 @@ class __$$SignupStateImplCopyWithImpl<$Res>
 
 class _$SignupStateImpl implements SignupState {
   const _$SignupStateImpl(
-      {required final List<CustomerModel> customerList,
+      {required this.customerList,
       required this.isLoading,
-      required this.isError})
-      : _customerList = customerList;
+      required this.isError});
 
-  final List<CustomerModel> _customerList;
   @override
-  List<CustomerModel> get customerList {
-    if (_customerList is EqualUnmodifiableListView) return _customerList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_customerList);
-  }
-
+  final int? customerList;
   @override
   final bool isLoading;
   @override
@@ -406,16 +396,16 @@ class _$SignupStateImpl implements SignupState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SignupStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other._customerList, _customerList) &&
+            (identical(other.customerList, customerList) ||
+                other.customerList == customerList) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isError, isError) || other.isError == isError));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_customerList), isLoading, isError);
+  int get hashCode =>
+      Object.hash(runtimeType, customerList, isLoading, isError);
 
   /// Create a copy of CustomerState
   /// with the given fields replaced by the non-null parameter values.
@@ -428,8 +418,7 @@ class _$SignupStateImpl implements SignupState {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            List<CustomerModel> customerList, bool isLoading, bool isError)
+    required TResult Function(int? customerList, bool isLoading, bool isError)
         signupState,
   }) {
     return signupState(customerList, isLoading, isError);
@@ -438,8 +427,7 @@ class _$SignupStateImpl implements SignupState {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(
-            List<CustomerModel> customerList, bool isLoading, bool isError)?
+    TResult? Function(int? customerList, bool isLoading, bool isError)?
         signupState,
   }) {
     return signupState?.call(customerList, isLoading, isError);
@@ -448,8 +436,7 @@ class _$SignupStateImpl implements SignupState {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            List<CustomerModel> customerList, bool isLoading, bool isError)?
+    TResult Function(int? customerList, bool isLoading, bool isError)?
         signupState,
     required TResult orElse(),
   }) {
@@ -490,12 +477,12 @@ class _$SignupStateImpl implements SignupState {
 
 abstract class SignupState implements CustomerState {
   const factory SignupState(
-      {required final List<CustomerModel> customerList,
+      {required final int? customerList,
       required final bool isLoading,
       required final bool isError}) = _$SignupStateImpl;
 
   @override
-  List<CustomerModel> get customerList;
+  int? get customerList;
   @override
   bool get isLoading;
   @override

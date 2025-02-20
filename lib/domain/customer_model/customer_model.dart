@@ -4,6 +4,7 @@ part 'customer_model.g.dart';
 
 @JsonSerializable()
 class CustomerModel {
+  @JsonKey(name: 'id')
   int? id;  
   @JsonKey(name: 'name')
   String? name;

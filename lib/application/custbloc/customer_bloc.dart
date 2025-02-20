@@ -15,7 +15,7 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
   CustomerBloc(this.customerRepo) : super(CustomerState.initial()) {
     on<CustomerSignup>((event, emit) async {
       emit(CustomerState.signupState(
-        customerList: [],
+        customerList: null,
         isLoading: true,
         isError: false,
       ));
@@ -27,14 +27,14 @@ class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
       final state = result.fold(
         (MainFailurs failure) {
           return CustomerState.signupState(
-            customerList: [],
+            customerList: null,
             isLoading: false,
             isError: true,
           );
         },
-        (CustomerModel customer) {
+        (int? customer) {
           return CustomerState.signupState(
-            customerList: [customer],
+            customerList: customer,
             isLoading: false,
             isError: false,
           );

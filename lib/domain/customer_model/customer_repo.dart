@@ -4,6 +4,6 @@ import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
 
 
 abstract class CustomerRepo {
-  Future<Either<MainFailurs, CustomerModel>> createCustomer(
+  Future<Either<MainFailurs, int?>> createCustomer(
       {required CustomerModel customerModel});
 }

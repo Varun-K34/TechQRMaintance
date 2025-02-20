@@ -4,6 +4,7 @@ import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/customer_create.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
@@ -47,19 +48,26 @@ class CustomerFinder extends StatelessWidget {
           ),
           BlocConsumer<GetidregblocBloc, GetidregblocState>(
             listener: (context, state) {
-              if (state.id != null) {
-                WidgetsBinding.instance.addPostFrameCallback(
-                  (_) {
-                    Navigator.of(context).push(
+              WidgetsBinding.instance.addPostFrameCallback(
+                (_) {
+                  if (state.id != null) {
+                    Navigator.of(context).pushReplacement(
                       createRoute(
                         DeviceRegFormScreen(
                           id: state.id,
                         ),
                       ),
                     );
-                  },
-                );
-              }
+                  } else if (state.id == null &&
+                      emailController.text.isNotEmpty) {
+                    Navigator.of(context).pushReplacement(
+                      createRoute(
+                        CustomerCreate(),
+                      ),
+                    );
+                  }
+                },
+              );
             },
             builder: (context, state) {
               return state.isFailure

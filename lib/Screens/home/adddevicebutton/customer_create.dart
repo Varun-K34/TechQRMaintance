@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
+import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/customer_model/customer_model.dart';
@@ -61,7 +63,16 @@ class CustomerCreate extends StatelessWidget {
                   if (state.isError) {
                     CustomSnackbar.shows(context,
                         message: "Creation Failed! Please try again.");
-                  } else if (state.customerList.isNotEmpty) {
+                  } else if (state.customerList != null) {
+                    final int? id = state.customerList;
+                    WidgetsBinding.instance.addPostFrameCallback(
+                      (_) {
+                        Navigator.of(context)
+                            .pushReplacement(createRoute(DeviceRegFormScreen(
+                          id: id,
+                        )));
+                      },
+                    );
                     CustomSnackbar.shows(context,
                         message: "Customer created successfully!");
                   }
@@ -86,12 +97,11 @@ class CustomerCreate extends StatelessWidget {
                                 name: username,
                                 email: email,
                               );
-                              log(customerModel.toJson().toString());
+                              //log(customerModel.toJson().toString());
                               context.read<CustomerBloc>().add(
                                     CustomerEvent.signup(
                                         customerModel: customerModel),
                                   );
-                                  
                             },
                           );
                   },
