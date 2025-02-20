@@ -75,29 +75,31 @@ class ScanQr extends StatelessWidget {
               String? extractedNumber =
                   regExp.firstMatch(scannedData)?.group(0);
               if (extractedNumber != null) {
-                Navigator.of(context)
-                    .pushReplacement(createRoute(RepairOverviewScreen(
-                  id: extractedNumber,
-                )));
-              } else {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Invalid QR Code'),
-                      content: Text(
-                          'The scanned QR code does not contain a valid number.'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Text('OK'),
-                        ),
-                      ],
-                    );
-                  },
-                );
+                if (barcode.rawValue == "ID: $extractedNumber") {
+                  Navigator.of(context)
+                      .pushReplacement(createRoute(RepairOverviewScreen(
+                    id: extractedNumber,
+                  )));
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Invalid QR Code'),
+                        content: Text(
+                            'The scanned QR code does not contain a valid number.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
               }
               // Stop scanning to prevent continuous scans
               controller.stop();
