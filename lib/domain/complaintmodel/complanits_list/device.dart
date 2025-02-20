@@ -7,6 +7,8 @@ part 'device.g.dart';
 class Device {
   @JsonKey(name: 'id')
   int? id;
+  @JsonKey(name: 'serial_no')
+  String? serialNo;
   @JsonKey(name: 'qr_code')
   String? qrCode;
   @JsonKey(name: 'brand')

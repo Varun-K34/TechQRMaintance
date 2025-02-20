@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
+import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
+import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
+import 'package:techqrmaintance/core/strings.dart';
 
 class RepairOverviewScreen extends StatelessWidget {
-  const RepairOverviewScreen({super.key});
+  final String? id;
+  const RepairOverviewScreen({
+    super.key,
+    this.id,
+  });
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        context.read<ScanQrBlocBloc>().add(ScanQrBlocEvent.getScanData(id: id));
+      },
+    );
     return Scaffold(
       backgroundColor: primaryWhite,
       appBar: AppBar(
@@ -26,36 +39,82 @@ class RepairOverviewScreen extends StatelessWidget {
             children: [
               Column(
                 children: [
-                  Table(
-                    columnWidths: {
-                      0: FlexColumnWidth(1), // Adjusts column widths
-                      1: FlexColumnWidth(1),
+                  BlocBuilder<ScanQrBlocBloc, ScanQrBlocState>(
+                    builder: (context, state) {
+                      final int? id = state.scanData.device?.id;
+                      final String? brand = state.scanData.device?.brand;
+                      final String? model = state.scanData.device?.model;
+                      final String? loc = state.scanData.device?.location;
+                      final String? warranty =
+                          state.scanData.device?.warrantyExpiry;
+                      final int? customer =
+                          state.scanData.device?.registeredByUser;
+                      final String? regDate =
+                          state.scanData.device?.registeredAt;
+
+                      return state.isLoading
+                          ? CircularProgressIndicator()
+                          : Table(
+                              columnWidths: {
+                                0: FlexColumnWidth(1), // Adjusts column widths
+                                1: FlexColumnWidth(1),
+                              },
+                              children: [
+                                _buildTableRow("ID", id.toString()),
+                                _buildTableRow("Brand", brand ?? "NO brand"),
+                                _buildTableRow("Model", model ?? "No model"),
+                                _buildTableRow(
+                                    "Location", loc ?? "No location"),
+                                _buildTableRow("Warranty",
+                                    warranty ?? "No warranty specified"),
+                                _buildTableRow(
+                                    "Customer ID", customer.toString()),
+                                _buildTableRow(
+                                    "Date", regDate ?? "No date specified"),
+                              ],
+                            );
                     },
-                    children: [
-                      _buildTableRow("ID", "2444545"),
-                      _buildTableRow("Brand", "samsung"),
-                      _buildTableRow("Model", "samsung"),
-                      _buildTableRow("Location", "samsung"),
-                      _buildTableRow("Warranty", "samsung"),
-                      _buildTableRow("Customer ID", "samsung"),
-                      _buildTableRow("Date", "samsung"),
-                    ],
                   ),
                 ],
               ),
               SizedBox(
                 height: 5,
               ),
-              Container(
-                height: 200,
-                width: 200,
-                decoration: BoxDecoration(
-                  color: primaryBlack,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage("assets/images/qr-code 1.png"),
-                  ),
-                ),
+              BlocBuilder<ScanQrBlocBloc, ScanQrBlocState>(
+                builder: (context, state) {
+                  if (state.isLoading) {
+                    return Skeleton(height: 200, width: 200);
+                  }
+
+                  final String? kimage = state.scanData.device?.qrCode;
+
+                  if (kimage == null || kimage.isEmpty) {
+                    return Container(
+                      height: 200,
+                      width: 200,
+                      color:
+                          Colors.grey[300], // Placeholder in case image is null
+                      child: Center(
+                        child: Text(
+                          "No QR Code Image",
+                          style: TextStyle(color: primaryBlack),
+                        ),
+                      ),
+                    );
+                  }
+
+                  return Container(
+                    height: 200,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      color: primaryBlack,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(kBaseURL + kimage),
+                      ),
+                    ),
+                  );
+                },
               ),
               SizedBox(
                 height: 10,

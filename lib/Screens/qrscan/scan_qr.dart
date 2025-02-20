@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/repair_overview.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
 class ScanQr extends StatelessWidget {
@@ -68,15 +70,39 @@ class ScanQr extends StatelessWidget {
           for (final barcode in detectbarcodes) {
             if (barcode.rawValue != null) {
               log('Scanned QR Code: ${barcode.rawValue}');
-
+              String scannedData = barcode.rawValue!;
+              RegExp regExp = RegExp(r'\d+');
+              String? extractedNumber =
+                  regExp.firstMatch(scannedData)?.group(0);
+              if (extractedNumber != null) {
+                if (barcode.rawValue == "ID: $extractedNumber") {
+                  Navigator.of(context)
+                      .pushReplacement(createRoute(RepairOverviewScreen(
+                    id: extractedNumber,
+                  )));
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Invalid QR Code'),
+                        content: Text(
+                            'The scanned QR code does not contain a valid number.'),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                }
+              }
               // Stop scanning to prevent continuous scans
               controller.stop();
-
-              // Handle the scanned data (e.g., navigate or show a dialog)
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Scanned: ${barcode.rawValue}')),
-              );
-
               break; // Exit loop after first valid scan
             }
           }
