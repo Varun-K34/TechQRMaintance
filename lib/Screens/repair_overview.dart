@@ -82,25 +82,38 @@ class RepairOverviewScreen extends StatelessWidget {
               ),
               BlocBuilder<ScanQrBlocBloc, ScanQrBlocState>(
                 builder: (context, state) {
-                  final String? kimage = state.scanData.device!.qrCode;
-                  return kimage == null
-                      ? Text("No Qr code")
-                      : state.isLoading
-                          ? Skeleton(
-                              height: 200,
-                              width: 200,
-                            )
-                          : Container(
-                              height: 200,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                color: primaryBlack,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(kBaseURL + kimage),
-                                ),
-                              ),
-                            );
+                  if (state.isLoading) {
+                    return Skeleton(height: 200, width: 200);
+                  }
+
+                  final String? kimage = state.scanData.device?.qrCode;
+
+                  if (kimage == null || kimage.isEmpty) {
+                    return Container(
+                      height: 200,
+                      width: 200,
+                      color:
+                          Colors.grey[300], // Placeholder in case image is null
+                      child: Center(
+                        child: Text(
+                          "No QR Code Image",
+                          style: TextStyle(color: primaryBlack),
+                        ),
+                      ),
+                    );
+                  }
+
+                  return Container(
+                    height: 200,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      color: primaryBlack,
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(kBaseURL + kimage),
+                      ),
+                    ),
+                  );
                 },
               ),
               SizedBox(
