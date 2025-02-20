@@ -55,9 +55,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<ScanQrBlocBloc>(),
-        )
         ),
-        BlocProvider(create: (context) => getit<CustomerBloc>())
+        BlocProvider(
+          create: (context) => getit<CustomerBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
