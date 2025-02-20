@@ -18,7 +18,7 @@ class DeviceRegService implements DeviceRegRepo {
     try {
       final Response device = await deviceApi.dio
           .post(kBaseURL + kDevice, data: deviceModel.toJson());
-          
+
       if (device.statusCode == 201) {
         return Right("Device Registration Completed");
       } else {
@@ -33,7 +33,8 @@ class DeviceRegService implements DeviceRegRepo {
       }
       return Left(MainFailurs.serverFailure());
     } catch (e) {
-      log('Unexpected error: ${e.toString()}', error: e, stackTrace: StackTrace.current);
+      log('Unexpected error: ${e.toString()}',
+          error: e, stackTrace: StackTrace.current);
       return Left(MainFailurs.clientFailure());
     }
   }

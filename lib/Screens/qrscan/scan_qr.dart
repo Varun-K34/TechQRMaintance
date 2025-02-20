@@ -77,8 +77,6 @@ class ScanQr extends StatelessWidget {
                 SnackBar(content: Text('Scanned: ${barcode.rawValue}')),
               );
 
-              
-
               break; // Exit loop after first valid scan
             }
           }

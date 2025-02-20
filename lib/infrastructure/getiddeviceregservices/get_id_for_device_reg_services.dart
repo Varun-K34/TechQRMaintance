@@ -47,7 +47,7 @@ class GetIdForDeviceRegServices implements GetIdForDeviceRegRepo {
         }
         log(matchingUser.id.toString());
         return Right(matchingUser.id);
-      }else{
+      } else {
         //userLogApi.clearStoredToken();
         log('API Error: Status code ${response.statusCode}');
         return Left(MainFailurs.serverFailure());
