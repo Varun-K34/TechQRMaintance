@@ -6,3 +6,4 @@ const kuserADD = "api/users";
 const kCompliantsGet = "api/complaints/";
 const kDevice = "api/devices";
 const kScanQr = "api/qr-complaints/scan/";
+const kmaintanceHistory = "api/maintenance-histories";

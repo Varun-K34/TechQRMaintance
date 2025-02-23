@@ -44,6 +44,8 @@ import 'package:techqrmaintance/domain/customer_model/customer_repo.dart'
     as _i509;
 import 'package:techqrmaintance/domain/deviceregmodel/device_reg_repo.dart'
     as _i489;
+import 'package:techqrmaintance/domain/historymodel/maintance_history_repo.dart'
+    as _i315;
 import 'package:techqrmaintance/domain/scanqrmodel/scan_qr_repo.dart' as _i899;
 import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart' as _i765;
 import 'package:techqrmaintance/infrastructure/authservices/auth_services.dart'
@@ -60,6 +62,8 @@ import 'package:techqrmaintance/infrastructure/getcomplaintindetailservices/get_
     as _i305;
 import 'package:techqrmaintance/infrastructure/getiddeviceregservices/get_id_for_device_reg_services.dart'
     as _i670;
+import 'package:techqrmaintance/infrastructure/maintancehistoryservices.dart/maintance_history_services.dart'
+    as _i1007;
 import 'package:techqrmaintance/infrastructure/scanqrservices/scan_qr_services.dart'
     as _i649;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
@@ -78,6 +82,8 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.lazySingleton<_i315.MaintanceHistoryRepo>(
+        () => _i1007.MaintanceHistoryServices());
     gh.lazySingleton<_i829.SplashCheckRepo>(() => _i757.CheckLoginServices());
     gh.lazySingleton<_i942.DetailComplaintRepo>(
         () => _i305.GetComplaintInDetailServices());

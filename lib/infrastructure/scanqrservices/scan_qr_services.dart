@@ -11,15 +11,16 @@ import 'package:techqrmaintance/infrastructure/api_token_generator.dart';
 
 @LazySingleton(as: ScanQRRepo)
 class ScanQrServices implements ScanQRRepo {
-  ApiServices scanapi =ApiServices();
+  ApiServices scanapi = ApiServices();
   @override
-  Future<Either<MainFailurs, ScanQrModel>> getScanQrData({required String id}) async{
+  Future<Either<MainFailurs, ScanQrModel>> getScanQrData(
+      {required String id}) async {
     try {
-      final Response qrRespo = await scanapi.dio.get(kBaseURL+kScanQr+id);
-      if (qrRespo.statusCode ==200) {
+      final Response qrRespo = await scanapi.dio.get(kBaseURL + kScanQr + id);
+      if (qrRespo.statusCode == 200) {
         final ScanQrModel scanRespo = ScanQrModel.fromJson(qrRespo.data);
         return Right(scanRespo);
-      }else{
+      } else {
         return Left(MainFailurs.clientFailure());
       }
     } on DioException catch (e) {
@@ -28,10 +29,8 @@ class ScanQrServices implements ScanQRRepo {
         log('Redirect detected to: ${e.response?.headers.value('location')}');
       }
       return Left(MainFailurs.serverFailure());
-    }
-    catch (e) {
+    } catch (e) {
       return Left(MainFailurs.serverFailure());
     }
   }
-  
 }
