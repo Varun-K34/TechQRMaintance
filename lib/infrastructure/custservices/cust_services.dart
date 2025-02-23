@@ -13,7 +13,7 @@ class CustomerServices implements CustomerRepo {
   ApiServices api = ApiServices();
 
   @override
-  Future<Either<MainFailurs, CustomerModel>> createCustomer(
+  Future<Either<MainFailurs, int?>> createCustomer(
       {required CustomerModel customerModel}) async {
     try {
       
@@ -28,7 +28,7 @@ class CustomerServices implements CustomerRepo {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final customerSuccess = CustomerModel.fromJson(response.data);
         log("✅ Customer Created with ID: ${customerSuccess.id}");
-        return Right(customerSuccess);
+        return Right(customerSuccess.id);
       } else {
         await api.clearStoredToken();
         return Left(MainFailurs.serverFailure());
