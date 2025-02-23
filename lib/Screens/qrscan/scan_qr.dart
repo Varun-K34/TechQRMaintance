@@ -92,6 +92,7 @@ class ScanQr extends StatelessWidget {
                           TextButton(
                             onPressed: () {
                               Navigator.of(context).pop();
+                              controller.start();
                             },
                             child: Text('OK'),
                           ),
