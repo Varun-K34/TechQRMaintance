@@ -9,6 +9,7 @@ import 'package:techqrmaintance/domain/deviceregmodel/device_reg_model/device_re
 
 class DeviceRegFormScreen extends StatelessWidget {
   final TextEditingController brandController = TextEditingController();
+  final TextEditingController serialController = TextEditingController();
   final TextEditingController modelController = TextEditingController();
   final TextEditingController regByController = TextEditingController();
   final TextEditingController locController = TextEditingController();
@@ -59,6 +60,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                 valEdit: false,
               ),
               HintAndTextFieldWidget(
+                textController: serialController,
                 hintText: "Enter Serial No",
                 labelText: "Serial No.",
                 containerLen: 60,
@@ -203,6 +205,7 @@ class DeviceRegFormScreen extends StatelessWidget {
   void onPressedButton(BuildContext buttoncontext, int? id) {
     final String brand = brandController.text.trim();
     final String model = modelController.text.trim();
+    final String serial = serialController.text.trim();
     final int? regBy = id;
     final String loc = locController.text.trim();
     final String wExpiry = expiryController.text.trim();
@@ -211,6 +214,7 @@ class DeviceRegFormScreen extends StatelessWidget {
 
     if (brand.isEmpty ||
         model.isEmpty ||
+        serial.isEmpty ||
         regBy == null ||
         loc.isEmpty ||
         wExpiry.isEmpty ||
@@ -226,6 +230,7 @@ class DeviceRegFormScreen extends StatelessWidget {
     final DeviceRegModel regModel = DeviceRegModel(
       brand: brand,
       model: model,
+      serialNo: serial,
       registeredBy: regBy,
       location: loc,
       warrantyExpiry: wExpiry,

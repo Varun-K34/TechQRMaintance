@@ -21,8 +21,6 @@ class PortfolioScreen extends StatelessWidget {
             );
       },
     );
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: primaryWhite,
       appBar: AppBar(

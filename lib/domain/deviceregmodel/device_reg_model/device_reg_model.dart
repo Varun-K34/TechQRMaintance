@@ -6,6 +6,8 @@ part 'device_reg_model.g.dart';
 class DeviceRegModel {
   @JsonKey(name: 'brand')
   String? brand;
+  @JsonKey(name: 'serial_no')
+  String? serialNo;
   @JsonKey(name: 'model')
   String? model;
   @JsonKey(name: 'registered_by')
@@ -22,6 +24,7 @@ class DeviceRegModel {
   DeviceRegModel({
     this.brand,
     this.model,
+    this.serialNo,
     this.registeredBy,
     this.location,
     this.warrantyExpiry,
