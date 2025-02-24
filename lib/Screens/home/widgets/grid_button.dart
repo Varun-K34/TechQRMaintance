@@ -1,10 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/history/services_history.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/customer_finder.dart';
-import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/Screens/qrscan/scan_qr.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 import 'package:techqrmaintance/core/colors.dart';

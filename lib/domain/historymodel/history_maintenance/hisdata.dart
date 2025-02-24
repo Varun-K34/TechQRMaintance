@@ -1,4 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:techqrmaintance/domain/complaintmodel/complanits_list/Technician.dart';
+import 'package:techqrmaintance/domain/complaintmodel/complanits_list/device.dart';
 
 part 'hisdata.g.dart';
 
@@ -11,17 +13,21 @@ class HisData {
   @JsonKey(name: 'technician_id')
   int? technicianId;
   @JsonKey(name: 'service_date')
-  String? serviceDate;
+  DateTime? serviceDate;
   @JsonKey(name: 'service_description')
   String? serviceDescription;
   @JsonKey(name: 'parts_changed')
   String? partsChanged;
   @JsonKey(name: 'service_charge')
-  int? serviceCharge;
+  String? serviceCharge;
   @JsonKey(name: 'photos')
-  List<String>? photos;
+  List<dynamic>? photos;
   @JsonKey(name: 'videos')
-  List<String>? videos;
+  List<dynamic>? videos;
+  @JsonKey(name: 'device')
+  Device? device;
+  @JsonKey(name: 'technician')
+  AssignedTechnician? technician;
 
   HisData({
     this.id,
@@ -33,9 +39,12 @@ class HisData {
     this.serviceCharge,
     this.photos,
     this.videos,
+    this.device,
+    this.technician,
   });
 
-  factory HisData.fromJson(Map<String, dynamic> json) => _$HisDataFromJson(json);
+  factory HisData.fromJson(Map<String, dynamic> json) =>
+      _$HisDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$HisDataToJson(this);
 }

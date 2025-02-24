@@ -5,8 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:techqrmaintance/core/strings.dart';
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
-import 'package:techqrmaintance/domain/historymodel/maintance_history/hisdata.dart';
-import 'package:techqrmaintance/domain/historymodel/maintance_history/maintance_history.dart';
+import 'package:techqrmaintance/domain/historymodel/history_maintenance/hisdata.dart';
 import 'package:techqrmaintance/domain/historymodel/maintance_history_repo.dart';
 import 'package:techqrmaintance/infrastructure/api_token_generator.dart';
 
@@ -17,13 +16,14 @@ class MaintanceHistoryServices implements MaintanceHistoryRepo {
   Future<Either<MainFailurs, List<HisData>>> getMaintanceHistory() async {
     try {
       final Response history =
-          await historyapi.dio.get(kBaseURL + kmaintanceHistory);
+          await historyapi.dio.get(kBaseURL + kmaintanceHistory);      
       if (history.statusCode == 200) {
         final jsonResponse = history.data;
         if (jsonResponse != null && jsonResponse['data'] != null) {
-          final historySuccess =
-              MaintanceHistory.fromJson(jsonResponse['data']);
-          return Right(historySuccess.data!);
+          final List<HisData> historySuccess = (jsonResponse['data'] as List)
+              .map((item) => HisData.fromJson(item))
+              .toList();
+          return Right(historySuccess);
         } else {
           return Left(MainFailurs.serverFailure());
         }

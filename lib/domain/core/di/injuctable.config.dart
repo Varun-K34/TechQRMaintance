@@ -26,6 +26,8 @@ import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dar
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart'
     as _i32;
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart' as _i651;
+import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart'
+    as _i914;
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart'
     as _i142;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
@@ -96,6 +98,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i308.ComplaintRepo>(() => _i396.ComplaintGetServices());
     gh.lazySingleton<_i489.DeviceRegRepo>(() => _i1016.DeviceRegService());
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());
+    gh.factory<_i914.MaintenancehistoryBloc>(
+        () => _i914.MaintenancehistoryBloc(gh<_i315.MaintanceHistoryRepo>()));
     gh.factory<_i142.ScanQrBlocBloc>(
         () => _i142.ScanQrBlocBloc(gh<_i899.ScanQRRepo>()));
     gh.factory<_i651.LogblocBloc>(
