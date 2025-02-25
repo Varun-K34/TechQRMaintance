@@ -1,5 +1,6 @@
 import 'package:techqrmaintance/Screens/home/adddevicebutton/reg_by_qr.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
+import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
@@ -62,6 +63,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<MaintenancehistoryBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<GetLocationBloc>(),
         ),
       ],
       child: MaterialApp(
