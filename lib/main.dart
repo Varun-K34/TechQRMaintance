@@ -1,4 +1,4 @@
-import 'package:techqrmaintance/Screens/history/services_history.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/reg_by_qr.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';

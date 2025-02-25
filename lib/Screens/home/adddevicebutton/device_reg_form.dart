@@ -19,8 +19,9 @@ class DeviceRegFormScreen extends StatelessWidget {
   DeviceRegFormScreen({
     super.key,
     this.id,
+    this.updateid,
   });
-
+  final String? updateid;
   final int? id;
 
   @override

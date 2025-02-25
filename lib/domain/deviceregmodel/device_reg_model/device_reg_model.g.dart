@@ -10,12 +10,13 @@ DeviceRegModel _$DeviceRegModelFromJson(Map<String, dynamic> json) =>
     DeviceRegModel(
       brand: json['brand'] as String?,
       model: json['model'] as String?,
+      serialNo: json['serial_no'] as String?,
       registeredBy: (json['registered_by'] as num?)?.toInt(),
       location: json['location'] as String?,
       warrantyExpiry: json['warranty_expiry'] as String?,
       registeredAt: json['registered_at'] as String?,
       invoiceDetails: json['invoice_details'] as String?,
-    )..serialNo = json['serial_no'] as String?;
+    );
 
 Map<String, dynamic> _$DeviceRegModelToJson(DeviceRegModel instance) =>
     <String, dynamic>{
