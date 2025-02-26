@@ -16,14 +16,10 @@ class CustomerServices implements CustomerRepo {
   Future<Either<MainFailurs, int?>> createCustomer(
       {required CustomerModel customerModel}) async {
     try {
-      
-      
       final Response response = await api.dio.post(
         kBaseURL + kuserADD,
         data: customerModel.toJson(),
       );
-
-      
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         final customerSuccess = CustomerModel.fromJson(response.data);

@@ -3,12 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/Screens/repair_overview.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
 class ScanQr extends StatelessWidget {
+  final int? id;
   final MobileScannerController controller = MobileScannerController();
-  ScanQr({super.key});
+  ScanQr({super.key, this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +78,20 @@ class ScanQr extends StatelessWidget {
                   regExp.firstMatch(scannedData)?.group(0);
               if (extractedNumber != null) {
                 if (barcode.rawValue == "ID: $extractedNumber") {
-                  Navigator.of(context)
-                      .pushReplacement(createRoute(RepairOverviewScreen(
-                    id: extractedNumber,
-                  )));
+                  if (key == Key("Register")) {
+                    Navigator.of(context)
+                        .pushReplacement(createRoute(DeviceRegFormScreen(
+                      key: Key("Register"),
+                      id: id,
+                      updateid: extractedNumber,
+                    )));
+                  } else if (key == Key("Repair")) {
+                    Navigator.of(context)
+                        .pushReplacement(createRoute(RepairOverviewScreen(
+                      key: Key("Repair"),
+                      id: extractedNumber,
+                    )));
+                  }
                 } else {
                   showDialog(
                     context: context,

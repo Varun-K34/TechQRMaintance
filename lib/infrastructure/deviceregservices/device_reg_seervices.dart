@@ -15,6 +15,7 @@ class DeviceRegService implements DeviceRegRepo {
   @override
   Future<Either<MainFailurs, String>> createDevice(
       {required DeviceRegModel deviceModel}) async {
+        log(deviceModel.toJson().toString());
     try {
       final Response device = await deviceApi.dio
           .post(kBaseURL + kDevice, data: deviceModel.toJson());

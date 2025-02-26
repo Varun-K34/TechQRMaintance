@@ -21,8 +21,6 @@ class PortfolioScreen extends StatelessWidget {
             );
       },
     );
-    final height = MediaQuery.sizeOf(context).height;
-    final width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: primaryWhite,
       appBar: AppBar(
@@ -65,8 +63,6 @@ class PortfolioScreen extends StatelessWidget {
                 return state.isLoading
                     ? CircularProgressIndicator()
                     : MiddleWidget(
-                        height: height,
-                        width: width,
                         name: state.userData.name ?? "No Username",
                         dob: state.userData.dob ?? 'No Date of Birth',
                         role: state.userData.role ?? 'No Role',

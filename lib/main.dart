@@ -1,5 +1,6 @@
-import 'package:techqrmaintance/Screens/home/adddevicebutton/customer_create.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/reg_by_qr.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
+import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
+import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart';
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
@@ -58,6 +60,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<CustomerBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<MaintenancehistoryBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<GetLocationBloc>(),
         ),
       ],
       child: MaterialApp(

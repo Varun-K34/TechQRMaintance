@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
@@ -7,6 +5,7 @@ import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/reg_by_qr.dart';
 import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/customer_model/customer_model.dart';
@@ -67,7 +66,8 @@ class CustomerCreate extends StatelessWidget {
                   WidgetsBinding.instance.addPostFrameCallback(
                     (_) {
                       Navigator.of(context)
-                          .pushReplacement(createRoute(DeviceRegFormScreen(
+                          .pushReplacement(createRoute(RegisterByQr(
+                        key: Key("Register"),
                         id: id,
                       )));
                     },
