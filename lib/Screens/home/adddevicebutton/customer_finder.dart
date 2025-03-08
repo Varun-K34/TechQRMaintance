@@ -59,7 +59,9 @@ class CustomerFinder extends StatelessWidget {
                   if (state.id != null) {
                     Navigator.of(context).pushReplacement(
                       createRoute(
-                        RegisterByQr(id: state.id,),
+                        RegisterByQr(
+                          id: state.id,
+                        ),
                       ),
                     );
                   } else if (state.isFailure) {

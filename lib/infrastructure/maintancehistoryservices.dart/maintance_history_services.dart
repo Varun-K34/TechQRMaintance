@@ -16,7 +16,7 @@ class MaintanceHistoryServices implements MaintanceHistoryRepo {
   Future<Either<MainFailurs, List<HisData>>> getMaintanceHistory() async {
     try {
       final Response history =
-          await historyapi.dio.get(kBaseURL + kmaintanceHistory);      
+          await historyapi.dio.get(kBaseURL + kmaintanceHistory);
       if (history.statusCode == 200) {
         final jsonResponse = history.data;
         if (jsonResponse != null && jsonResponse['data'] != null) {

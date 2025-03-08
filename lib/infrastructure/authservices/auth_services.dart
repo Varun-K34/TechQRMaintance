@@ -15,20 +15,24 @@ class AuthServices implements AuthRepoReg {
   @override
   Future<Either<MainFailurs, AuthRegModel>> getAuthRespo(
       {required AuthRegModel authModel}) async {
+        log(authModel.toJson().toString(), name: "AuthServices");
     try {
-      //log(authModel.toJson().toString(), name: "AuthServices");
+      log(authModel.toJson().toString(), name: "AuthServices");
       final Response response =
           await api.dio.post(kBaseURL + kuserADD, data: authModel.toJson());
       //log(response.data.toString());
+      log(response.statusCode.toString(), name: "AuthServices");
       if (response.statusCode == 200 || response.statusCode == 201) {
+        
         final authSucessList = AuthRegModel.fromJson(response.data);
         return Right(authSucessList);
       } else {
-        await api.clearStoredToken();
+        //await api.clearStoredToken();
         return Left(MainFailurs.serverFailure());
       }
     } on DioException catch (e) {
-      await api.clearStoredToken();
+      log(e.message.toString(), name: "AuthServices");
+      //await api.clearStoredToken();
       if (e.response?.statusCode == 302) {
         log('Redirect detected to: ${e.response?.headers.value('location')}');
       }

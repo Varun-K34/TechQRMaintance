@@ -9,7 +9,7 @@ class Customer {
   int? id;
   @JsonKey(name: 'qr_code')
   dynamic qrCode;
-  @JsonKey(name: 'name')
+  @JsonKey(name: 'full_name')
   String? name;
   @JsonKey(name: 'email')
   String? email;
