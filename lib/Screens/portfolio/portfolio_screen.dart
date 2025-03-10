@@ -64,7 +64,8 @@ class PortfolioScreen extends StatelessWidget {
                     ? CircularProgressIndicator()
                     : MiddleWidget(
                         name: state.userData.fullName ?? "No Username",
-                        org: state.userData.organization?.orgName ?? 'No Organization',
+                        org: state.userData.organization?.orgName ??
+                            'No Organization',
                         role: state.userData.role ?? 'No Role',
                       );
               },

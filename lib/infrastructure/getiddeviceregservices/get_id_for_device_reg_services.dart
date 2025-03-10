@@ -6,8 +6,8 @@ import 'package:injectable/injectable.dart';
 import 'package:techqrmaintance/core/strings.dart';
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
 import 'package:techqrmaintance/domain/core/getidfordevicereg/get_id_for_device_reg.dart';
-import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/user_model.dart';
-import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/user_model_list_saas.dart';
+import 'package:techqrmaintance/domain/customer_model/customer_model_list_saas/customer_model_list_saas.dart';
+import 'package:techqrmaintance/domain/customer_model/customer_model_list_saas/customer_model_saas.dart';
 import 'package:techqrmaintance/infrastructure/api_token_generator.dart';
 
 @LazySingleton(as: GetIdForDeviceRegRepo)
@@ -17,10 +17,10 @@ class GetIdForDeviceRegServices implements GetIdForDeviceRegRepo {
   Future<Either<MainFailurs, int?>> getIdforRegerpo(
       {required String email}) async {
     try {
-      final response = await getidApi.dio.get(kBaseURL + kuserADD);
+      final response = await getidApi.dio.get(kBaseURL + kCustomer);
 
       if (response.statusCode == 200) {
-        final userList = UserModelListSaas.fromJson(response.data);
+        final userList = CustomerModelListSaas.fromJson(response.data);
 
         // Check if data is null or empty
         if (userList.data == null || userList.data!.isEmpty) {
@@ -38,7 +38,7 @@ class GetIdForDeviceRegServices implements GetIdForDeviceRegRepo {
           (user) =>
               user.email != null &&
               user.email!.trim().toLowerCase() == sanitizedEmail,
-          orElse: () => UserModel(), // Return empty Customer if not found
+          orElse: () => CustomerModelSaas(), // Return empty Customer if not found
         );
 
         if (matchingUser.email == null) {
