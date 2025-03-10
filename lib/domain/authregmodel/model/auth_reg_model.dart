@@ -5,8 +5,11 @@ part 'auth_reg_model.g.dart';
 
 @JsonSerializable()
 class AuthRegModel {
-  @JsonKey(name: 'name')
-  String? name;
+  @JsonKey(name: 'org_id')
+  int? orgId;
+  @JsonKey(name: 'full_name')
+  // ignore: non_constant_identifier_names
+  String? full_name;
   @JsonKey(name: 'email')
   String? email;
   @JsonKey(name: 'password')
@@ -15,10 +18,12 @@ class AuthRegModel {
   String? role;
 
   AuthRegModel({
-    this.name,
+    this.orgId,
+    // ignore: non_constant_identifier_names
+    this.full_name,
     this.email,
     this.password,
-    this.role = "technician",
+    this.role = "Technician",
   });
 
   factory AuthRegModel.fromJson(Map<String, dynamic> json) {

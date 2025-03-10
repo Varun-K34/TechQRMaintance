@@ -6,7 +6,6 @@ part 'history_maintenance.g.dart';
 
 @JsonSerializable()
 class HistoryMaintenance {
-  
   @JsonKey(name: 'data')
   List<HisData>? data;
 

@@ -73,5 +73,3 @@ class ServicesHistoryScreen extends StatelessWidget {
     );
   }
 }
-
-

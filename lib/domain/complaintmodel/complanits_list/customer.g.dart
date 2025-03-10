@@ -9,7 +9,7 @@ part of 'customer.dart';
 Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
       id: (json['id'] as num?)?.toInt(),
       qrCode: json['qr_code'],
-      name: json['name'] as String?,
+      name: json['full_name'] as String?,
       email: json['email'] as String?,
       emailVerifiedAt: json['email_verified_at'],
       dob: json['dob'],
@@ -27,7 +27,7 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
 Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
       'id': instance.id,
       'qr_code': instance.qrCode,
-      'name': instance.name,
+      'full_name': instance.name,
       'email': instance.email,
       'email_verified_at': instance.emailVerifiedAt,
       'dob': instance.dob,

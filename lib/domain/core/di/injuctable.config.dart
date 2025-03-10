@@ -30,6 +30,8 @@ import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart'
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart' as _i651;
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart'
     as _i914;
+import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart'
+    as _i818;
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart'
     as _i142;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
@@ -52,6 +54,8 @@ import 'package:techqrmaintance/domain/deviceregmodel/device_reg_repo.dart'
     as _i489;
 import 'package:techqrmaintance/domain/historymodel/maintance_history_repo.dart'
     as _i315;
+import 'package:techqrmaintance/domain/organizationmodel/organization_repo.dart'
+    as _i253;
 import 'package:techqrmaintance/domain/scanqrmodel/scan_qr_repo.dart' as _i899;
 import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart' as _i765;
 import 'package:techqrmaintance/infrastructure/authservices/auth_services.dart'
@@ -72,6 +76,8 @@ import 'package:techqrmaintance/infrastructure/getlocationservices/get_loc_servi
     as _i42;
 import 'package:techqrmaintance/infrastructure/maintancehistoryservices.dart/maintance_history_services.dart'
     as _i1007;
+import 'package:techqrmaintance/infrastructure/orgservices/org_services.dart'
+    as _i844;
 import 'package:techqrmaintance/infrastructure/scanqrservices/scan_qr_services.dart'
     as _i649;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
@@ -92,6 +98,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i315.MaintanceHistoryRepo>(
         () => _i1007.MaintanceHistoryServices());
+    gh.lazySingleton<_i253.OrganizationRepo>(() => _i844.OrgServices());
     gh.lazySingleton<_i829.SplashCheckRepo>(() => _i757.CheckLoginServices());
     gh.lazySingleton<_i942.DetailComplaintRepo>(
         () => _i305.GetComplaintInDetailServices());
@@ -117,6 +124,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i638.ComplaintdetailblocBloc(gh<_i942.DetailComplaintRepo>()));
     gh.factory<_i941.ComplaintblocBloc>(
         () => _i941.ComplaintblocBloc(gh<_i308.ComplaintRepo>()));
+    gh.factory<_i818.OranizationBloc>(
+        () => _i818.OranizationBloc(gh<_i253.OrganizationRepo>()));
     gh.factory<_i15.SpblocBloc>(
         () => _i15.SpblocBloc(gh<_i158.SpStoredUser>()));
     gh.factory<_i794.CheckblocBloc>(

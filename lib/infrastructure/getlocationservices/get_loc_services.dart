@@ -11,16 +11,16 @@ class GetLocationServices implements GetLocationRepo {
   @override
   Future<Either<MainFailurs, List<String>>> getLocation() async {
     try {
-      
       LocationSettings locationSettings = LocationSettings(
-        accuracy: LocationAccuracy.high, 
+        accuracy: LocationAccuracy.high,
         distanceFilter: 10,
       );
 
       Position position = await Geolocator.getCurrentPosition(
         locationSettings: locationSettings,
       );
-      return Right([position.latitude.toString(), position.longitude.toString()]);
+      return Right(
+          [position.latitude.toString(), position.longitude.toString()]);
     } catch (e) {
       return Left(MainFailurs.serverFailure());
     }

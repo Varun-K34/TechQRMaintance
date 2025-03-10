@@ -1,13 +1,16 @@
 import 'dart:developer';
 
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
+import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/authregmodel/model/auth_reg_model.dart';
+import 'package:techqrmaintance/domain/organizationmodel/organization_repo.dart';
 
 class SignupScreen extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
@@ -16,10 +19,17 @@ class SignupScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+      
   SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String orgIds = "";
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context
+          .read<OranizationBloc>()
+          .add(OranizationEvent.getOrganizationEvent());
+    });
     return Scaffold(
       backgroundColor: primaryWhite,
       appBar: AppBar(
@@ -41,6 +51,47 @@ class SignupScreen extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
+          //dropdown search
+          BlocBuilder<OranizationBloc, OranizationState>(
+            builder: (context, state) {
+               if (state.isFailure) {
+                 CustomSnackbar.shows(context, message: "somting went wrong");
+               }
+
+              return DropdownSearch(
+                items: (filter, loadProps) {
+                  return state.organizationList.data
+                          ?.map((e) => "(${e.id}) ${e.orgName}")
+                          .toList() ??
+                      [];
+                },
+                onChanged: (value) {
+                final orgId = value.toString().split(")")[0].split("(")[1];
+                orgIds= orgId;
+                  log(orgIds);
+                },
+               popupProps: PopupProps.menu(
+                  showSearchBox: true,
+                  searchFieldProps: TextFieldProps(
+                    decoration: InputDecoration(
+                      labelText: "Search organization",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                ),
+                decoratorProps: DropDownDecoratorProps(
+                  decoration: InputDecoration(
+                    labelText: "organization",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                compareFn: (item1, item2) {
+                  return item1 == item2;
+                },
+              );
+            },
+          ),
+
           CustomTextField(
             hintText: "username",
             controller: _usernameController,
@@ -88,7 +139,7 @@ class SignupScreen extends StatelessWidget {
                         final String password = _passwordController.text.trim();
                         if (username.isEmpty &&
                             email.isEmpty &&
-                            password.isEmpty) {
+                            password.isEmpty&&orgIds.isEmpty) {
                           CustomSnackbar.shows(context,
                               message:
                                   "Please fill in all the fields to proceed");
@@ -107,7 +158,8 @@ class SignupScreen extends StatelessWidget {
                           return;
                         }
                         final model = AuthRegModel(
-                          name: username,
+                          orgId: int.parse(orgIds),
+                          full_name: username,
                           email: email,
                           password: password,
                         );
