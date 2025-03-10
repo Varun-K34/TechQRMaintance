@@ -169,7 +169,6 @@ class DropDownSearchWidget extends StatelessWidget {
       ),
       compareFn: (item1, item2) => item1 == item2,
       autoValidateMode: AutovalidateMode.onUserInteraction,
-      
     );
   }
 }

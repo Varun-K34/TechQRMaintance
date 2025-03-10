@@ -60,9 +60,9 @@ class SignupScreen extends StatelessWidget {
                 key: Key("org"),
                 orgidcontroller: orgidcontroller,
                 states: state.organizationList.data
-                ?.map((e) => "(${e.id}) ${e.orgName}")
-                .toList() ??
-            [],
+                        ?.map((e) => "(${e.id}) ${e.orgName}")
+                        .toList() ??
+                    [],
               );
             },
           ),

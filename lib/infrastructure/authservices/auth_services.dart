@@ -15,7 +15,7 @@ class AuthServices implements AuthRepoReg {
   @override
   Future<Either<MainFailurs, AuthRegModel>> getAuthRespo(
       {required AuthRegModel authModel}) async {
-        log(authModel.toJson().toString(), name: "AuthServices");
+    log(authModel.toJson().toString(), name: "AuthServices");
     try {
       log(authModel.toJson().toString(), name: "AuthServices");
       final Response response =
@@ -23,7 +23,6 @@ class AuthServices implements AuthRepoReg {
       //log(response.data.toString());
       log(response.statusCode.toString(), name: "AuthServices");
       if (response.statusCode == 200 || response.statusCode == 201) {
-        
         final authSucessList = AuthRegModel.fromJson(response.data);
         return Right(authSucessList);
       } else {

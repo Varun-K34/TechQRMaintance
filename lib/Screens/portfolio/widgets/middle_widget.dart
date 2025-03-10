@@ -6,12 +6,12 @@ class MiddleWidget extends StatelessWidget {
   const MiddleWidget({
     super.key,
     required this.name,
-    required this.dob,
+    required this.org,
     required this.role,
   });
 
   final String name;
-  final String dob;
+  final String org;
   final String role;
 
   @override
@@ -35,8 +35,8 @@ class MiddleWidget extends StatelessWidget {
               text: name.toUpperCase(),
             ),
             ContainerInsidevaluesWidgets(
-              icon: Icons.cake_outlined,
-              text: dob,
+              icon: Icons.business_outlined,
+              text: org,
             ),
             ContainerInsidevaluesWidgets(
               icon: Icons.work_outline_outlined,
