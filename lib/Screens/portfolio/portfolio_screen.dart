@@ -63,8 +63,8 @@ class PortfolioScreen extends StatelessWidget {
                 return state.isLoading
                     ? CircularProgressIndicator()
                     : MiddleWidget(
-                        name: state.userData.name ?? "No Username",
-                        dob: state.userData.dob ?? 'No Date of Birth',
+                        name: state.userData.fullName ?? "No Username",
+                        org: state.userData.organization?.orgName ?? 'No Organization',
                         role: state.userData.role ?? 'No Role',
                       );
               },

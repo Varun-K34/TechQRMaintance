@@ -172,7 +172,7 @@ abstract class GetSpStoredData implements SpblocEvent {
 
 /// @nodoc
 mixin _$SpblocState {
-  Customer get userData => throw _privateConstructorUsedError;
+  UserModel get userData => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
 
@@ -189,7 +189,7 @@ abstract class $SpblocStateCopyWith<$Res> {
           SpblocState value, $Res Function(SpblocState) then) =
       _$SpblocStateCopyWithImpl<$Res, SpblocState>;
   @useResult
-  $Res call({Customer userData, bool isLoading, bool isFailure});
+  $Res call({UserModel userData, bool isLoading, bool isFailure});
 }
 
 /// @nodoc
@@ -215,7 +215,7 @@ class _$SpblocStateCopyWithImpl<$Res, $Val extends SpblocState>
       userData: null == userData
           ? _value.userData
           : userData // ignore: cast_nullable_to_non_nullable
-              as Customer,
+              as UserModel,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -236,7 +236,7 @@ abstract class _$$ComplaintblocStateImplCopyWith<$Res>
       __$$ComplaintblocStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Customer userData, bool isLoading, bool isFailure});
+  $Res call({UserModel userData, bool isLoading, bool isFailure});
 }
 
 /// @nodoc
@@ -260,7 +260,7 @@ class __$$ComplaintblocStateImplCopyWithImpl<$Res>
       userData: null == userData
           ? _value.userData
           : userData // ignore: cast_nullable_to_non_nullable
-              as Customer,
+              as UserModel,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -282,7 +282,7 @@ class _$ComplaintblocStateImpl implements _ComplaintblocState {
       required this.isFailure});
 
   @override
-  final Customer userData;
+  final UserModel userData;
   @override
   final bool isLoading;
   @override
@@ -321,12 +321,12 @@ class _$ComplaintblocStateImpl implements _ComplaintblocState {
 
 abstract class _ComplaintblocState implements SpblocState {
   const factory _ComplaintblocState(
-      {required final Customer userData,
+      {required final UserModel userData,
       required final bool isLoading,
       required final bool isFailure}) = _$ComplaintblocStateImpl;
 
   @override
-  Customer get userData;
+  UserModel get userData;
   @override
   bool get isLoading;
   @override

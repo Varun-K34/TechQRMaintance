@@ -5,6 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:techqrmaintance/domain/complaintmodel/complanits_list/customer.dart';
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
 import 'package:techqrmaintance/domain/core/spstoreduser/sp_stored_repo.dart';
+import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/user_model.dart';
 
 part 'spbloc_event.dart';
 part 'spbloc_state.dart';
@@ -24,7 +25,7 @@ class SpblocBloc extends Bloc<SpblocEvent, SpblocState> {
             isLoading: false,
             isFailure: true,
           )),
-          (Customer r) => emit(state.copyWith(
+          (UserModel r) => emit(state.copyWith(
             isLoading: false,
             isFailure: false,
             userData: r,

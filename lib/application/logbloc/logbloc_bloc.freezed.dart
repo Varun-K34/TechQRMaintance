@@ -232,7 +232,7 @@ abstract class Login implements LogblocEvent {
 
 /// @nodoc
 mixin _$LogblocState {
-  Customer get userModelLists => throw _privateConstructorUsedError;
+  UserModel get userModelLists => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
   bool get isSuccess => throw _privateConstructorUsedError;
@@ -251,7 +251,7 @@ abstract class $LogblocStateCopyWith<$Res> {
       _$LogblocStateCopyWithImpl<$Res, LogblocState>;
   @useResult
   $Res call(
-      {Customer userModelLists,
+      {UserModel userModelLists,
       bool isLoading,
       bool isFailure,
       bool isSuccess});
@@ -281,7 +281,7 @@ class _$LogblocStateCopyWithImpl<$Res, $Val extends LogblocState>
       userModelLists: null == userModelLists
           ? _value.userModelLists
           : userModelLists // ignore: cast_nullable_to_non_nullable
-              as Customer,
+              as UserModel,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -307,7 +307,7 @@ abstract class _$$LogblocStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Customer userModelLists,
+      {UserModel userModelLists,
       bool isLoading,
       bool isFailure,
       bool isSuccess});
@@ -335,7 +335,7 @@ class __$$LogblocStateImplCopyWithImpl<$Res>
       userModelLists: null == userModelLists
           ? _value.userModelLists
           : userModelLists // ignore: cast_nullable_to_non_nullable
-              as Customer,
+              as UserModel,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -362,7 +362,7 @@ class _$LogblocStateImpl implements _LogblocState {
       required this.isSuccess});
 
   @override
-  final Customer userModelLists;
+  final UserModel userModelLists;
   @override
   final bool isLoading;
   @override
@@ -405,13 +405,13 @@ class _$LogblocStateImpl implements _LogblocState {
 
 abstract class _LogblocState implements LogblocState {
   const factory _LogblocState(
-      {required final Customer userModelLists,
+      {required final UserModel userModelLists,
       required final bool isLoading,
       required final bool isFailure,
       required final bool isSuccess}) = _$LogblocStateImpl;
 
   @override
-  Customer get userModelLists;
+  UserModel get userModelLists;
   @override
   bool get isLoading;
   @override

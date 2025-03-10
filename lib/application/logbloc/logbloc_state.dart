@@ -3,7 +3,7 @@ part of 'logbloc_bloc.dart';
 @freezed
 class LogblocState with _$LogblocState {
   const factory LogblocState({
-    required Customer userModelLists,
+    required UserModel userModelLists,
     required bool isLoading,
     required bool isFailure,
     required bool isSuccess,
@@ -11,7 +11,7 @@ class LogblocState with _$LogblocState {
 
   factory LogblocState.initial() {
     return LogblocState(
-      userModelLists: Customer(),
+      userModelLists: UserModel(),
       isLoading: false,
       isFailure: false,
       isSuccess: false,

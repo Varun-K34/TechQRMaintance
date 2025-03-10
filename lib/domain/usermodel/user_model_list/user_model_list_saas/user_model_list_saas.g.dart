@@ -1,20 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_model_list.dart';
+part of 'user_model_list_saas.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserModelList _$UserModelListFromJson(Map<String, dynamic> json) =>
-    UserModelList(
+UserModelListSaas _$UserModelListSaasFromJson(Map<String, dynamic> json) =>
+    UserModelListSaas(
       data: (json['data'] as List<dynamic>?)
-              ?.map((e) => Customer.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+          ?.map((e) => UserModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$UserModelListToJson(UserModelList instance) =>
+Map<String, dynamic> _$UserModelListSaasToJson(UserModelListSaas instance) =>
     <String, dynamic>{
       'data': instance.data,
     };

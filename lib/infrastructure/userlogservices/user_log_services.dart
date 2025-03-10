@@ -6,22 +6,22 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:techqrmaintance/core/strings.dart';
-import 'package:techqrmaintance/domain/complaintmodel/complanits_list/customer.dart';
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
 import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart';
-import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list.dart';
+import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/user_model.dart';
+import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/user_model_list_saas.dart';
 import 'package:techqrmaintance/infrastructure/api_token_generator.dart';
 
 @LazySingleton(as: UserLogRepo)
 class UserLogServices implements UserLogRepo {
   ApiServices userLogApi = ApiServices();
   @override
-  Future<Either<MainFailurs, Customer>> getUserLogList(email) async {
+  Future<Either<MainFailurs, UserModel>> getUserLogList(email) async {
     try {
       final response = await userLogApi.dio.get(kBaseURL + kuserADD);
 
       if (response.statusCode == 200) {
-        final userList = UserModelList.fromJson(response.data);
+        final userList = UserModelListSaas.fromJson(response.data);
 
         // Check if data is null or empty
         if (userList.data == null || userList.data!.isEmpty) {
@@ -39,7 +39,7 @@ class UserLogServices implements UserLogRepo {
           (user) =>
               user.email != null &&
               user.email!.trim().toLowerCase() == sanitizedEmail,
-          orElse: () => Customer(), // Return empty Customer if not found
+          orElse: () => UserModel(), // Return empty Customer if not found
         );
 
         if (matchingUser.email == null) {

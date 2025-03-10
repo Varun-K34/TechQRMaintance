@@ -13,21 +13,19 @@ class OrgServices implements OrganizationRepo {
   ApiServices orgapi = ApiServices();
 
   @override
-  Future<Either<MainFailurs, OrganizationModel>>
-      getOrganizations() async {
+  Future<Either<MainFailurs, OrganizationModel>> getOrganizations() async {
     try {
       final Response orgresponse = await orgapi.dio.get(kBaseURL + kOrg);
       log("API Response: ${orgresponse.data.toString()}");
 
       if (orgresponse.statusCode == 200) {
-     final orgdata =    OrganizationModel.fromJson(orgresponse.data);
+        final orgdata = OrganizationModel.fromJson(orgresponse.data);
         return Right(orgdata);
-        } else {
-          log("Unexpected JSON format: ${orgresponse.data}");
-          return Left(MainFailurs.serverFailure());
-        }
-      } 
-     on DioException catch (e) {
+      } else {
+        log("Unexpected JSON format: ${orgresponse.data}");
+        return Left(MainFailurs.serverFailure());
+      }
+    } on DioException catch (e) {
       orgapi.clearStoredToken();
       log("DioException: $e");
       return Left(MainFailurs.clientFailure());
@@ -38,4 +36,3 @@ class OrgServices implements OrganizationRepo {
     }
   }
 }
-
