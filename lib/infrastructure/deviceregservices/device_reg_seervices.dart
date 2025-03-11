@@ -5,8 +5,8 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:techqrmaintance/core/strings.dart';
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
-import 'package:techqrmaintance/domain/deviceregmodel/device_reg_model/device_reg_model.dart';
 import 'package:techqrmaintance/domain/deviceregmodel/device_reg_repo.dart';
+import 'package:techqrmaintance/domain/deviceregmodel/devices_reg_model_saas/device_model_saas.dart';
 import 'package:techqrmaintance/infrastructure/api_token_generator.dart';
 
 @LazySingleton(as: DeviceRegRepo)
@@ -14,7 +14,7 @@ class DeviceRegService implements DeviceRegRepo {
   ApiServices deviceApi = ApiServices();
   @override
   Future<Either<MainFailurs, String>> createDevice(
-      {required DeviceRegModel deviceModel}) async {
+      {required DeviceModelSaas deviceModel}) async {
     log(deviceModel.toJson().toString());
     try {
       final Response device = await deviceApi.dio

@@ -2,13 +2,17 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
 class DropDownSearchWidget extends StatelessWidget {
-  final TextEditingController? orgidcontroller;
+  final TextEditingController? controller;
   final List<String>? states;
+  final String? scarchLabel;
+  final String? dropdownLabel;
 
   const DropDownSearchWidget({
     super.key,
-    this.orgidcontroller,
+    this.controller,
     this.states,
+    this.scarchLabel,
+    this.dropdownLabel,
   });
 
   @override
@@ -23,8 +27,16 @@ class DropDownSearchWidget extends StatelessWidget {
         return states ?? [];
       },
       onChanged: (value) {
-        final orgId = value.toString().split(")")[0].split("(")[1];
-        orgidcontroller?.text = orgId;
+        if (Key("org") == key) {
+          if (value != null) {
+            final orgId = value.split(")")[0].split("(")[1];
+            controller?.text = orgId;
+          }
+        } else if (key == Key("catagory")) {
+          if (value != null) {
+            controller?.text = value;
+          }
+        }
       },
       popupProps: PopupProps.bottomSheet(
         showSearchBox: true,
@@ -54,7 +66,7 @@ class DropDownSearchWidget extends StatelessWidget {
         },
         searchFieldProps: TextFieldProps(
           decoration: InputDecoration(
-            labelText: "Search organization",
+            labelText: scarchLabel,
             hintText: "Type to search...",
             prefixIcon: Icon(Icons.search, color: theme.primaryColor),
             border: OutlineInputBorder(
@@ -123,12 +135,12 @@ class DropDownSearchWidget extends StatelessWidget {
       ),
       decoratorProps: DropDownDecoratorProps(
         decoration: InputDecoration(
-          labelText: "Organization",
+          labelText: dropdownLabel,
           labelStyle: TextStyle(
             fontWeight: FontWeight.w500,
             color: theme.primaryColor,
           ),
-          hintText: "Select an organization",
+          hintText: "Select an $dropdownLabel",
           prefixIcon: Icon(
             Icons.business_center_rounded,
             color: theme.primaryColor,

@@ -9,3 +9,4 @@ const kScanQr = "api/qr-complaints/scan/";
 const kmaintanceHistory = "api/maintenance-histories";
 const kOrg = "api/organizations";
 const kCustomer = "api/customers";
+const kCatagory = "api/device-categories";
