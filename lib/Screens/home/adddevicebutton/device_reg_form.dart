@@ -11,6 +11,7 @@ import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_te
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
+import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/deviceregmodel/devices_reg_model_saas/device_model_saas.dart';
 
@@ -40,6 +41,9 @@ class DeviceRegFormScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         context.read<CatogoryBloc>().add(CatogoryEvent.getCatogory());
+        context
+            .read<RequestScanQrEndpoindBloc>()
+            .add(RequestScanQrEndpoindEvent.getQrdata(id: updateid ?? ""));
       },
     );
     return Scaffold(
@@ -57,164 +61,178 @@ class DeviceRegFormScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 30),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              BlocBuilder<CatogoryBloc, CatogoryState>(
-                builder: (context, state) {
-                  // if (state.isFailure) {
-                  //   CustomSnackbar.shows(context,
-                  //       message: "can't fatch catagory");
-                  // }
-                  return DropDownSearchWidget(
-                    states: state.complaints.data
-                            ?.map(
-                              (catName) => "${catName.name}",
-                            )
-                            .toList() ??
-                        [],
-                    controller: catagoryController,
-                    dropdownLabel: "catagory",
-                    scarchLabel: "Search Catagory",
-                    key: Key("catagory"),
-                  );
-                },
-              ),
+          child: BlocBuilder<RequestScanQrEndpoindBloc, RequestScanQrEndpoindState>(
+            builder: (context, state) {
+              try {
+                qrcontroller.text = state.qrData.id.toString();
+                orgController.text = state.qrData.orgId.toString();
+                log("${qrcontroller.text} ${orgController.text}",
+                    name: "check");
+              } catch (e) {
+                log(e.toString(), name: "excption for qr and org");
+              }
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BlocBuilder<CatogoryBloc, CatogoryState>(
+                    builder: (context, state) {
+                      // if (state.isFailure) {
+                      //   CustomSnackbar.shows(context,
+                      //       message: "can't fatch catagory");
+                      // }
+                      return DropDownSearchWidget(
+                        states: state.complaints.data
+                                ?.map(
+                                  (catName) => "${catName.id}${catName.name}",
+                                )
+                                .toList() ??
+                            [],
+                        controller: catagoryController,
+                        dropdownLabel: "catagory",
+                        scarchLabel: "Search Catagory",
+                        key: Key("catagory"),
+                      );
+                    },
+                  ),
 
-              HintAndTextFieldWidget(
-                hintText: orgController.text,
-                containerLen: 60,
-                labelText: "organization",
-                curve: 30,
-                valEdit: true,
-              ),
-              HintAndTextFieldWidget(
-                textController: brandController,
-                hintText: "Enter Brand",
-                labelText: "Brand",
-                containerLen: 60,
-                curve: 30,
-                valEdit: false,
-              ),
-              HintAndTextFieldWidget(
-                textController: modelController,
-                hintText: "Enter Model No.",
-                labelText: "Model No.",
-                containerLen: 60,
-                curve: 30,
-                valEdit: false,
-              ),
-              HintAndTextFieldWidget(
-                textController: serialController,
-                hintText: "Enter Serial No",
-                labelText: "Serial No.",
-                containerLen: 60,
-                curve: 30,
-                valEdit: false,
-              ),
-              HintAndTextFieldWidget(
-                  hintText: qrcontroller.text,
-                  labelText: "Qr Code",
-                  curve: 30,
-                  containerLen: 60,
-                  valEdit: true),
-              HintAndTextFieldWidget(
-                textController: regByController,
-                hintText: "$id",
-                labelText: "Registered By",
-                containerLen: 60,
-                curve: 30,
-                valEdit: true,
-              ),
+                  HintAndTextFieldWidget(
+                    hintText: orgController.text,
+                    containerLen: 60,
+                    labelText: "organization",
+                    curve: 30,
+                    valEdit: true,
+                  ),
+                  HintAndTextFieldWidget(
+                    textController: brandController,
+                    hintText: "Enter Brand",
+                    labelText: "Brand",
+                    containerLen: 60,
+                    curve: 30,
+                    valEdit: false,
+                  ),
+                  HintAndTextFieldWidget(
+                    textController: modelController,
+                    hintText: "Enter Model No.",
+                    labelText: "Model No.",
+                    containerLen: 60,
+                    curve: 30,
+                    valEdit: false,
+                  ),
+                  HintAndTextFieldWidget(
+                    textController: serialController,
+                    hintText: "Enter Serial No",
+                    labelText: "Serial No.",
+                    containerLen: 60,
+                    curve: 30,
+                    valEdit: false,
+                  ),
+                  HintAndTextFieldWidget(
+                      hintText: qrcontroller.text,
+                      labelText: "Qr Code",
+                      curve: 30,
+                      containerLen: 60,
+                      valEdit: true),
+                  HintAndTextFieldWidget(
+                    textController: regByController,
+                    hintText: "$id",
+                    labelText: "Registered By",
+                    containerLen: 60,
+                    curve: 30,
+                    valEdit: true,
+                  ),
 
-              HintAndTextFieldWidget(
-                  textController: locController,
-                  hintText: "Enter Location",
-                  labelText: "Location",
-                  containerLen: 60,
-                  curve: 30,
-                  valEdit: true,
-                  suffix: BlocConsumer<GetLocationBloc, GetLocationState>(
+                  HintAndTextFieldWidget(
+                      textController: locController,
+                      hintText: "Enter Location",
+                      labelText: "Location",
+                      containerLen: 60,
+                      curve: 30,
+                      valEdit: true,
+                      suffix: BlocConsumer<GetLocationBloc, GetLocationState>(
+                        listener: (context, state) {
+                          if (state.isFailure) {
+                            CustomSnackbar.shows(
+                              context,
+                              message:
+                                  "Failed to get location. Please try again.",
+                            );
+                          } else if (state.location.isNotEmpty) {
+                            final String latitude = state.location[0];
+                            final String longitude = state.location[1];
+                            locController.text =
+                                "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
+                          }
+                        },
+                        builder: (context, state) {
+                          return state.isLoading
+                              ? BlinkingLocationIcon()
+                              : InkWell(
+                                  onTap: () => onPressedLoc(context),
+                                  child: Icon(Icons.my_location_outlined));
+                        },
+                      )),
+                  HintAndTextFieldWidget(
+                    textController: expiryController,
+                    hintText: "Enter Warranty months",
+                    labelText: "Warranty Period",
+                    containerLen: 60,
+                    curve: 30,
+                    valEdit: false,
+                  ),
+                  HintAndTextFieldWidget(
+                    textController: installationController,
+                    hintText: "Enter Installation Date",
+                    labelText: "Installation Date",
+                    containerLen: 60,
+                    curve: 30,
+                    valEdit: true,
+                    suffix: IconButton(
+                      onPressed: () => onPressedSuffixReg(context),
+                      icon: Icon(Icons.date_range_outlined),
+                    ),
+                  ),
+                  HintAndTextFieldWidget(
+                    textController: freeMaintenanceController,
+                    maxLine: 5,
+                    hintText: "Free Maintenance months",
+                    labelText: "Free Maintenance",
+                    containerLen: 60,
+                    curve: 30,
+                    valEdit: false,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  // CustomButton
+                  BlocConsumer<DeviceregblocBloc, DeviceregblocState>(
                     listener: (context, state) {
                       if (state.isFailure) {
                         CustomSnackbar.shows(
                           context,
-                          message: "Failed to get location. Please try again.",
+                          message:
+                              "Device registration failed. Please try again.",
                         );
-                      } else if (state.location.isNotEmpty) {
-                        final String latitude = state.location[0];
-                        final String longitude = state.location[1];
-                        locController.text =
-                            "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
+                      } else if (state.text.isNotEmpty) {
+                        CustomSnackbar.shows(
+                          context,
+                          message: state.text,
+                        );
                       }
                     },
                     builder: (context, state) {
                       return state.isLoading
-                          ? BlinkingLocationIcon()
-                          : InkWell(
-                              onTap: () => onPressedLoc(context),
-                              child: Icon(Icons.my_location_outlined));
+                          ? CircularProgressIndicator(
+                              strokeWidth: 2,
+                            )
+                          : CustomMaterialButton(
+                              text: "REGISTER",
+                              onPressed: () => onPressedButton(context, id),
+                            );
                     },
-                  )),
-              HintAndTextFieldWidget(
-                textController: expiryController,
-                hintText: "Enter Warranty months",
-                labelText: "Warranty Period",
-                containerLen: 60,
-                curve: 30,
-                valEdit: false,
-              ),
-              HintAndTextFieldWidget(
-                textController: installationController,
-                hintText: "Enter Installation Date",
-                labelText: "Installation Date",
-                containerLen: 60,
-                curve: 30,
-                valEdit: true,
-                suffix: IconButton(
-                  onPressed: () => onPressedSuffixReg(context),
-                  icon: Icon(Icons.date_range_outlined),
-                ),
-              ),
-              HintAndTextFieldWidget(
-                textController: freeMaintenanceController,
-                maxLine: 5,
-                hintText: "Free Maintenance months",
-                labelText: "Free Maintenance",
-                containerLen: 60,
-                curve: 30,
-                valEdit: false,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              // CustomButton
-              BlocConsumer<DeviceregblocBloc, DeviceregblocState>(
-                listener: (context, state) {
-                  if (state.isFailure) {
-                    CustomSnackbar.shows(
-                      context,
-                      message: "Device registration failed. Please try again.",
-                    );
-                  } else if (state.text.isNotEmpty) {
-                    CustomSnackbar.shows(
-                      context,
-                      message: state.text,
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  return state.isLoading
-                      ? CircularProgressIndicator(
-                          strokeWidth: 2,
-                        )
-                      : CustomMaterialButton(
-                          text: "REGISTER",
-                          onPressed: () => onPressedButton(context, id),
-                        );
-                },
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -267,20 +285,90 @@ class DeviceRegFormScreen extends StatelessWidget {
     final String installationdate = installationController.text.trim();
     final String freemaintenance = freeMaintenanceController.text.trim();
 
-    if (brand.isEmpty ||
-        model.isEmpty ||
-        serial.isEmpty ||
-        regBy == null ||
-        loc.isEmpty ||
-        wExpiry.isEmpty ||
-        installationdate.isEmpty ||
-        freemaintenance.isEmpty ||
-        catagoryController.text.isEmpty ||
-        orgController.text.isEmpty ||
-        qrcontroller.text.isEmpty) {
+    if (brand.isEmpty) {
       CustomSnackbar.shows(
-        buttoncontext,
-        message: "Please fill in all the fields.",
+      buttoncontext,
+      message: "Please enter the brand.",
+      );
+      return;
+    }
+
+    if (model.isEmpty) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "Please enter the model.",
+      );
+      return;
+    }
+
+    if (serial.isEmpty) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "Please enter the serial number.",
+      );
+      return;
+    }
+
+    if (regBy == null) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "Registered By is missing.",
+      );
+      return;
+    }
+
+    if (loc.isEmpty) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "Please enter the location.",
+      );
+      return;
+    }
+
+    if (wExpiry.isEmpty) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "Please enter the warranty period.",
+      );
+      return;
+    }
+
+    if (installationdate.isEmpty) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "Please enter the installation date.",
+      );
+      return;
+    }
+
+    if (freemaintenance.isEmpty) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "Please enter the free maintenance period.",
+      );
+      return;
+    }
+
+    if (catagoryController.text.isEmpty) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "Please select a category.",
+      );
+      return;
+    }
+
+    if (orgController.text.isEmpty) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "Organization ID is missing.",
+      );
+      return;
+    }
+
+    if (qrcontroller.text.isEmpty) {
+      CustomSnackbar.shows(
+      buttoncontext,
+      message: "QR code is missing.",
       );
       return;
     }

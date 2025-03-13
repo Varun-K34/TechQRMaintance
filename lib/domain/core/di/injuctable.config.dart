@@ -34,6 +34,8 @@ import 'package:techqrmaintance/application/maintenancehistory/maintenancehistor
     as _i914;
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart'
     as _i818;
+import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart'
+    as _i143;
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart'
     as _i142;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
@@ -48,6 +50,8 @@ import 'package:techqrmaintance/domain/core/getidfordevicereg/get_id_for_device_
     as _i1051;
 import 'package:techqrmaintance/domain/core/getlocation/get_loc_repo.dart'
     as _i399;
+import 'package:techqrmaintance/domain/core/requestqrrepo/req_scan_qr_repo.dart'
+    as _i279;
 import 'package:techqrmaintance/domain/core/splashcheck/splash_check.dart'
     as _i829;
 import 'package:techqrmaintance/domain/core/spstoreduser/sp_stored_repo.dart'
@@ -84,6 +88,8 @@ import 'package:techqrmaintance/infrastructure/maintancehistoryservices.dart/mai
     as _i1007;
 import 'package:techqrmaintance/infrastructure/orgservices/org_services.dart'
     as _i844;
+import 'package:techqrmaintance/infrastructure/requestqrendpointservices/req_qr_endpoint_services.dart'
+    as _i834;
 import 'package:techqrmaintance/infrastructure/scanqrservices/scan_qr_services.dart'
     as _i649;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
@@ -110,12 +116,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i942.DetailComplaintRepo>(
         () => _i305.GetComplaintInDetailServices());
     gh.lazySingleton<_i399.GetLocationRepo>(() => _i42.GetLocationServices());
+    gh.lazySingleton<_i279.ReqScanQrRepo>(() => _i834.ReqQrEndpointServices());
     gh.lazySingleton<_i509.CustomerRepo>(() => _i338.CustomerServices());
     gh.lazySingleton<_i158.SpStoredUser>(() => _i1027.SpStoredItem());
     gh.lazySingleton<_i899.ScanQRRepo>(() => _i649.ScanQrServices());
     gh.lazySingleton<_i1051.GetIdForDeviceRegRepo>(
         () => _i670.GetIdForDeviceRegServices());
     gh.lazySingleton<_i765.UserLogRepo>(() => _i819.UserLogServices());
+    gh.factory<_i143.RequestScanQrEndpoindBloc>(
+        () => _i143.RequestScanQrEndpoindBloc(gh<_i279.ReqScanQrRepo>()));
     gh.lazySingleton<_i308.ComplaintRepo>(() => _i396.ComplaintGetServices());
     gh.lazySingleton<_i489.DeviceRegRepo>(() => _i1016.DeviceRegService());
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());

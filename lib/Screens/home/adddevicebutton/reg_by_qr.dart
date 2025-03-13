@@ -27,10 +27,14 @@ class RegisterByQr extends StatelessWidget {
       body: Center(
         child: InkWell(
           onTap: () {
-            Navigator.of(context).push(createRoute(ScanQr(
-              id: id,
-              key: Key("Register"),
-            )));
+            Navigator.of(context).push(
+              createRoute(
+                ScanQr(
+                  id: id,
+                  key: Key("Register"),
+                ),
+              ),
+            );
           },
           child: QrButton(),
         ),

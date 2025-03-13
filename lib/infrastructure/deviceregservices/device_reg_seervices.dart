@@ -17,18 +17,24 @@ class DeviceRegService implements DeviceRegRepo {
       {required DeviceModelSaas deviceModel}) async {
     log(deviceModel.toJson().toString());
     try {
-      final Response device = await deviceApi.dio
-          .post(kBaseURL + kDevice, data: deviceModel.toJson());
+      Map<String, dynamic> sanitizedJson = deviceModel.toJson();
+      sanitizedJson
+          .removeWhere((key, value) => value == null && key != 'technician_id');
+
+      log(sanitizedJson.toString(), name: "regservices");
+
+      final Response device =
+          await deviceApi.dio.post(kBaseURL + kDevice, data: sanitizedJson);
 
       if (device.statusCode == 201) {
         return Right("Device Registration Completed");
       } else {
-        //await deviceApi.clearStoredToken();
+        await deviceApi.clearStoredToken();
         return Left(MainFailurs.clientFailure());
       }
     } on DioException catch (e) {
       log('DioException: ${e.message}', error: e);
-      //await deviceApi.clearStoredToken();
+      await deviceApi.clearStoredToken();
       if (e.response?.statusCode == 302) {
         log('Redirect detected to: ${e.response?.headers.value('location')}');
       }

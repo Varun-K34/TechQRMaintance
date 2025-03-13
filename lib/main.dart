@@ -12,6 +12,7 @@ import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart'
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart';
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
+import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
@@ -75,6 +76,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getit<CatogoryBloc>(),
         ),
+        BlocProvider(
+          create: (context) => getit<RequestScanQrEndpoindBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -83,7 +87,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: DeviceRegFormScreen(),
+        home: SplashScreen(),
       ),
     );
   }
