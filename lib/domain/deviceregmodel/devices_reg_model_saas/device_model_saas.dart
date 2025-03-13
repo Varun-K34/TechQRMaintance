@@ -71,19 +71,20 @@ class DeviceModelSaas {
     this.documents,
   });
 
-  DeviceModelSaas.create(
-      {this.orgId,
-      this.customerId,
-      this.technicianId,
-      this.qrId,
-      this.brand,
-      this.categoryId,
-      this.model,
-      this.serialNumber,
-      this.installationDate,
-      this.warrantyPeriod,
-      this.freeMaintenance,
-      this.locationDetails});
+  DeviceModelSaas.create({
+    this.orgId,
+    this.customerId,
+    this.technicianId,
+    this.qrId,
+    this.brand,
+    this.categoryId,
+    this.model,
+    this.serialNumber,
+    this.installationDate,
+    this.warrantyPeriod,
+    this.freeMaintenance,
+    this.locationDetails,
+  });
 
   factory DeviceModelSaas.fromJson(Map<String, dynamic> json) =>
       _$DeviceModelSaasFromJson(json);

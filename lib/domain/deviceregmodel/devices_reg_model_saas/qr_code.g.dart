@@ -13,6 +13,17 @@ QrCode _$QrCodeFromJson(Map<String, dynamic> json) => QrCode(
       qrType: json['qr_type'] as String?,
       assignedToId: (json['assigned_to_id'] as num?)?.toInt(),
       status: json['status'] as String?,
+      organization: json['organization'] == null
+          ? null
+          : Organization.fromJson(json['organization'] as Map<String, dynamic>),
+      assignedCustomer: json['assigned_customer'] == null
+          ? null
+          : UserModel.fromJson(
+              json['assigned_customer'] as Map<String, dynamic>),
+      assignedDevice: json['assigned_device'] == null
+          ? null
+          : DeviceModelSaas.fromJson(
+              json['assigned_device'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$QrCodeToJson(QrCode instance) => <String, dynamic>{
@@ -22,4 +33,7 @@ Map<String, dynamic> _$QrCodeToJson(QrCode instance) => <String, dynamic>{
       'qr_type': instance.qrType,
       'assigned_to_id': instance.assignedToId,
       'status': instance.status,
+      'organization': instance.organization,
+      'assigned_customer': instance.assignedCustomer,
+      'assigned_device': instance.assignedDevice,
     };
