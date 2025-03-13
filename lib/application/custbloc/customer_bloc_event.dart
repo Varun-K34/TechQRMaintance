@@ -5,6 +5,6 @@ class CustomerEvent with _$CustomerEvent {
   /*
    * Signup for Customer
    */
-  const factory CustomerEvent.signup({required CustomerModel customerModel}) =
+  const factory CustomerEvent.signup({required CustomerModelSaas customerModel}) =
       CustomerSignup;
 }
