@@ -15,6 +15,8 @@ import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart'
     as _i600;
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart'
     as _i941;
+import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart'
+    as _i737;
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart'
     as _i794;
 import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart'
@@ -36,6 +38,8 @@ import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart'
     as _i142;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
 import 'package:techqrmaintance/domain/authregmodel/auth_repo.dart' as _i291;
+import 'package:techqrmaintance/domain/catagorymodel/catagory_get_repo.dart'
+    as _i185;
 import 'package:techqrmaintance/domain/complaintindetail/complaint_in_detail.dart'
     as _i942;
 import 'package:techqrmaintance/domain/complaintmodel/complaint_repo.dart'
@@ -60,6 +64,8 @@ import 'package:techqrmaintance/domain/scanqrmodel/scan_qr_repo.dart' as _i899;
 import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart' as _i765;
 import 'package:techqrmaintance/infrastructure/authservices/auth_services.dart'
     as _i447;
+import 'package:techqrmaintance/infrastructure/catagorygetservices/catagory_get_services.dart'
+    as _i1055;
 import 'package:techqrmaintance/infrastructure/checkloginservices/check_login_service.dart'
     as _i757;
 import 'package:techqrmaintance/infrastructure/complaintgetservices/complaint_get_services.dart'
@@ -96,6 +102,7 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.lazySingleton<_i185.CatagoryGetRepo>(() => _i1055.CatagoryServices());
     gh.lazySingleton<_i315.MaintanceHistoryRepo>(
         () => _i1007.MaintanceHistoryServices());
     gh.lazySingleton<_i253.OrganizationRepo>(() => _i844.OrgServices());
@@ -114,6 +121,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());
     gh.factory<_i914.MaintenancehistoryBloc>(
         () => _i914.MaintenancehistoryBloc(gh<_i315.MaintanceHistoryRepo>()));
+    gh.factory<_i737.CatogoryBloc>(
+        () => _i737.CatogoryBloc(gh<_i185.CatagoryGetRepo>()));
     gh.factory<_i142.ScanQrBlocBloc>(
         () => _i142.ScanQrBlocBloc(gh<_i899.ScanQRRepo>()));
     gh.factory<_i306.GetLocationBloc>(

@@ -16,20 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DeviceregblocEvent {
-  DeviceRegModel get model => throw _privateConstructorUsedError;
+  DeviceModelSaas get model => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DeviceRegModel model) regDevice,
+    required TResult Function(DeviceModelSaas model) regDevice,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DeviceRegModel model)? regDevice,
+    TResult? Function(DeviceModelSaas model)? regDevice,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DeviceRegModel model)? regDevice,
+    TResult Function(DeviceModelSaas model)? regDevice,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ abstract class $DeviceregblocEventCopyWith<$Res> {
           DeviceregblocEvent value, $Res Function(DeviceregblocEvent) then) =
       _$DeviceregblocEventCopyWithImpl<$Res, DeviceregblocEvent>;
   @useResult
-  $Res call({DeviceRegModel model});
+  $Res call({DeviceModelSaas model});
 }
 
 /// @nodoc
@@ -87,7 +87,7 @@ class _$DeviceregblocEventCopyWithImpl<$Res, $Val extends DeviceregblocEvent>
       model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as DeviceRegModel,
+              as DeviceModelSaas,
     ) as $Val);
   }
 }
@@ -100,7 +100,7 @@ abstract class _$$RegDeviceImplCopyWith<$Res>
       __$$RegDeviceImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DeviceRegModel model});
+  $Res call({DeviceModelSaas model});
 }
 
 /// @nodoc
@@ -122,7 +122,7 @@ class __$$RegDeviceImplCopyWithImpl<$Res>
       model: null == model
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
-              as DeviceRegModel,
+              as DeviceModelSaas,
     ));
   }
 }
@@ -133,7 +133,7 @@ class _$RegDeviceImpl implements RegDevice {
   const _$RegDeviceImpl({required this.model});
 
   @override
-  final DeviceRegModel model;
+  final DeviceModelSaas model;
 
   @override
   String toString() {
@@ -162,7 +162,7 @@ class _$RegDeviceImpl implements RegDevice {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(DeviceRegModel model) regDevice,
+    required TResult Function(DeviceModelSaas model) regDevice,
   }) {
     return regDevice(model);
   }
@@ -170,7 +170,7 @@ class _$RegDeviceImpl implements RegDevice {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DeviceRegModel model)? regDevice,
+    TResult? Function(DeviceModelSaas model)? regDevice,
   }) {
     return regDevice?.call(model);
   }
@@ -178,7 +178,7 @@ class _$RegDeviceImpl implements RegDevice {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DeviceRegModel model)? regDevice,
+    TResult Function(DeviceModelSaas model)? regDevice,
     required TResult orElse(),
   }) {
     if (regDevice != null) {
@@ -217,11 +217,11 @@ class _$RegDeviceImpl implements RegDevice {
 }
 
 abstract class RegDevice implements DeviceregblocEvent {
-  const factory RegDevice({required final DeviceRegModel model}) =
+  const factory RegDevice({required final DeviceModelSaas model}) =
       _$RegDeviceImpl;
 
   @override
-  DeviceRegModel get model;
+  DeviceModelSaas get model;
 
   /// Create a copy of DeviceregblocEvent
   /// with the given fields replaced by the non-null parameter values.

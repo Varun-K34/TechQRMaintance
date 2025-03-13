@@ -38,7 +38,8 @@ class GetIdForDeviceRegServices implements GetIdForDeviceRegRepo {
           (user) =>
               user.email != null &&
               user.email!.trim().toLowerCase() == sanitizedEmail,
-          orElse: () => CustomerModelSaas(), // Return empty Customer if not found
+          orElse: () =>
+              CustomerModelSaas(), // Return empty Customer if not found
         );
 
         if (matchingUser.email == null) {

@@ -6,6 +6,7 @@ import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/Screens/repair_overview.dart';
 import 'package:techqrmaintance/core/colors.dart';
+import 'package:techqrmaintance/core/strings.dart';
 
 class ScanQr extends StatelessWidget {
   final int? id;
@@ -73,11 +74,11 @@ class ScanQr extends StatelessWidget {
             if (barcode.rawValue != null) {
               log('Scanned QR Code: ${barcode.rawValue}');
               String scannedData = barcode.rawValue!;
-              RegExp regExp = RegExp(r'\d+');
+              RegExp regExp = RegExp(r'(\d+)$');
               String? extractedNumber =
                   regExp.firstMatch(scannedData)?.group(0);
               if (extractedNumber != null) {
-                if (barcode.rawValue == "ID: $extractedNumber") {
+                if (barcode.rawValue == "${kBaseURL}qr/$extractedNumber") {
                   if (key == Key("Register")) {
                     Navigator.of(context)
                         .pushReplacement(createRoute(DeviceRegFormScreen(

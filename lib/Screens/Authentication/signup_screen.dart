@@ -58,7 +58,9 @@ class SignupScreen extends StatelessWidget {
               }
               return DropDownSearchWidget(
                 key: Key("org"),
-                orgidcontroller: orgidcontroller,
+                controller: orgidcontroller,
+                dropdownLabel: "organization",
+                scarchLabel: "Search organization",
                 states: state.organizationList.data
                         ?.map((e) => "(${e.id}) ${e.orgName}")
                         .toList() ??

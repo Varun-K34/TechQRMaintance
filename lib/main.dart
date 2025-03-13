@@ -1,8 +1,9 @@
-import 'package:techqrmaintance/Screens/home/adddevicebutton/reg_by_qr.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
+import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
 import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart';
 import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
@@ -71,6 +72,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getit<OranizationBloc>(),
         ),
+        BlocProvider(
+          create: (context) => getit<CatogoryBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -79,7 +83,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: SplashScreen(),
+        home: DeviceRegFormScreen(),
       ),
     );
   }

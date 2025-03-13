@@ -1,24 +1,32 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
+import 'package:techqrmaintance/Screens/Widgets/drop_down_widget.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/bkink_icon.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_textfield.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
+import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
-import 'package:techqrmaintance/domain/deviceregmodel/device_reg_model/device_reg_model.dart';
+import 'package:techqrmaintance/domain/deviceregmodel/devices_reg_model_saas/device_model_saas.dart';
 
 class DeviceRegFormScreen extends StatelessWidget {
+  final TextEditingController qrcontroller = TextEditingController();
+  final TextEditingController catagoryController = TextEditingController();
+  final TextEditingController orgController = TextEditingController();
   final TextEditingController brandController = TextEditingController();
   final TextEditingController serialController = TextEditingController();
   final TextEditingController modelController = TextEditingController();
   final TextEditingController regByController = TextEditingController();
   final TextEditingController locController = TextEditingController();
   final TextEditingController expiryController = TextEditingController();
-  final TextEditingController regDateController = TextEditingController();
-  final TextEditingController invoiceController = TextEditingController();
+  final TextEditingController installationController = TextEditingController();
+  final TextEditingController freeMaintenanceController =
+      TextEditingController();
   DeviceRegFormScreen({
     super.key,
     this.id,
@@ -29,6 +37,11 @@ class DeviceRegFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        context.read<CatogoryBloc>().add(CatogoryEvent.getCatogory());
+      },
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -47,6 +60,34 @@ class DeviceRegFormScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              BlocBuilder<CatogoryBloc, CatogoryState>(
+                builder: (context, state) {
+                  // if (state.isFailure) {
+                  //   CustomSnackbar.shows(context,
+                  //       message: "can't fatch catagory");
+                  // }
+                  return DropDownSearchWidget(
+                    states: state.complaints.data
+                            ?.map(
+                              (catName) => "${catName.name}",
+                            )
+                            .toList() ??
+                        [],
+                    controller: catagoryController,
+                    dropdownLabel: "catagory",
+                    scarchLabel: "Search Catagory",
+                    key: Key("catagory"),
+                  );
+                },
+              ),
+
+              HintAndTextFieldWidget(
+                hintText: orgController.text,
+                containerLen: 60,
+                labelText: "organization",
+                curve: 30,
+                valEdit: true,
+              ),
               HintAndTextFieldWidget(
                 textController: brandController,
                 hintText: "Enter Brand",
@@ -71,6 +112,12 @@ class DeviceRegFormScreen extends StatelessWidget {
                 curve: 30,
                 valEdit: false,
               ),
+              HintAndTextFieldWidget(
+                  hintText: qrcontroller.text,
+                  labelText: "Qr Code",
+                  curve: 30,
+                  containerLen: 60,
+                  valEdit: true),
               HintAndTextFieldWidget(
                 textController: regByController,
                 hintText: "$id",
@@ -111,20 +158,16 @@ class DeviceRegFormScreen extends StatelessWidget {
                   )),
               HintAndTextFieldWidget(
                 textController: expiryController,
-                hintText: "Enter Expiry Date",
-                labelText: "Warranty Expiry",
+                hintText: "Enter Warranty months",
+                labelText: "Warranty Period",
                 containerLen: 60,
                 curve: 30,
-                valEdit: true,
-                suffix: IconButton(
-                  onPressed: () => onPressedSuffixExpiry(context),
-                  icon: Icon(Icons.date_range_outlined),
-                ),
+                valEdit: false,
               ),
               HintAndTextFieldWidget(
-                textController: regDateController,
-                hintText: "Enter Register Date",
-                labelText: "Registered Date",
+                textController: installationController,
+                hintText: "Enter Installation Date",
+                labelText: "Installation Date",
                 containerLen: 60,
                 curve: 30,
                 valEdit: true,
@@ -134,12 +177,12 @@ class DeviceRegFormScreen extends StatelessWidget {
                 ),
               ),
               HintAndTextFieldWidget(
-                textController: invoiceController,
+                textController: freeMaintenanceController,
                 maxLine: 5,
-                hintText: "Enter Invoice Details",
-                labelText: "Invoice Details",
-                containerLen: 150,
-                curve: 20,
+                hintText: "Free Maintenance months",
+                labelText: "Free Maintenance",
+                containerLen: 60,
+                curve: 30,
                 valEdit: false,
               ),
               SizedBox(
@@ -178,19 +221,6 @@ class DeviceRegFormScreen extends StatelessWidget {
     );
   }
 
-  void onPressedSuffixExpiry(BuildContext context) async {
-    DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(Duration(days: 365)),
-    );
-    if (pickedDate != null) {
-      expiryController.text =
-          "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-    }
-  }
-
   void onPressedSuffixReg(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -223,7 +253,7 @@ class DeviceRegFormScreen extends StatelessWidget {
           "${fullDateTime.day.toString().padLeft(2, '0')} "
           "$formattedTime";
 
-      regDateController.text = formattedDateTime;
+      installationController.text = formattedDateTime;
     }
   }
 
@@ -234,8 +264,8 @@ class DeviceRegFormScreen extends StatelessWidget {
     final int? regBy = id;
     final String loc = locController.text.trim();
     final String wExpiry = expiryController.text.trim();
-    final String regDate = regDateController.text.trim();
-    final String invoceDetails = invoiceController.text.trim();
+    final String installationdate = installationController.text.trim();
+    final String freemaintenance = freeMaintenanceController.text.trim();
 
     if (brand.isEmpty ||
         model.isEmpty ||
@@ -243,8 +273,11 @@ class DeviceRegFormScreen extends StatelessWidget {
         regBy == null ||
         loc.isEmpty ||
         wExpiry.isEmpty ||
-        regDate.isEmpty ||
-        invoceDetails.isEmpty) {
+        installationdate.isEmpty ||
+        freemaintenance.isEmpty ||
+        catagoryController.text.isEmpty ||
+        orgController.text.isEmpty ||
+        qrcontroller.text.isEmpty) {
       CustomSnackbar.shows(
         buttoncontext,
         message: "Please fill in all the fields.",
@@ -252,17 +285,20 @@ class DeviceRegFormScreen extends StatelessWidget {
       return;
     }
 
-    final DeviceRegModel regModel = DeviceRegModel(
+    final DeviceModelSaas regModel = DeviceModelSaas.create(
       brand: brand,
       model: model,
-      serialNo: serial,
-      registeredBy: regBy,
-      location: loc,
-      warrantyExpiry: wExpiry,
-      registeredAt: regDate,
-      invoiceDetails: invoceDetails,
+      orgId: int.parse(orgController.text),
+      qrId: qrcontroller.text,
+      serialNumber: serial,
+      installationDate: installationdate,
+      warrantyPeriod: int.parse(wExpiry),
+      freeMaintenance: int.parse(freemaintenance),
+      locationDetails: locController.text,
+      categoryId: catagoryController.text,
+      customerId: regBy,
     );
-
+    log("regModel: $regModel");
     buttoncontext.read<DeviceregblocBloc>().add(DeviceregblocEvent.regDevice(
           model: regModel,
         ));
