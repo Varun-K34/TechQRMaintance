@@ -7,6 +7,7 @@ class CustomMaterialButton extends StatelessWidget {
   final Color textColor;
   final double height;
   final double width;
+  final Color buttonColor;
 
   const CustomMaterialButton({
     super.key,
@@ -14,14 +15,15 @@ class CustomMaterialButton extends StatelessWidget {
     required this.onPressed,
     this.textColor = primaryWhite, // Default text color is white
     this.height = 60.0, // Default height
-    this.width = 280.0, // Default width
+    this.width = 280.0,
+    this.buttonColor = primaryBlue, // Default width
   });
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
       onPressed: onPressed,
-      color: primaryBlue, // Button color
+      color: buttonColor, // Button color
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30), // Rounded corners
       ),
