@@ -16,20 +16,20 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CustomerEvent {
-  CustomerModel get customerModel => throw _privateConstructorUsedError;
+  CustomerModelSaas get customerModel => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(CustomerModel customerModel) signup,
+    required TResult Function(CustomerModelSaas customerModel) signup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(CustomerModel customerModel)? signup,
+    TResult? Function(CustomerModelSaas customerModel)? signup,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CustomerModel customerModel)? signup,
+    TResult Function(CustomerModelSaas customerModel)? signup,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ abstract class $CustomerEventCopyWith<$Res> {
           CustomerEvent value, $Res Function(CustomerEvent) then) =
       _$CustomerEventCopyWithImpl<$Res, CustomerEvent>;
   @useResult
-  $Res call({CustomerModel customerModel});
+  $Res call({CustomerModelSaas customerModel});
 }
 
 /// @nodoc
@@ -87,7 +87,7 @@ class _$CustomerEventCopyWithImpl<$Res, $Val extends CustomerEvent>
       customerModel: null == customerModel
           ? _value.customerModel
           : customerModel // ignore: cast_nullable_to_non_nullable
-              as CustomerModel,
+              as CustomerModelSaas,
     ) as $Val);
   }
 }
@@ -100,7 +100,7 @@ abstract class _$$CustomerSignupImplCopyWith<$Res>
       __$$CustomerSignupImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({CustomerModel customerModel});
+  $Res call({CustomerModelSaas customerModel});
 }
 
 /// @nodoc
@@ -122,7 +122,7 @@ class __$$CustomerSignupImplCopyWithImpl<$Res>
       customerModel: null == customerModel
           ? _value.customerModel
           : customerModel // ignore: cast_nullable_to_non_nullable
-              as CustomerModel,
+              as CustomerModelSaas,
     ));
   }
 }
@@ -133,7 +133,7 @@ class _$CustomerSignupImpl implements CustomerSignup {
   const _$CustomerSignupImpl({required this.customerModel});
 
   @override
-  final CustomerModel customerModel;
+  final CustomerModelSaas customerModel;
 
   @override
   String toString() {
@@ -164,7 +164,7 @@ class _$CustomerSignupImpl implements CustomerSignup {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(CustomerModel customerModel) signup,
+    required TResult Function(CustomerModelSaas customerModel) signup,
   }) {
     return signup(customerModel);
   }
@@ -172,7 +172,7 @@ class _$CustomerSignupImpl implements CustomerSignup {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(CustomerModel customerModel)? signup,
+    TResult? Function(CustomerModelSaas customerModel)? signup,
   }) {
     return signup?.call(customerModel);
   }
@@ -180,7 +180,7 @@ class _$CustomerSignupImpl implements CustomerSignup {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(CustomerModel customerModel)? signup,
+    TResult Function(CustomerModelSaas customerModel)? signup,
     required TResult orElse(),
   }) {
     if (signup != null) {
@@ -219,11 +219,11 @@ class _$CustomerSignupImpl implements CustomerSignup {
 }
 
 abstract class CustomerSignup implements CustomerEvent {
-  const factory CustomerSignup({required final CustomerModel customerModel}) =
-      _$CustomerSignupImpl;
+  const factory CustomerSignup(
+      {required final CustomerModelSaas customerModel}) = _$CustomerSignupImpl;
 
   @override
-  CustomerModel get customerModel;
+  CustomerModelSaas get customerModel;
 
   /// Create a copy of CustomerEvent
   /// with the given fields replaced by the non-null parameter values.

@@ -24,7 +24,7 @@ class CustomerModelSaas {
   @JsonKey(name: 'master_qr_id')
   int? masterQrId;
   @JsonKey(name: 'pin')
-  int? pin;
+  String? pin;
   @JsonKey(name: 'organization')
   Organization? organization;
   @JsonKey(name: 'master_qr')

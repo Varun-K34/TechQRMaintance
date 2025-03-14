@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:techqrmaintance/domain/customer_model/customer_model.dart';
+import 'package:techqrmaintance/domain/customer_model/customer_model_list_saas/customer_model_saas.dart';
 import 'package:techqrmaintance/domain/customer_model/customer_repo.dart';
 import 'package:techqrmaintance/domain/core/failures/main_failurs.dart';
 
