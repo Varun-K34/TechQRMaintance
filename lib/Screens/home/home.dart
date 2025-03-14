@@ -12,8 +12,8 @@ import 'package:techqrmaintance/core/colors.dart';
 class Home extends StatelessWidget {
   final List gridList = [
     GridContainerButton(
-      title: "SCAN QR",
-      imagePath: 'assets/images/qr-code 1.png',
+      title: "NOTIFICATION",
+      imagePath: 'assets/images/notification.png',
     ),
     GridContainerButton(
       title: "ADD DEVICE",
