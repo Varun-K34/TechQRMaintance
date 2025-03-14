@@ -4,7 +4,7 @@ import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
-import 'package:techqrmaintance/Screens/home/adddevicebutton/reg_by_qr.dart';
+import 'package:techqrmaintance/Screens/qrscan/scan_qr.dart';
 import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
@@ -107,8 +107,7 @@ class CustomerCreate extends StatelessWidget {
                   final int? id = state.customerList;
                   WidgetsBinding.instance.addPostFrameCallback(
                     (_) {
-                      Navigator.of(context)
-                          .pushReplacement(createRoute(RegisterByQr(
+                      Navigator.of(context).pushReplacement(createRoute(ScanQr(
                         key: Key("Register"),
                         id: id,
                       )));
@@ -161,12 +160,11 @@ class CustomerCreate extends StatelessWidget {
                               return;
                             }
                             final customerModel = CustomerModelSaas.create(
-                              orgId: int.parse(organization),
-                              fullName: username,
-                              phone: phoneNumber,
-                              email: email,
-                              pin: postCode
-                            );
+                                orgId: int.parse(organization),
+                                fullName: username,
+                                phone: phoneNumber,
+                                email: email,
+                                pin: int.parse(postCode));
                             //log(customerModel.toJson().toString());
                             context.read<CustomerBloc>().add(
                                   CustomerEvent.signup(

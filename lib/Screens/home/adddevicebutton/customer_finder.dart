@@ -5,7 +5,7 @@ import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/customer_create.dart';
-import 'package:techqrmaintance/Screens/home/adddevicebutton/reg_by_qr.dart';
+import 'package:techqrmaintance/Screens/qrscan/scan_qr.dart';
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
@@ -58,8 +58,9 @@ class CustomerFinder extends StatelessWidget {
                   if (state.id != null) {
                     Navigator.of(context).pushReplacement(
                       createRoute(
-                        RegisterByQr(
+                        ScanQr(
                           id: state.id,
+                          key: Key("Register"),
                         ),
                       ),
                     );
