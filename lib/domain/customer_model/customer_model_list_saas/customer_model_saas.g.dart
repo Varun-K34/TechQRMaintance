@@ -16,7 +16,7 @@ CustomerModelSaas _$CustomerModelSaasFromJson(Map<String, dynamic> json) =>
       address: json['address'],
       gpsCoordinates: json['gps_coordinates'],
       masterQrId: (json['master_qr_id'] as num?)?.toInt(),
-      pin: json['pin'] as String?,
+      pin: (json['pin'] as num?)?.toInt(),
       organization: json['organization'] == null
           ? null
           : Organization.fromJson(json['organization'] as Map<String, dynamic>),

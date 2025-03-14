@@ -8,6 +8,7 @@ import 'package:techqrmaintance/Screens/Widgets/drop_down_widget.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/bkink_icon.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_textfield.dart';
+import 'package:techqrmaintance/Screens/home/home.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
@@ -217,6 +218,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                           context,
                           message: state.text,
                         );
+                        Navigator.of(context).pop();
                       }
                     },
                     builder: (context, state) {
