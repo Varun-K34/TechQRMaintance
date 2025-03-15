@@ -1,9 +1,8 @@
-import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
-import 'package:techqrmaintance/Screens/notifications/notification_screen.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
+import 'package:techqrmaintance/application/brandnadmodel/brand_and_model_bloc.dart';
 import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
 import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart';
@@ -12,9 +11,11 @@ import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dar
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart';
+import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart';
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart';
+import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 
@@ -79,6 +80,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<RequestScanQrEndpoindBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<BrandAndModelBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<ModelAndBrandBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<ServiceRequestBloc>(),
         ),
       ],
       child: MaterialApp(

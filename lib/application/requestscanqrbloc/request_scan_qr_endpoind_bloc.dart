@@ -14,8 +14,8 @@ class RequestScanQrEndpoindBloc
   final ReqScanQrRepo reqScanQrRepo;
   RequestScanQrEndpoindBloc(this.reqScanQrRepo)
       : super(RequestScanQrEndpoindState.initial()) {
-    on<GetQrdata>((event, emit) async{
-     await event.map(
+    on<GetQrdata>((event, emit) async {
+      await event.map(
         getQrdata: (e) async {
           emit(state.copyWith(
             isLoading: true,

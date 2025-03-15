@@ -6,6 +6,7 @@ import 'package:techqrmaintance/Screens/home/widgets/skelton_home.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
 import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
+import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
@@ -34,6 +35,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
+        context
+            .read<ServiceRequestBloc>()
+            .add(ServiceRequestEvent.getServicesreq());
         context
             .read<ComplaintblocBloc>()
             .add(ComplaintblocEvent.getComplaintsTasks());

@@ -15,6 +15,8 @@ import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart'
     as _i600;
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart'
     as _i941;
+import 'package:techqrmaintance/application/brandnadmodel/brand_and_model_bloc.dart'
+    as _i606;
 import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart'
     as _i737;
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart'
@@ -32,12 +34,16 @@ import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart'
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart' as _i651;
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart'
     as _i914;
+import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart'
+    as _i561;
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart'
     as _i818;
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart'
     as _i143;
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart'
     as _i142;
+import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart'
+    as _i600;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
 import 'package:techqrmaintance/domain/authregmodel/auth_repo.dart' as _i291;
 import 'package:techqrmaintance/domain/catagorymodel/catagory_get_repo.dart'
@@ -62,12 +68,22 @@ import 'package:techqrmaintance/domain/deviceregmodel/device_reg_repo.dart'
     as _i489;
 import 'package:techqrmaintance/domain/historymodel/maintance_history_repo.dart'
     as _i315;
+import 'package:techqrmaintance/domain/modelandbrandmodel/brand_repo.dart'
+    as _i1043;
+import 'package:techqrmaintance/domain/modelandbrandmodel/device_model_model_repo.dart'
+    as _i936;
 import 'package:techqrmaintance/domain/organizationmodel/organization_repo.dart'
     as _i253;
 import 'package:techqrmaintance/domain/scanqrmodel/scan_qr_repo.dart' as _i899;
+import 'package:techqrmaintance/domain/servicerequestmodel/servicerequest_repo.dart'
+    as _i1064;
 import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart' as _i765;
 import 'package:techqrmaintance/infrastructure/authservices/auth_services.dart'
     as _i447;
+import 'package:techqrmaintance/infrastructure/brandandmodelservices/brand_services.dart'
+    as _i332;
+import 'package:techqrmaintance/infrastructure/brandandmodelservices/model_services.dart'
+    as _i1069;
 import 'package:techqrmaintance/infrastructure/catagorygetservices/catagory_get_services.dart'
     as _i1055;
 import 'package:techqrmaintance/infrastructure/checkloginservices/check_login_service.dart'
@@ -92,6 +108,8 @@ import 'package:techqrmaintance/infrastructure/requestqrendpointservices/req_qr_
     as _i834;
 import 'package:techqrmaintance/infrastructure/scanqrservices/scan_qr_services.dart'
     as _i649;
+import 'package:techqrmaintance/infrastructure/servicesrequestservices/services_request_services.dart'
+    as _i1025;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
     as _i1027;
 import 'package:techqrmaintance/infrastructure/userlogservices/user_log_services.dart'
@@ -118,20 +136,28 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i399.GetLocationRepo>(() => _i42.GetLocationServices());
     gh.lazySingleton<_i279.ReqScanQrRepo>(() => _i834.ReqQrEndpointServices());
     gh.lazySingleton<_i509.CustomerRepo>(() => _i338.CustomerServices());
+    gh.lazySingleton<_i1064.ServicesRequestRepo>(
+        () => _i1025.ServicesRequestServices());
     gh.lazySingleton<_i158.SpStoredUser>(() => _i1027.SpStoredItem());
     gh.lazySingleton<_i899.ScanQRRepo>(() => _i649.ScanQrServices());
     gh.lazySingleton<_i1051.GetIdForDeviceRegRepo>(
         () => _i670.GetIdForDeviceRegServices());
+    gh.factory<_i600.ServiceRequestBloc>(
+        () => _i600.ServiceRequestBloc(gh<_i1064.ServicesRequestRepo>()));
     gh.lazySingleton<_i765.UserLogRepo>(() => _i819.UserLogServices());
     gh.factory<_i143.RequestScanQrEndpoindBloc>(
         () => _i143.RequestScanQrEndpoindBloc(gh<_i279.ReqScanQrRepo>()));
     gh.lazySingleton<_i308.ComplaintRepo>(() => _i396.ComplaintGetServices());
     gh.lazySingleton<_i489.DeviceRegRepo>(() => _i1016.DeviceRegService());
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());
+    gh.lazySingleton<_i1043.DeiceBrandRepo>(() => _i332.BrandServices());
     gh.factory<_i914.MaintenancehistoryBloc>(
         () => _i914.MaintenancehistoryBloc(gh<_i315.MaintanceHistoryRepo>()));
+    gh.lazySingleton<_i936.DeviceModelRepo>(() => _i1069.ModelServices());
     gh.factory<_i737.CatogoryBloc>(
         () => _i737.CatogoryBloc(gh<_i185.CatagoryGetRepo>()));
+    gh.factory<_i606.BrandAndModelBloc>(
+        () => _i606.BrandAndModelBloc(gh<_i1043.DeiceBrandRepo>()));
     gh.factory<_i142.ScanQrBlocBloc>(
         () => _i142.ScanQrBlocBloc(gh<_i899.ScanQRRepo>()));
     gh.factory<_i306.GetLocationBloc>(
@@ -142,6 +168,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i638.ComplaintdetailblocBloc(gh<_i942.DetailComplaintRepo>()));
     gh.factory<_i941.ComplaintblocBloc>(
         () => _i941.ComplaintblocBloc(gh<_i308.ComplaintRepo>()));
+    gh.factory<_i561.ModelAndBrandBloc>(
+        () => _i561.ModelAndBrandBloc(gh<_i936.DeviceModelRepo>()));
     gh.factory<_i818.OranizationBloc>(
         () => _i818.OranizationBloc(gh<_i253.OrganizationRepo>()));
     gh.factory<_i15.SpblocBloc>(

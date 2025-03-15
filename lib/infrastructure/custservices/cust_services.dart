@@ -25,7 +25,8 @@ class CustomerServices implements CustomerRepo {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        final customerSuccess = CustomerModelSaas.fromJson(response.data['data']);
+        final customerSuccess =
+            CustomerModelSaas.fromJson(response.data['data']);
         log("✅ Customer Created with ID: ${customerSuccess.id}");
         return Right(customerSuccess.id);
       } else {

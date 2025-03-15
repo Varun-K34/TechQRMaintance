@@ -36,7 +36,7 @@ class DropDownSearchWidget extends StatelessWidget {
           }
         } else if (key == Key("catagory")) {
           if (value != null) {
-           // Extract only the category ID (numeric part at the start)
+            // Extract only the category ID (numeric part at the start)
             final catId = value.replaceAll(RegExp(r'[^0-9]'), '');
             log(catId);
             controller?.text = catId;
