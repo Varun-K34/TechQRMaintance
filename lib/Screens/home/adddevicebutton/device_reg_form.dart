@@ -10,11 +10,14 @@ import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/bkink_icon.
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_textfield.dart';
 import 'package:techqrmaintance/Screens/home/home.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
+import 'package:techqrmaintance/application/brandnadmodel/brand_and_model_bloc.dart';
 import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
+import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart';
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/deviceregmodel/devices_reg_model_saas/device_model_saas.dart';
+import 'package:techqrmaintance/domain/modelandbrandmodel/device_models_model/brand.dart';
 
 class DeviceRegFormScreen extends StatelessWidget {
   final TextEditingController qrcontroller = TextEditingController();
@@ -41,6 +44,8 @@ class DeviceRegFormScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
+        context.read<ModelAndBrandBloc>().add(ModelAndBrandEvent.getModel());
+        context.read<BrandAndModelBloc>().add(BrandAndModelEvent.getBrand());
         context.read<CatogoryBloc>().add(CatogoryEvent.getCatogory());
         context
             .read<RequestScanQrEndpoindBloc>()
@@ -104,21 +109,38 @@ class DeviceRegFormScreen extends StatelessWidget {
                     curve: 30,
                     valEdit: true,
                   ),
-                  HintAndTextFieldWidget(
-                    textController: brandController,
-                    hintText: "Enter Brand",
-                    labelText: "Brand",
-                    containerLen: 60,
-                    curve: 30,
-                    valEdit: false,
+                  BlocBuilder<BrandAndModelBloc, BrandAndModelState>(
+                    builder: (context, state) {
+                      return DropDownSearchWidget(
+                        dropdownLabel: "Brand",
+                        scarchLabel: "Search Brand",
+                        key: Key("brand"),
+                        controller: brandController,
+                        states: state.brandList
+                            .map(
+                              (brand) => "${brand.name}",
+                            )
+                            .toList(),
+                      );
+                    },
                   ),
-                  HintAndTextFieldWidget(
-                    textController: modelController,
-                    hintText: "Enter Model No.",
-                    labelText: "Model No.",
-                    containerLen: 60,
-                    curve: 30,
-                    valEdit: false,
+                  SizedBox(
+                    height: 10,
+                  ),
+                  BlocBuilder<ModelAndBrandBloc, ModelAndBrandState>(
+                    builder: (context, state) {
+                      return DropDownSearchWidget(
+                        dropdownLabel: "Model",
+                        scarchLabel: "Search Model",
+                        key: Key("model"),
+                        controller: brandController,
+                        states: state.modelList
+                            .map(
+                              (model) => "${model.name}",
+                            )
+                            .toList(),
+                      );
+                    },
                   ),
                   HintAndTextFieldWidget(
                     textController: serialController,
