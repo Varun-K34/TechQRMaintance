@@ -19,38 +19,32 @@ mixin _$BrandAndModelEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getBrand,
-    required TResult Function() getModel,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getBrand,
-    TResult? Function()? getModel,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getBrand,
-    TResult Function()? getModel,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetBrand value) getBrand,
-    required TResult Function(GetModel value) getModel,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetBrand value)? getBrand,
-    TResult? Function(GetModel value)? getModel,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetBrand value)? getBrand,
-    TResult Function(GetModel value)? getModel,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,7 +113,6 @@ class _$GetBrandImpl implements GetBrand {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getBrand,
-    required TResult Function() getModel,
   }) {
     return getBrand();
   }
@@ -128,7 +121,6 @@ class _$GetBrandImpl implements GetBrand {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getBrand,
-    TResult? Function()? getModel,
   }) {
     return getBrand?.call();
   }
@@ -137,7 +129,6 @@ class _$GetBrandImpl implements GetBrand {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getBrand,
-    TResult Function()? getModel,
     required TResult orElse(),
   }) {
     if (getBrand != null) {
@@ -150,7 +141,6 @@ class _$GetBrandImpl implements GetBrand {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetBrand value) getBrand,
-    required TResult Function(GetModel value) getModel,
   }) {
     return getBrand(this);
   }
@@ -159,7 +149,6 @@ class _$GetBrandImpl implements GetBrand {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetBrand value)? getBrand,
-    TResult? Function(GetModel value)? getModel,
   }) {
     return getBrand?.call(this);
   }
@@ -168,7 +157,6 @@ class _$GetBrandImpl implements GetBrand {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetBrand value)? getBrand,
-    TResult Function(GetModel value)? getModel,
     required TResult orElse(),
   }) {
     if (getBrand != null) {
@@ -180,111 +168,6 @@ class _$GetBrandImpl implements GetBrand {
 
 abstract class GetBrand implements BrandAndModelEvent {
   const factory GetBrand() = _$GetBrandImpl;
-}
-
-/// @nodoc
-abstract class _$$GetModelImplCopyWith<$Res> {
-  factory _$$GetModelImplCopyWith(
-          _$GetModelImpl value, $Res Function(_$GetModelImpl) then) =
-      __$$GetModelImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$GetModelImplCopyWithImpl<$Res>
-    extends _$BrandAndModelEventCopyWithImpl<$Res, _$GetModelImpl>
-    implements _$$GetModelImplCopyWith<$Res> {
-  __$$GetModelImplCopyWithImpl(
-      _$GetModelImpl _value, $Res Function(_$GetModelImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of BrandAndModelEvent
-  /// with the given fields replaced by the non-null parameter values.
-}
-
-/// @nodoc
-
-class _$GetModelImpl implements GetModel {
-  const _$GetModelImpl();
-
-  @override
-  String toString() {
-    return 'BrandAndModelEvent.getModel()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$GetModelImpl);
-  }
-
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() getBrand,
-    required TResult Function() getModel,
-  }) {
-    return getModel();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? getBrand,
-    TResult? Function()? getModel,
-  }) {
-    return getModel?.call();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? getBrand,
-    TResult Function()? getModel,
-    required TResult orElse(),
-  }) {
-    if (getModel != null) {
-      return getModel();
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(GetBrand value) getBrand,
-    required TResult Function(GetModel value) getModel,
-  }) {
-    return getModel(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(GetBrand value)? getBrand,
-    TResult? Function(GetModel value)? getModel,
-  }) {
-    return getModel?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(GetBrand value)? getBrand,
-    TResult Function(GetModel value)? getModel,
-    required TResult orElse(),
-  }) {
-    if (getModel != null) {
-      return getModel(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class GetModel implements BrandAndModelEvent {
-  const factory GetModel() = _$GetModelImpl;
 }
 
 /// @nodoc

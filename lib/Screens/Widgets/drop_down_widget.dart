@@ -41,6 +41,14 @@ class DropDownSearchWidget extends StatelessWidget {
             log(catId);
             controller?.text = catId;
           }
+        } else if (key == Key("brand")) {
+          if (value != null) {
+            controller?.text = value;
+          }
+        } else if (key == Key("model")) {
+          if (value != null) {
+            controller?.text = value;
+          }
         }
       },
       popupProps: PopupProps.bottomSheet(
