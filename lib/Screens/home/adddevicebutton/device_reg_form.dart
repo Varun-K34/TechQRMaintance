@@ -62,7 +62,8 @@ class DeviceRegFormScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 30),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: BlocBuilder<RequestScanQrEndpoindBloc, RequestScanQrEndpoindState>(
+          child: BlocBuilder<RequestScanQrEndpoindBloc,
+              RequestScanQrEndpoindState>(
             builder: (context, state) {
               try {
                 qrcontroller.text = state.qrData.id.toString();
@@ -289,88 +290,88 @@ class DeviceRegFormScreen extends StatelessWidget {
 
     if (brand.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Please enter the brand.",
+        buttoncontext,
+        message: "Please enter the brand.",
       );
       return;
     }
 
     if (model.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Please enter the model.",
+        buttoncontext,
+        message: "Please enter the model.",
       );
       return;
     }
 
     if (serial.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Please enter the serial number.",
+        buttoncontext,
+        message: "Please enter the serial number.",
       );
       return;
     }
 
     if (regBy == null) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Registered By is missing.",
+        buttoncontext,
+        message: "Registered By is missing.",
       );
       return;
     }
 
     if (loc.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Please enter the location.",
+        buttoncontext,
+        message: "Please enter the location.",
       );
       return;
     }
 
     if (wExpiry.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Please enter the warranty period.",
+        buttoncontext,
+        message: "Please enter the warranty period.",
       );
       return;
     }
 
     if (installationdate.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Please enter the installation date.",
+        buttoncontext,
+        message: "Please enter the installation date.",
       );
       return;
     }
 
     if (freemaintenance.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Please enter the free maintenance period.",
+        buttoncontext,
+        message: "Please enter the free maintenance period.",
       );
       return;
     }
 
     if (catagoryController.text.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Please select a category.",
+        buttoncontext,
+        message: "Please select a category.",
       );
       return;
     }
 
     if (orgController.text.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "Organization ID is missing.",
+        buttoncontext,
+        message: "Organization ID is missing.",
       );
       return;
     }
 
     if (qrcontroller.text.isEmpty) {
       CustomSnackbar.shows(
-      buttoncontext,
-      message: "QR code is missing.",
+        buttoncontext,
+        message: "QR code is missing.",
       );
       return;
     }
