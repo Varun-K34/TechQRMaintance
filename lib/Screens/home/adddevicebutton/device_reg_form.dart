@@ -133,7 +133,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                         dropdownLabel: "Model",
                         scarchLabel: "Search Model",
                         key: Key("model"),
-                        controller: brandController,
+                        controller: modelController,
                         states: state.modelList
                             .map(
                               (model) => "${model.name}",
