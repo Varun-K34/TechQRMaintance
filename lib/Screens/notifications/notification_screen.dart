@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/core/colors.dart';
 

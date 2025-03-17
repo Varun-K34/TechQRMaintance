@@ -8,7 +8,6 @@ import 'package:techqrmaintance/Screens/Widgets/drop_down_widget.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/bkink_icon.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_textfield.dart';
-import 'package:techqrmaintance/Screens/home/home.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/brandnadmodel/brand_and_model_bloc.dart';
 import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
@@ -17,7 +16,6 @@ import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.d
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/deviceregmodel/devices_reg_model_saas/device_model_saas.dart';
-import 'package:techqrmaintance/domain/modelandbrandmodel/device_models_model/brand.dart';
 
 class DeviceRegFormScreen extends StatelessWidget {
   final TextEditingController qrcontroller = TextEditingController();
