@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/customer_model/customer_model_list_saas/customer_model_saas.dart';
 import 'package:techqrmaintance/domain/organizationmodel/organization_model/organization_model/organization.dart';

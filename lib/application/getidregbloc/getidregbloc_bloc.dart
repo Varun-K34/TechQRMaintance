@@ -1,5 +1,5 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:techqrmaintance/domain/core/getidfordevicereg/get_id_for_device_reg.dart';
