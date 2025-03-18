@@ -18,12 +18,13 @@ class ModelServices implements DeviceModelRepo {
       final Response moselrespo = await modelapi.dio.get(kBaseURL + kmodel);
 
       if (moselrespo.statusCode == 200) {
-        final List<dynamic> moselListJson = moselrespo.data;
+        final List<dynamic> moselListJson = moselrespo.data["data"];
         List<DeviceModelsModel> modelList = moselListJson
             .map((json) => DeviceModelsModel.fromJson(json))
             .toList();
         return Right(modelList);
       } else {
+        log('error model ', name: "model services");
         modelapi.clearStoredToken();
         return Left(MainFailurs.serverFailure());
       }
@@ -32,6 +33,7 @@ class ModelServices implements DeviceModelRepo {
       modelapi.clearStoredToken();
       return Left(MainFailurs.clientFailure());
     } catch (e) {
+      log('error $e', name: "model services");
       modelapi.clearStoredToken();
       return Left(MainFailurs.clientFailure());
     }

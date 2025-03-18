@@ -19,12 +19,12 @@ class ServicesRequestServices implements ServicesRequestRepo {
     try {
       final Response servicerespo =
           await servicesreqapi.dio.get(kBaseURL + kServices);
-      log(servicerespo.toString());
+      //log(servicerespo.toString());
       if (servicerespo.statusCode == 200) {
         final servicesData = ServicesRequestSaas.fromJson(servicerespo.data);
 
         if (servicesData.data != null) {
-          log(servicesData.data.toString(),name: "hello");
+          //log(servicesData.data.toString(),name: "hello");
           return right(servicesData.data!);
         } else {
           return left(const MainFailurs.serverFailure());

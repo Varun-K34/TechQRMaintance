@@ -1,4 +1,6 @@
 // ignore: depend_on_referenced_packages
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -13,6 +15,7 @@ part 'model_and_brand_bloc.freezed.dart';
 class ModelAndBrandBloc extends Bloc<ModelAndBrandEvent, ModelAndBrandState> {
   final DeviceModelRepo modelRepo;
   ModelAndBrandBloc(this.modelRepo) : super(ModelAndBrandState.initial()) {
+    log("model call",name: "model bloc");
     on<GetModel>((event, emit) async {
       emit(state.copyWith(
         isLoading: true,

@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
       imagePath: 'assets/images/notification.png',
     ),
     GridContainerButton(
-      title: "ADD DEVICE",
+      title: "ADD DEVICE  ",
       imagePath: "assets/images/wireless-internet 1.png",
     ),
     GridContainerButton(
@@ -35,9 +35,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        context
-            .read<ServiceRequestBloc>()
-            .add(ServiceRequestEvent.getServicesreq());
+        // context
+        //     .read<ServiceRequestBloc>()
+        //     .add(ServiceRequestEvent.getServicesreq());
         context
             .read<ComplaintblocBloc>()
             .add(ComplaintblocEvent.getComplaintsTasks());
@@ -72,7 +72,9 @@ class Home extends StatelessWidget {
               width: 401,
               padding: EdgeInsets.only(right: 30, left: 20),
               decoration: BoxDecoration(
-                  color: primaryBlue, borderRadius: BorderRadius.circular(30)),
+                  border: Border.all(width: 2, color: primaryBlue),
+                  color: primaryWhite,
+                  borderRadius: BorderRadius.circular(30)),
               child: BlocBuilder<SpblocBloc, SpblocState>(
                 builder: (context, spState) {
                   return BlocBuilder<ComplaintblocBloc, ComplaintblocState>(
@@ -86,7 +88,7 @@ class Home extends StatelessWidget {
                           child: Text(
                             "No tasks found",
                             style: TextStyle(
-                              color: primaryWhite,
+                              color: primaryBlue,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -98,7 +100,7 @@ class Home extends StatelessWidget {
                           child: Text(
                             "Oops! Something went wrong. Please try again later.",
                             style: TextStyle(
-                              color: primaryWhite,
+                              color: primaryBlue,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),

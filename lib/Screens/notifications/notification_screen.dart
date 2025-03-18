@@ -35,7 +35,8 @@ class NotificationScreen extends StatelessWidget {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                      color: primaryBlue,
+                      color: primaryWhite,
+                      border: Border.all(width: 2, color: primaryBlue),
                       borderRadius: BorderRadius.circular(20)),
                   child: Column(
                     children: [
@@ -43,7 +44,7 @@ class NotificationScreen extends StatelessWidget {
                         title: Text(
                           "Device name",
                           style: TextStyle(
-                            color: primaryWhite,
+                            color: primaryBlue,
                             fontSize: 22,
                             fontWeight: FontWeight.w700,
                           ),
@@ -53,7 +54,7 @@ class NotificationScreen extends StatelessWidget {
                             Text(
                               "Scheduled: tomorrow at 10:00 AM",
                               style: TextStyle(
-                                color: primaryWhite,
+                                color: primaryBlue,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ),
@@ -61,7 +62,7 @@ class NotificationScreen extends StatelessWidget {
                             Text(
                               "Technician assignment pending",
                               style: TextStyle(
-                                color: primaryWhite,
+                                color: primaryBlue,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ),
@@ -74,6 +75,7 @@ class NotificationScreen extends StatelessWidget {
                             vertical: 13,
                           ),
                           decoration: BoxDecoration(
+                            border: Border.all(width: 2, color: primaryBlue),
                             color: primaryWhite,
                             shape: BoxShape.circle,
                           ),
@@ -98,8 +100,7 @@ class NotificationScreen extends StatelessWidget {
                             height: 10,
                             width: 150,
                             text: "Track",
-                            buttonColor: primaryWhite,
-                            textColor: primaryBlack,
+                            textColor: primaryWhite,
                             onPressed: () {},
                           )
                         ],

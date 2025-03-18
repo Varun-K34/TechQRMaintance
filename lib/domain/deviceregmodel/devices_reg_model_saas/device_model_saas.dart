@@ -21,11 +21,11 @@ class DeviceModelSaas {
   int? technicianId;
   @JsonKey(name: 'qr_id')
   String? qrId;
-  @JsonKey(name: 'brand')
+  @JsonKey(name: 'brand_id')
   String? brand;
   @JsonKey(name: 'category_id')
   String? categoryId;
-  @JsonKey(name: 'model')
+  @JsonKey(name: 'device_model_id')
   String? model;
   @JsonKey(name: 'serial_number')
   String? serialNumber;
