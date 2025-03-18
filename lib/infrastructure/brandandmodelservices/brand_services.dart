@@ -19,11 +19,12 @@ class BrandServices implements DeiceBrandRepo {
       final Response brandrespo = await brandapi.dio.get(kBaseURL + kBrand);
 
       if (brandrespo.statusCode == 200) {
-        final List<dynamic> brandListJson = brandrespo.data;
+        final List<dynamic> brandListJson = brandrespo.data["data"];
         List<BrandModel> brandList =
             brandListJson.map((json) => BrandModel.fromJson(json)).toList();
         return Right(brandList);
       } else {
+        log('error ',name: "brand services");
         brandapi.clearStoredToken();
         return Left(MainFailurs.serverFailure());
       }
@@ -32,6 +33,7 @@ class BrandServices implements DeiceBrandRepo {
       brandapi.clearStoredToken();
       return Left(MainFailurs.clientFailure());
     } catch (e) {
+      log('error : $e', name: "brand services");
       brandapi.clearStoredToken();
       return Left(MainFailurs.clientFailure());
     }

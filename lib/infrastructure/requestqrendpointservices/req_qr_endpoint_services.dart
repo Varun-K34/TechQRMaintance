@@ -16,11 +16,11 @@ class ReqQrEndpointServices implements ReqScanQrRepo {
   Future<Either<MainFailurs, QrCode>> getQrCodedetail(String id) async {
     try {
       final Response respo = await apireqqr.dio.get(kBaseURL + kQrScan + id);
-      log(kBaseURL + kQrScan + id);
+      //log(kBaseURL + kQrScan + id);
       if (respo.statusCode == 200) {
-        log(respo.data.toString(), name: "QrCodeservice");
+        //log(respo.data.toString(), name: "QrCodeservice");
         final QrCode qrCode = QrCode.fromJson(respo.data['data']);
-        log(qrCode.orgId.toString(), name: "hello services");
+        //log(qrCode.orgId.toString(), name: "hello services");
         return Right(qrCode);
       } else {
         log("hello", name: "QrCodeservice");

@@ -58,6 +58,7 @@ class SignupScreen extends StatelessWidget {
               }
               return DropDownSearchWidget(
                 key: Key("org"),
+                iconprefix: Icons.business,
                 controller: orgidcontroller,
                 dropdownLabel: "organization",
                 scarchLabel: "Search organization",

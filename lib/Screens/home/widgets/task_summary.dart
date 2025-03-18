@@ -18,14 +18,14 @@ class ContainerTextRow extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            color: primaryWhite,
+            color: primaryBlue,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(value,
             style: TextStyle(
-              color: primaryWhite,
+              color: primaryBlue,
               fontSize: 22,
               fontWeight: FontWeight.bold,
             ))

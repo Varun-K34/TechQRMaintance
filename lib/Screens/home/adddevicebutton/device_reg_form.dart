@@ -42,12 +42,12 @@ class DeviceRegFormScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        context.read<ModelAndBrandBloc>().add(ModelAndBrandEvent.getModel());
-        context.read<BrandAndModelBloc>().add(BrandAndModelEvent.getBrand());
         context.read<CatogoryBloc>().add(CatogoryEvent.getCatogory());
         context
             .read<RequestScanQrEndpoindBloc>()
             .add(RequestScanQrEndpoindEvent.getQrdata(id: updateid ?? ""));
+        context.read<ModelAndBrandBloc>().add(ModelAndBrandEvent.getModel());
+        context.read<BrandAndModelBloc>().add(BrandAndModelEvent.getBrand());
       },
     );
     return Scaffold(
@@ -69,6 +69,8 @@ class DeviceRegFormScreen extends StatelessWidget {
               RequestScanQrEndpoindState>(
             builder: (context, state) {
               try {
+                log("${state.qrData.id}");
+                log("${state.qrData.orgId}");
                 qrcontroller.text = state.qrData.id.toString();
                 orgController.text = state.qrData.orgId.toString();
                 log("${qrcontroller.text} ${orgController.text}",
@@ -86,6 +88,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                       //       message: "can't fatch catagory");
                       // }
                       return DropDownSearchWidget(
+                        iconprefix: Icons.category,
                         states: state.complaints.data
                                 ?.map(
                                   (catName) => "${catName.id}${catName.name}",
@@ -93,30 +96,26 @@ class DeviceRegFormScreen extends StatelessWidget {
                                 .toList() ??
                             [],
                         controller: catagoryController,
-                        dropdownLabel: "catagory",
-                        scarchLabel: "Search Catagory",
-                        key: Key("catagory"),
+                        dropdownLabel: "Category",
+                        scarchLabel: "Search Category",
+                        key: Key("category"),
                       );
                     },
                   ),
-
-                  HintAndTextFieldWidget(
-                    hintText: orgController.text,
-                    containerLen: 60,
-                    labelText: "organization",
-                    curve: 30,
-                    valEdit: true,
+                  SizedBox(
+                    height: 10,
                   ),
                   BlocBuilder<BrandAndModelBloc, BrandAndModelState>(
                     builder: (context, state) {
                       return DropDownSearchWidget(
+                        iconprefix: Icons.devices,
                         dropdownLabel: "Brand",
                         scarchLabel: "Search Brand",
                         key: Key("brand"),
                         controller: brandController,
                         states: state.brandList
                             .map(
-                              (brand) => "${brand.name}",
+                              (brand) => "${brand.id} ${brand.name}",
                             )
                             .toList(),
                       );
@@ -128,30 +127,40 @@ class DeviceRegFormScreen extends StatelessWidget {
                   BlocBuilder<ModelAndBrandBloc, ModelAndBrandState>(
                     builder: (context, state) {
                       return DropDownSearchWidget(
+                        iconprefix: Icons.devices,
                         dropdownLabel: "Model",
                         scarchLabel: "Search Model",
                         key: Key("model"),
                         controller: modelController,
                         states: state.modelList
                             .map(
-                              (model) => "${model.name}",
+                              (model) => "${model.id} ${model.name}",
                             )
                             .toList(),
                       );
                     },
                   ),
+
+                  HintAndTextFieldWidget(
+                    hintText: orgController.text,
+                    containerLen: 60,
+                    labelText: "organization",
+                    curve: 20,
+                    valEdit: true,
+                  ),
+
                   HintAndTextFieldWidget(
                     textController: serialController,
                     hintText: "Enter Serial No",
                     labelText: "Serial No.",
                     containerLen: 60,
-                    curve: 30,
+                    curve: 20,
                     valEdit: false,
                   ),
                   HintAndTextFieldWidget(
                       hintText: qrcontroller.text,
                       labelText: "Qr Code",
-                      curve: 30,
+                      curve: 20,
                       containerLen: 60,
                       valEdit: true),
                   HintAndTextFieldWidget(
@@ -159,7 +168,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                     hintText: "$id",
                     labelText: "Registered By",
                     containerLen: 60,
-                    curve: 30,
+                    curve: 20,
                     valEdit: true,
                   ),
 
@@ -168,7 +177,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                       hintText: "Enter Location",
                       labelText: "Location",
                       containerLen: 60,
-                      curve: 30,
+                      curve: 20,
                       valEdit: true,
                       suffix: BlocConsumer<GetLocationBloc, GetLocationState>(
                         listener: (context, state) {
@@ -198,7 +207,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                     hintText: "Enter Warranty months",
                     labelText: "Warranty Period",
                     containerLen: 60,
-                    curve: 30,
+                    curve: 20,
                     valEdit: false,
                   ),
                   HintAndTextFieldWidget(
@@ -206,7 +215,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                     hintText: "Enter Installation Date",
                     labelText: "Installation Date",
                     containerLen: 60,
-                    curve: 30,
+                    curve: 20,
                     valEdit: true,
                     suffix: IconButton(
                       onPressed: () => onPressedSuffixReg(context),
@@ -219,7 +228,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                     hintText: "Free Maintenance months",
                     labelText: "Free Maintenance",
                     containerLen: 60,
-                    curve: 30,
+                    curve: 20,
                     valEdit: false,
                   ),
                   SizedBox(

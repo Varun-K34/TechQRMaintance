@@ -1,4 +1,6 @@
 // ignore: depend_on_referenced_packages
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -14,6 +16,7 @@ class BrandAndModelBloc extends Bloc<BrandAndModelEvent, BrandAndModelState> {
   final DeiceBrandRepo brandRepo;
   BrandAndModelBloc(this.brandRepo) : super(BrandAndModelState.initial()) {
     on<GetBrand>((event, emit) async {
+      log("brand call",name: "brand bloc");
       emit(state.copyWith(
         isLoading: true,
       ));
