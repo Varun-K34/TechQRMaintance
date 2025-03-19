@@ -25,6 +25,7 @@ class ServicesModel {
   dynamic selectedIssue;
   @JsonKey(name: 'preferred_timeslot')
   DateTime? preferredTimeslot;
+  @JsonKey(name: 'status')
   String? status;
   @JsonKey(name: 'completion_notes')
   dynamic completionNotes;
@@ -32,6 +33,10 @@ class ServicesModel {
   String? completionPhotoUrl;
   @JsonKey(name: 'new_parts_used')
   dynamic newPartsUsed;
+  @JsonKey(name: 'job_type')
+  String? jobType;
+  @JsonKey(name: 'emergency')
+  int? emergency;
   @JsonKey(name: 'started_at')
   dynamic startedAt;
   @JsonKey(name: 'completed_at')
@@ -58,6 +63,8 @@ class ServicesModel {
     this.completionNotes,
     this.completionPhotoUrl,
     this.newPartsUsed,
+    this.jobType,
+    this.emergency,
     this.startedAt,
     this.completedAt,
     this.organization,
