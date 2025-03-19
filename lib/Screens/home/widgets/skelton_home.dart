@@ -19,7 +19,7 @@ class SkeltonHome extends StatelessWidget {
             Skeleton(
               color: Color(0xffe0f2f5),
               height: 22,
-              width: 180,
+              width: 120,
             ),
             Skeleton(
               color: Color(0xffe0f2f5),
@@ -37,7 +37,7 @@ class SkeltonHome extends StatelessWidget {
             Skeleton(
               color: Color(0xffe0f2f5),
               height: 22,
-              width: 180,
+              width: 150,
             ),
             Skeleton(
               color: Color(0xffe0f2f5),

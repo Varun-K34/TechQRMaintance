@@ -5,7 +5,6 @@ import 'package:techqrmaintance/Screens/home/widgets/grid_button.dart';
 import 'package:techqrmaintance/Screens/home/widgets/skelton_home.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
 import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
-import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
@@ -38,9 +37,6 @@ class Home extends StatelessWidget {
         context
             .read<ServiceRequestBloc>()
             .add(ServiceRequestEvent.getServicesreq());
-        // context
-        //     .read<ComplaintblocBloc>()
-        //     .add(ComplaintblocEvent.getComplaintsTasks());
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
       },
     );
@@ -165,6 +161,7 @@ class Home extends StatelessWidget {
           ),
           Expanded(
             child: GridView.builder(
+              shrinkWrap: true,
               padding: EdgeInsets.symmetric(horizontal: 10),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -174,7 +171,20 @@ class Home extends StatelessWidget {
               ),
               itemCount: 4,
               itemBuilder: (context, index) {
-                return gridList[index];
+                return TweenAnimationBuilder(
+                  tween: Tween<double>(begin: 0.0, end: 1.0),
+                  duration: Duration(milliseconds: 1000 + (index * 100)),
+                  builder: (context, double value, child) {
+                    return Opacity(
+                      opacity: value,
+                      child: Transform.scale(
+                        scale: value,
+                        child: gridList[index],
+                      ),
+                    );
+                  },
+                );
+                
               },
             ),
           ),
