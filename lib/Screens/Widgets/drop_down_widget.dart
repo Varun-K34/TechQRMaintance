@@ -39,7 +39,7 @@ class DropDownSearchWidget extends StatelessWidget {
               final orgId = value.split(")")[0].split("(")[1];
               controller?.text = orgId;
             }
-          } else if (key == Key("catagory")) {
+          } else if (key == Key("category")) {
             if (value != null) {
               // Extract only the category ID (numeric part at the start)
               final catId = value.replaceAll(RegExp(r'[^0-9]'), '');

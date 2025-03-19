@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
       imagePath: 'assets/images/notification.png',
     ),
     GridContainerButton(
-      title: "ADD DEVICE  ",
+      title: "ADD DEVICE",
       imagePath: "assets/images/wireless-internet 1.png",
     ),
     GridContainerButton(
@@ -35,17 +35,19 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
-        // context
-        //     .read<ServiceRequestBloc>()
-        //     .add(ServiceRequestEvent.getServicesreq());
         context
-            .read<ComplaintblocBloc>()
-            .add(ComplaintblocEvent.getComplaintsTasks());
+            .read<ServiceRequestBloc>()
+            .add(ServiceRequestEvent.getServicesreq());
+        // context
+        //     .read<ComplaintblocBloc>()
+        //     .add(ComplaintblocEvent.getComplaintsTasks());
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
       },
     );
     return Scaffold(
+      backgroundColor: Color(0xFFF2F2F2),
       appBar: AppBar(
+        backgroundColor: Color(0xFFF2F2F2),
         leading: InkWell(
           onTap: () => onPressProfile(context),
           child: Icon(
@@ -77,13 +79,13 @@ class Home extends StatelessWidget {
                   borderRadius: BorderRadius.circular(30)),
               child: BlocBuilder<SpblocBloc, SpblocState>(
                 builder: (context, spState) {
-                  return BlocBuilder<ComplaintblocBloc, ComplaintblocState>(
+                  return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
                     builder: (context, state) {
                       if (state.isLoading) {
                         return Center(
                           child: SkeltonHome(),
                         );
-                      } else if (state.complaints.isEmpty) {
+                      } else if (state.servicelist.isEmpty) {
                         return Center(
                           child: Text(
                             "No tasks found",
@@ -113,8 +115,12 @@ class Home extends StatelessWidget {
                         children: [
                           ContainerTextRow(
                             title: "Tasks today:",
-                            value: state.complaints
-                                .where((task) => task.status == "unassigned")
+                            value: state.servicelist
+                                .where((task) =>
+                                    task.status == "Pending" &&
+                                    task.assignedTechnician ==
+                                        spState.userData.id &&
+                                    task.orgId == spState.userData.orgId)
                                 .toList()
                                 .length
                                 .toString(),
@@ -124,11 +130,12 @@ class Home extends StatelessWidget {
                           ),
                           ContainerTextRow(
                             title: "Pending Tasks:",
-                            value: state.complaints
+                            value: state.servicelist
                                 .where((task) =>
-                                    task.status == "pending" &&
-                                    task.assignedTechnicianId ==
-                                        spState.userData.id)
+                                    task.status == "In Progress" &&
+                                    task.assignedTechnician ==
+                                        spState.userData.id &&
+                                    task.orgId == spState.userData.orgId)
                                 .toList()
                                 .length
                                 .toString(),
@@ -138,11 +145,12 @@ class Home extends StatelessWidget {
                           ),
                           ContainerTextRow(
                             title: "Completed Task:",
-                            value: state.complaints
+                            value: state.servicelist
                                 .where((task) =>
-                                    task.status == "completed" &&
-                                    task.assignedTechnicianId ==
-                                        spState.userData.id)
+                                    task.status == "Completed" &&
+                                    task.assignedTechnician ==
+                                        spState.userData.id &&
+                                    task.orgId == spState.userData.orgId)
                                 .toList()
                                 .length
                                 .toString(),

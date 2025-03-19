@@ -22,6 +22,8 @@ ServicesModel _$ServicesModelFromJson(Map<String, dynamic> json) =>
       completionNotes: json['completion_notes'],
       completionPhotoUrl: json['completion_photo_url'] as String?,
       newPartsUsed: json['new_parts_used'],
+      jobType: json['job_type'] as String?,
+      emergency: (json['emergency'] as num?)?.toInt(),
       startedAt: json['started_at'],
       completedAt: json['completed_at'],
       organization: json['organization'] == null
@@ -52,6 +54,8 @@ Map<String, dynamic> _$ServicesModelToJson(ServicesModel instance) =>
       'completion_notes': instance.completionNotes,
       'completion_photo_url': instance.completionPhotoUrl,
       'new_parts_used': instance.newPartsUsed,
+      'job_type': instance.jobType,
+      'emergency': instance.emergency,
       'started_at': instance.startedAt,
       'completed_at': instance.completedAt,
       'organization': instance.organization,
