@@ -47,8 +47,10 @@ class TaskScreen extends StatelessWidget {
               final servlist = state.servicelist
                   .where(
                     (service) =>
-                        service.id == spstate.userData.id &&
-                        service.orgId == spstate.userData.orgId,
+                        service.assignedTechnician == spstate.userData.id &&
+                        service.orgId == spstate.userData.orgId &&
+                        (service.status == "Pending" ||
+                            service.status == "In Progress"),
                   )
                   .toList();
               if (servlist.isEmpty) {
