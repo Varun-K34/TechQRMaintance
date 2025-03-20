@@ -173,7 +173,7 @@ class Home extends StatelessWidget {
               itemBuilder: (context, index) {
                 return TweenAnimationBuilder(
                   tween: Tween<double>(begin: 0.0, end: 1.0),
-                  duration: Duration(milliseconds: 1000 + (index * 100)),
+                  duration: Duration(milliseconds: 500 + (index * 100)),
                   builder: (context, double value, child) {
                     return Opacity(
                       opacity: value,
