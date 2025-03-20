@@ -1,14 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
-import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/core/imageurls.dart';
-import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
@@ -42,10 +38,22 @@ class TaskScreen extends StatelessWidget {
           return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
             builder: (context, state) {
               if (state.isFailure) {
-                CustomSnackbar.shows(
-                  context,
-                  message:
-                      "Oops! Something went wrong. Please try again later.",
+                return Center(
+                  child: Text(
+                    "Oops! Something went wrong. Please try again later.",
+                  ),
+                );
+              }
+              final servlist = state.servicelist
+                  .where(
+                    (service) =>
+                        service.id == spstate.userData.id &&
+                        service.orgId == spstate.userData.orgId,
+                  )
+                  .toList();
+              if (servlist.isEmpty) {
+                return Center(
+                  child: Text("no data"),
                 );
               }
               return state.isLoading
@@ -79,10 +87,10 @@ class TaskScreen extends StatelessWidget {
                     )
                   : ListView(
                       children: List.generate(
-                        state.servicelist.length,
+                        servlist.length,
                         (index) {
-                          final ServicesModel services =
-                              state.servicelist[index];
+                          final services = servlist[index];
+
                           return TweenAnimationBuilder(
                             tween: Tween<double>(begin: 0.0, end: 1.0),
                             duration: Duration(milliseconds: 500),
@@ -108,9 +116,9 @@ class TaskScreen extends StatelessWidget {
                                             height: 150,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(30),
-                                                  topRight:
-                                                      Radius.circular(30)),
+                                                topLeft: Radius.circular(30),
+                                                topRight: Radius.circular(30),
+                                              ),
                                               color: Color(0xFFF5F5F5),
                                               image: DecorationImage(
                                                 fit: BoxFit.cover,
