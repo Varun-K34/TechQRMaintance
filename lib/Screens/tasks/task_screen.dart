@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
@@ -36,128 +34,156 @@ class TaskScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            ListView(
-              children: List.generate(
-                10,
-                (index) {
-                  return TweenAnimationBuilder(
-                    tween: Tween<double>(begin: 0.0, end: 1.0),
-                    duration: Duration(milliseconds: 500 + (index * 100)),
-                    builder: (context, double value, child) {
-                      return Opacity(
-                        opacity: value,
-                        child: Transform.scale(
-                          scale: value,
-                          child: Skeleton(
-                            height: 100,
-                            width: double.infinity,
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-            );
-          }
-          return ListView(
-            children: List.generate(
-              state.servicelist.length,
-              (index) {
-                final ServicesModel services = state.servicelist[index];
-                return TweenAnimationBuilder(
-                  tween: Tween<double>(begin: 0.0, end: 1.0),
-                  duration: Duration(milliseconds: 500),
-                  builder: (context, double value, child) {
-                    return Opacity(
-                      opacity: value,
-                      child: Transform.translate(
-                        offset: Offset(0, 50 * (1 - value)),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 10,
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: const Color(0xff165069),
+      body: BlocBuilder<SpblocBloc, SpblocState>(
+        builder: (context, spstate) {
+          return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
+            builder: (context, state) {
+              if (state.isFailure) {
+                return Center(
+                  child: Text(
+                    "Oops! Something went wrong. Please try again later.",
+                  ),
+                );
+              }
+              final servlist = state.servicelist
+                  .where(
+                    (service) =>
+                        service.assignedTechnician == spstate.userData.id &&
+                        service.orgId == spstate.userData.orgId &&
+                        (service.status == "Pending" ||
+                            service.status == "In Progress"),
+                  )
+                  .toList();
+              if (servlist.isEmpty) {
+                return Center(
+                  child: Text("No Data"),
+                );
+              }
+              return state.isLoading
+                  ? ListView(
+                      children: List.generate(
+                        10,
+                        (index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Skeleton(
+                              height: 300,
+                              width: double.infinity,
+                              color: primaryWhite,
                             ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 150,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(30),
-                                        topRight: Radius.circular(30)),
-                                    color: Color(0xFFF5F5F5),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        ac,
-                                        scale: 100,
-                                      ),
+                          );
+                        },
+                      ),
+                    )
+                  : ListView(
+                      children: List.generate(
+                        servlist.length,
+                        (index) {
+                          final services = servlist[index];
+
+                          return TweenAnimationBuilder(
+                            tween: Tween<double>(begin: 0.0, end: 1.0),
+                            duration: Duration(milliseconds: 500),
+                            builder: (context, double value, child) {
+                              return Opacity(
+                                opacity: value,
+                                child: Transform.translate(
+                                  offset: Offset(0, 50 * (1 - value)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 10,
+                                    ),
+                                    child: MainContainertask(
+                                      services: services,
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: 5,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 20, bottom: 10),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Job Type : ${services.jobType}",
-                                        style: TextStyle(
-                                          color: primaryWhite,
-                                          fontSize: 22,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      TaskBuildRow(
-                                        icon: Icons.devices,
-                                        text:
-                                            "${services.device?.category?.name}",
-                                      ),
-                                      TaskBuildRow(
-                                          icon: Icons.person,
-                                          text:
-                                              "${services.customer?.fullName}"),
-                                      TaskBuildRow(
-                                          icon: Icons.pending_actions,
-                                          text: "${services.status}"),
-                                      TaskBuildRow(
-                                          icon: Icons.access_time,
-                                          text:
-                                              "${services.preferredTimeslot}"),
-                                      TaskBuildRow(
-                                          icon: Icons.flag,
-                                          text: "${services.emergency}" == "1"
-                                              ? "High priority"
-                                              : "Low priority"),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
+                              );
+                            },
+                          );
+                        },
                       ),
                     );
-                  },
-                );
-              },
-            ),
+            },
           );
         },
+      ),
+    );
+  }
+}
+
+class MainContainertask extends StatelessWidget {
+  const MainContainertask({
+    super.key,
+    required this.services,
+  });
+
+  final ServicesModel services;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: const Color(0xff165069),
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            height: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              color: Color(0xFFF5F5F5),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  ac,
+                  scale: 100,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, bottom: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "Job Type : ${services.jobType}",
+                  style: TextStyle(
+                    color: primaryWhite,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TaskBuildRow(
+                  icon: Icons.devices,
+                  text: "${services.device?.category?.name}",
+                ),
+                TaskBuildRow(
+                    icon: Icons.person, text: "${services.customer?.fullName}"),
+                TaskBuildRow(
+                    icon: Icons.pending_actions, text: "${services.status}"),
+                TaskBuildRow(
+                    icon: Icons.access_time,
+                    text: "${services.preferredTimeslot}"),
+                TaskBuildRow(
+                    icon: Icons.flag,
+                    text: "${services.emergency}" == "1"
+                        ? "High priority"
+                        : "Low priority"),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

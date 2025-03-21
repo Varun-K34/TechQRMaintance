@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+//import 'package:intl/intl.dart';
 import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
-import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart';
-import 'package:techqrmaintance/domain/historymodel/history_maintenance/hisdata.dart';
+import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 
 class HistoryItems extends StatelessWidget {
-  final HisData data;
-  final MaintenancehistoryState stateload;
+  final ServicesModel data;
+  final ServiceRequestState stateload;
   const HistoryItems({
     super.key,
     required this.data,
     required this.stateload,
   });
 
-  String _formatDate(String date) {
-    final DateTime parsedDate = DateTime.parse(date);
-    return DateFormat('MMM dd, yyyy').format(parsedDate);
-  }
+  // String _formatDate(String date) {
+  //   final DateTime parsedDate = DateTime.parse(date);
+  //   return DateFormat('MMM dd, yyyy').format(parsedDate);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    if (stateload.history.isEmpty) {
+    if (stateload.servicelist.isEmpty) {
       return const Center(child: Text("No service history available"));
     }
     return Column(
@@ -30,8 +30,8 @@ class HistoryItems extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10.0),
-              topRight: Radius.circular(10.0),
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
             ),
             image: DecorationImage(
               image: AssetImage(
@@ -47,52 +47,24 @@ class HistoryItems extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.calendar_today,
-                        size: 16,
-                        color: Colors.grey[600],
-                      ),
-                      SizedBox(width: 8),
-                      stateload.isLoading
-                          ? Skeleton(
-                              height: 20,
-                              width: 172,
-                              color: Colors.grey,
-                            )
-                          : Text(
-                              "Service Date: ${_formatDate(data.serviceDate.toString())}",
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey[800],
-                              ),
-                            ),
-                    ],
+                  Icon(
+                    Icons.do_disturb_sharp,
+                    size: 16,
+                    color: Colors.grey[600],
                   ),
+                  SizedBox(width: 8),
                   stateload.isLoading
                       ? Skeleton(
                           height: 20,
-                          width: 60,
+                          width: 172,
                           color: Colors.grey,
                         )
-                      : Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.blue[50],
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Text(
-                            "\$${data.serviceCharge}",
-                            style: TextStyle(
-                              color: Colors.blue[700],
-                              fontWeight: FontWeight.bold,
-                            ),
+                      : Text(
+                          "Issue: ${data.issueDescription}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[800],
                           ),
                         ),
                 ],
@@ -113,10 +85,34 @@ class HistoryItems extends StatelessWidget {
                           color: Colors.grey,
                         )
                       : Text(
-                          "Parts Changed: ${data.partsChanged}",
+                          "Job Type: ${data.jobType}",
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey[800],
+                          ),
+                        ),
+                ],
+              ),
+              SizedBox(height: 12),
+              Row(
+                children: [
+                  Icon(
+                    Icons.flag,
+                    size: 16,
+                    color: Colors.grey[800],
+                  ),
+                  SizedBox(width: 8),
+                  stateload.isLoading
+                      ? Skeleton(
+                          height: 20,
+                          width: 60,
+                          color: Colors.grey,
+                        )
+                      : Text(
+                          "Status: ${data.status}",
+                          style: TextStyle(
+                            color: Colors.blue[700],
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                 ],
