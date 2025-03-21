@@ -64,26 +64,13 @@ class TaskScreen extends StatelessWidget {
                       children: List.generate(
                         10,
                         (index) {
-                          return TweenAnimationBuilder(
-                            tween: Tween<double>(begin: 0.0, end: 1.0),
-                            duration:
-                                Duration(milliseconds: 500 + (index * 100)),
-                            builder: (context, double value, child) {
-                              return Opacity(
-                                opacity: value,
-                                child: Transform.scale(
-                                  scale: value,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Skeleton(
-                                      height: 300,
-                                      width: double.infinity,
-                                      color: primaryWhite,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
+                          return Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Skeleton(
+                              height: 300,
+                              width: double.infinity,
+                              color: primaryWhite,
+                            ),
                           );
                         },
                       ),
