@@ -59,29 +59,21 @@ class TaskScreen extends StatelessWidget {
                   child: Text("No Data"),
                 );
               }
-              return state.isLoading
-                  ? ListView(
-                      children: List.generate(
-                        10,
-                        (index) {
-                          return Padding(
+              return ListView(
+                children: List.generate(
+                  servlist.length,
+                  (index) {
+                    final services = servlist[index];
+                    return state.isLoading
+                        ? Padding(
                             padding: const EdgeInsets.all(10),
                             child: Skeleton(
                               height: 300,
                               width: double.infinity,
                               color: primaryWhite,
                             ),
-                          );
-                        },
-                      ),
-                    )
-                  : ListView(
-                      children: List.generate(
-                        servlist.length,
-                        (index) {
-                          final services = servlist[index];
-
-                          return TweenAnimationBuilder(
+                          )
+                        : TweenAnimationBuilder(
                             tween: Tween<double>(begin: 0.0, end: 1.0),
                             duration: Duration(milliseconds: 500),
                             builder: (context, double value, child) {
@@ -102,9 +94,9 @@ class TaskScreen extends StatelessWidget {
                               );
                             },
                           );
-                        },
-                      ),
-                    );
+                  },
+                ),
+              );
             },
           );
         },
