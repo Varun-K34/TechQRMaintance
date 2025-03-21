@@ -5,6 +5,7 @@ import 'package:techqrmaintance/application/servicesrequest/service_request_bloc
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/core/imageurls.dart';
+import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
@@ -55,7 +56,7 @@ class TaskScreen extends StatelessWidget {
                   .toList();
               if (servlist.isEmpty) {
                 return Center(
-                  child: Text("no data"),
+                  child: Text("No Data"),
                 );
               }
               return state.isLoading
@@ -106,77 +107,8 @@ class TaskScreen extends StatelessWidget {
                                       horizontal: 10,
                                       vertical: 10,
                                     ),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(30),
-                                        color: const Color(0xff165069),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: double.infinity,
-                                            height: 150,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(30),
-                                                topRight: Radius.circular(30),
-                                              ),
-                                              color: Color(0xFFF5F5F5),
-                                              image: DecorationImage(
-                                                fit: BoxFit.cover,
-                                                image: NetworkImage(
-                                                  ac,
-                                                  scale: 100,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 5,
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 20, bottom: 10),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Job Type : ${services.jobType}",
-                                                  style: TextStyle(
-                                                    color: primaryWhite,
-                                                    fontSize: 22,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                TaskBuildRow(
-                                                  icon: Icons.devices,
-                                                  text:
-                                                      "${services.device?.category?.name}",
-                                                ),
-                                                TaskBuildRow(
-                                                    icon: Icons.person,
-                                                    text:
-                                                        "${services.customer?.fullName}"),
-                                                TaskBuildRow(
-                                                    icon: Icons.pending_actions,
-                                                    text: "${services.status}"),
-                                                TaskBuildRow(
-                                                    icon: Icons.access_time,
-                                                    text:
-                                                        "${services.preferredTimeslot}"),
-                                                TaskBuildRow(
-                                                    icon: Icons.flag,
-                                                    text:
-                                                        "${services.emergency}" ==
-                                                                "1"
-                                                            ? "High priority"
-                                                            : "Low priority"),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
+                                    child: MainContainertask(
+                                      services: services,
                                     ),
                                   ),
                                 ),
@@ -189,6 +121,82 @@ class TaskScreen extends StatelessWidget {
             },
           );
         },
+      ),
+    );
+  }
+}
+
+class MainContainertask extends StatelessWidget {
+  const MainContainertask({
+    super.key,
+    required this.services,
+  });
+
+  final ServicesModel services;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: const Color(0xff165069),
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            height: 150,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+              color: Color(0xFFF5F5F5),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  ac,
+                  scale: 100,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, bottom: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "Job Type : ${services.jobType}",
+                  style: TextStyle(
+                    color: primaryWhite,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                TaskBuildRow(
+                  icon: Icons.devices,
+                  text: "${services.device?.category?.name}",
+                ),
+                TaskBuildRow(
+                    icon: Icons.person, text: "${services.customer?.fullName}"),
+                TaskBuildRow(
+                    icon: Icons.pending_actions, text: "${services.status}"),
+                TaskBuildRow(
+                    icon: Icons.access_time,
+                    text: "${services.preferredTimeslot}"),
+                TaskBuildRow(
+                    icon: Icons.flag,
+                    text: "${services.emergency}" == "1"
+                        ? "High priority"
+                        : "Low priority"),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
