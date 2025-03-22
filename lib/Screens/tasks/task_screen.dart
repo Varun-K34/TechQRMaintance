@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
+import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
@@ -86,8 +88,17 @@ class TaskScreen extends StatelessWidget {
                                       horizontal: 10,
                                       vertical: 10,
                                     ),
-                                    child: MainContainertask(
-                                      services: services,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            createRoute(TaskOverviewScreen(
+                                          currentUserId: services.id.toString(),
+                                          key: UniqueKey(),
+                                        )));
+                                      },
+                                      child: MainContainertask(
+                                        services: services,
+                                      ),
                                     ),
                                   ),
                                 ),

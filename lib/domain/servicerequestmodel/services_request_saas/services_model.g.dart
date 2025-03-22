@@ -14,18 +14,26 @@ ServicesModel _$ServicesModelFromJson(Map<String, dynamic> json) =>
       deviceId: (json['device_id'] as num?)?.toInt(),
       assignedTechnician: (json['assigned_technician'] as num?)?.toInt(),
       issueDescription: json['issue_description'] as String?,
-      selectedIssue: json['selected_issue'],
+      selectedIssue: (json['selected_issue'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       preferredTimeslot: json['preferred_timeslot'] == null
           ? null
           : DateTime.parse(json['preferred_timeslot'] as String),
       status: json['status'] as String?,
       completionNotes: json['completion_notes'],
       completionPhotoUrl: json['completion_photo_url'] as String?,
-      newPartsUsed: json['new_parts_used'],
+      newPartsUsed: (json['new_parts_used'] as List<dynamic>?)
+          ?.map((e) => (e as num).toInt())
+          .toList(),
       jobType: json['job_type'] as String?,
       emergency: (json['emergency'] as num?)?.toInt(),
-      startedAt: json['started_at'],
-      completedAt: json['completed_at'],
+      startedAt: json['started_at'] == null
+          ? null
+          : DateTime.parse(json['started_at'] as String),
+      completedAt: json['completed_at'] == null
+          ? null
+          : DateTime.parse(json['completed_at'] as String),
       organization: json['organization'] == null
           ? null
           : Organization.fromJson(json['organization'] as Map<String, dynamic>),
@@ -38,7 +46,9 @@ ServicesModel _$ServicesModelFromJson(Map<String, dynamic> json) =>
       technician: json['technician'] == null
           ? null
           : Technician.fromJson(json['technician'] as Map<String, dynamic>),
-    );
+    )..createdAt = json['created_at'] == null
+        ? null
+        : DateTime.parse(json['created_at'] as String);
 
 Map<String, dynamic> _$ServicesModelToJson(ServicesModel instance) =>
     <String, dynamic>{
@@ -56,8 +66,9 @@ Map<String, dynamic> _$ServicesModelToJson(ServicesModel instance) =>
       'new_parts_used': instance.newPartsUsed,
       'job_type': instance.jobType,
       'emergency': instance.emergency,
-      'started_at': instance.startedAt,
-      'completed_at': instance.completedAt,
+      'started_at': instance.startedAt?.toIso8601String(),
+      'completed_at': instance.completedAt?.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
       'organization': instance.organization,
       'customer': instance.customer,
       'device': instance.device,

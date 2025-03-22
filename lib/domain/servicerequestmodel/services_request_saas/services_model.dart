@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'dart:ffi';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/organizationmodel/organization_model/organization_model/organization.dart';
 
@@ -22,7 +25,7 @@ class ServicesModel {
   @JsonKey(name: 'issue_description')
   String? issueDescription;
   @JsonKey(name: 'selected_issue')
-  dynamic selectedIssue;
+  List<String>? selectedIssue;
   @JsonKey(name: 'preferred_timeslot')
   DateTime? preferredTimeslot;
   @JsonKey(name: 'status')
@@ -32,15 +35,17 @@ class ServicesModel {
   @JsonKey(name: 'completion_photo_url')
   String? completionPhotoUrl;
   @JsonKey(name: 'new_parts_used')
-  dynamic newPartsUsed;
+  List<int>? newPartsUsed;
   @JsonKey(name: 'job_type')
   String? jobType;
   @JsonKey(name: 'emergency')
   int? emergency;
   @JsonKey(name: 'started_at')
-  dynamic startedAt;
+  DateTime? startedAt;
   @JsonKey(name: 'completed_at')
-  dynamic completedAt;
+  DateTime? completedAt;
+  @JsonKey(name: 'created_at')
+  DateTime? createdAt;
   @JsonKey(name: 'organization')
   Organization? organization;
   @JsonKey(name: 'customer')
@@ -73,8 +78,23 @@ class ServicesModel {
     this.technician,
   });
 
-  factory ServicesModel.fromJson(Map<String, dynamic> json) =>
-      _$ServicesModelFromJson(json);
+  factory ServicesModel.fromJson(Map<String, dynamic> json) {
+    try {
+      return _$ServicesModelFromJson(json);
+    } catch (e) {
+      //log('Error deserializing ServicesModel: $e');
+      return ServicesModel(); 
+    }
+  }
 
-  Map<String, dynamic> toJson() => _$ServicesModelToJson(this);
+  Map<String, dynamic> toJson() {
+    try {
+      return _$ServicesModelToJson(this);
+    } catch (e) {
+      log('Error serializing ServicesModel: $e');
+      return {}; 
+    }
+  }
+
+  
 }

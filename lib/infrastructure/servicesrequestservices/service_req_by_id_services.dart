@@ -23,7 +23,7 @@ class ServiceReqByIdServices implements ServicesReqCallByIdRepo {
       if (singleservicerespo.statusCode == 200) {
         final ServicesModel servicesModel =
             ServicesModel.fromJson(singleservicerespo.data['data']);
-        //log(servicesModel.toString());
+        log(servicesModel.toString());
         return Right(servicesModel);
       } else {
         return Left(MainFailurs.serverFailure());

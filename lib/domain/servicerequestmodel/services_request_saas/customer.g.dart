@@ -12,9 +12,8 @@ Customer _$CustomerFromJson(Map<String, dynamic> json) => Customer(
       fullName: json['full_name'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
-      address: json['address'],
-      gpsCoordinates: json['gps_coordinates'],
-      masterQrId: json['master_qr_id'],
+      address: json['address'] as String?,
+      gpsCoordinates: json['gps_coordinates'] as String?,
       pin: (json['pin'] as num?)?.toInt(),
     );
 
@@ -26,6 +25,5 @@ Map<String, dynamic> _$CustomerToJson(Customer instance) => <String, dynamic>{
       'phone': instance.phone,
       'address': instance.address,
       'gps_coordinates': instance.gpsCoordinates,
-      'master_qr_id': instance.masterQrId,
       'pin': instance.pin,
     };

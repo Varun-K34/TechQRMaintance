@@ -1,23 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
-import 'package:techqrmaintance/Screens/tasks/widgets/skel_column.dart';
-import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart';
+import 'package:techqrmaintance/Screens/tasks/widgets/completiondetails.dart';
+import 'package:techqrmaintance/Screens/tasks/widgets/customer_info.dart';
+import 'package:techqrmaintance/Screens/tasks/widgets/device_info.dart';
+import 'package:techqrmaintance/Screens/tasks/widgets/main_info.dart';
+import 'package:techqrmaintance/Screens/tasks/widgets/main_timeline.dart';
+import 'package:techqrmaintance/Screens/tasks/widgets/status_bar_wid.dart';
+import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
 class TaskOverviewScreen extends StatelessWidget {
   final String? currentUserId;
-  const TaskOverviewScreen({super.key, this.currentUserId});
+  const TaskOverviewScreen({
+    super.key,
+    this.currentUserId,
+  });
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) {
-        context.read<ComplaintdetailblocBloc>().add(
-            ComplaintdetailblocEvent.getindividualComplaint(
-                id: currentUserId!));
-      },
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ServiceReqByIdBloc>().add(
+            ServiceReqByIdEvent.getservicebyid(id: currentUserId!),
+          );
+    });
     return Scaffold(
       backgroundColor: primaryWhite,
       appBar: AppBar(
@@ -29,105 +34,83 @@ class TaskOverviewScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: primaryWhite,
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(
-          top: 20,
-          left: 20,
-          bottom: 70,
-          right: 20,
-        ),
-        child: BlocBuilder<ComplaintdetailblocBloc, ComplaintdetailblocState>(
-          builder: (context, state) {
-            if (state.isFailure) {
-              return Center(
-                child: Text(
-                  "Oops! Something went wrong. Please try again later.",
-                  style: TextStyle(
-                    color: primaryBlue,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              );
-            }
-
-            final brand = state.complaints.device?.brand ?? "";
-            final model = state.complaints.device?.model ?? "no model name";
-            final customer = state.complaints.customer?.name ?? "no name";
-            final deviceId = state.complaints.deviceId ?? "no device id";
-            final warranty =
-                state.complaints.device?.warrantyExpiry ?? "no warranty";
-            final complaintType =
-                state.complaints.complaintType?.name ?? "no cpmplaint type";
-            final complaintId = state.complaints.complaintType?.id.toString() ??
-                "no complaintType id";
-            final status = state.complaints.status ?? "no status";
-
-            return Column(
-              children: [
-                state.isLoading
-                    ? ColumnSkel()
-                    : Table(
-                        columnWidths: {
-                          0: FlexColumnWidth(), // Adjusts column widths
-                          1: FlexColumnWidth(),
-                        },
-                        children: [
-                          _buildTableRow("Brand", brand),
-                          _buildTableRow("Model", model.toString()),
-                          _buildTableRow("Customer", customer),
-                          _buildTableRow("Device ID", deviceId.toString()),
-                          _buildTableRow("Warranty", warranty),
-                          _buildTableRow("Complaint Type", complaintType),
-                          _buildTableRow("Complaint ID", complaintId),
-                          _buildTableRow("Status", status),
-                        ],
-                      ),
-                Spacer(),
-                CustomMaterialButton(
-                  text: "ACCEPT",
-                  onPressed: () {},
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                CustomMaterialButton(
-                  text: "REJECT",
-                  onPressed: () {},
-                ),
-              ],
-            );
-          },
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        color: primaryTransparent,
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // Implement navigation to edit screen
+              },
+              child: const Text('Edit Task'),
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  TableRow _buildTableRow(String label, String value) {
-    return TableRow(
-      decoration: BoxDecoration(),
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            overflow: TextOverflow.visible,
-            textAlign: TextAlign.left,
-            label,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: primaryBlue, fontSize: 20),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Text(
-            textAlign: TextAlign.right,
-            overflow: TextOverflow.visible,
-            value,
-            style: TextStyle(color: primaryBlue, fontSize: 20),
-          ),
-        ),
-      ],
+      body: BlocBuilder<ServiceReqByIdBloc, ServiceReqByIdState>(
+        builder: (context, state) {
+          return Padding(
+            padding: const EdgeInsets.only(
+              top: 10,
+              left: 20,
+              right: 20,
+            ),
+            child: ListView(
+              children: [
+                StatusBarWidget(
+                  status: state.servicesModel.status,
+                  taskNumber: state.servicesModel.id.toString(),
+                ),
+                const SizedBox(height: 16),
+                MainInfo(
+                  jobType: state.servicesModel.jobType.toString(),
+                  jobIssue: state.servicesModel.selectedIssue,
+                  jobDescription:
+                      state.servicesModel.issueDescription.toString(),
+                ),
+                const SizedBox(height: 16),
+                BuildTimelineMain(
+                  created: state.servicesModel.createdAt,
+                  started: state.servicesModel.startedAt,
+                  completed: state.servicesModel.completedAt,
+                  preferred: state.servicesModel.preferredTimeslot,
+                ),
+                const SizedBox(height: 16),
+                Deviceinfo(
+                  catagory: state.servicesModel.device?.category?.name,
+                  serialNumber: state.servicesModel.device?.serialNumber,
+                  installation: state.servicesModel.device?.installationDate,
+                  warranty:
+                      state.servicesModel.device?.warrantyPeriod.toString(),
+                  freeMaintenance:
+                      state.servicesModel.device?.freeMaintenance.toString(),
+                  location: state.servicesModel.device?.locationDetails,
+                ),
+                const SizedBox(height: 16),
+                CustomerInfo(
+                  name: state.servicesModel.customer?.fullName,
+                  phone: state.servicesModel.customer?.phone,
+                  email: state.servicesModel.customer?.email,
+                  address: state.servicesModel.customer?.address,
+                  gpsCoordinates: state.servicesModel.customer?.gpsCoordinates,
+                ),
+                const SizedBox(height: 16),
+                state.servicesModel.status != "Completed"
+                    ? SizedBox.shrink()
+                    : CompletionDetailes(
+                        notes: state.servicesModel.completionNotes,
+                        partsUsed: state.servicesModel.newPartsUsed,
+                        completionPhotoUrl:
+                            state.servicesModel.completionPhotoUrl,
+                      ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
+import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
+import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';

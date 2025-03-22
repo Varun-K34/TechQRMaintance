@@ -12,9 +12,9 @@ Technician _$TechnicianFromJson(Map<String, dynamic> json) => Technician(
       role: json['role'] as String?,
       fullName: json['full_name'] as String?,
       email: json['email'] as String?,
-      phone: json['phone'],
-      areaId: json['area_id'],
-      avatar: json['avatar'],
+      phone: json['phone'] as String?,
+      areaId: (json['area_id'] as num?)?.toInt(),
+      avatar: json['avatar'] as String?,
     );
 
 Map<String, dynamic> _$TechnicianToJson(Technician instance) =>
