@@ -1,4 +1,3 @@
-import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
@@ -16,8 +15,10 @@ import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.d
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart';
+import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
+import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 
 import 'package:flutter/material.dart';
@@ -90,6 +91,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<ServiceRequestBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<ServiceReqByIdBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<TechPerfomenceBloc>(),
         ),
       ],
       child: MaterialApp(

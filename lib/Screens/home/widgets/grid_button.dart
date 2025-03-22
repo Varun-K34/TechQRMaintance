@@ -61,7 +61,9 @@ class GridContainerButton extends StatelessWidget {
               decoration: BoxDecoration(
                   image: DecorationImage(image: AssetImage(imagePath))),
             ),
-            SizedBox(height: 5,),
+            SizedBox(
+              height: 5,
+            ),
             Text(
               title,
               overflow: TextOverflow.ellipsis,

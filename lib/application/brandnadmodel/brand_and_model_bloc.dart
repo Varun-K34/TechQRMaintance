@@ -16,7 +16,7 @@ class BrandAndModelBloc extends Bloc<BrandAndModelEvent, BrandAndModelState> {
   final DeiceBrandRepo brandRepo;
   BrandAndModelBloc(this.brandRepo) : super(BrandAndModelState.initial()) {
     on<GetBrand>((event, emit) async {
-      log("brand call",name: "brand bloc");
+      log("brand call", name: "brand bloc");
       emit(state.copyWith(
         isLoading: true,
       ));
