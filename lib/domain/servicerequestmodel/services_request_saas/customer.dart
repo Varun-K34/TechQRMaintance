@@ -15,11 +15,9 @@ class Customer {
   @JsonKey(name: 'phone')
   String? phone;
   @JsonKey(name: 'address')
-  dynamic address;
+  String? address;
   @JsonKey(name: 'gps_coordinates')
-  dynamic gpsCoordinates;
-  @JsonKey(name: 'master_qr_id')
-  dynamic masterQrId;
+  String? gpsCoordinates;
   @JsonKey(name: 'pin')
   int? pin;
 
@@ -31,7 +29,6 @@ class Customer {
     this.phone,
     this.address,
     this.gpsCoordinates,
-    this.masterQrId,
     this.pin,
   });
 

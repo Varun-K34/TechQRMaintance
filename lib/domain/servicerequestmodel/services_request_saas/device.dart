@@ -31,7 +31,7 @@ class Device {
   @JsonKey(name: 'free_maintenance')
   int? freeMaintenance;
   @JsonKey(name: 'location_details')
-  dynamic locationDetails;
+  String? locationDetails;
   @JsonKey(name: 'category')
   Category? category;
 

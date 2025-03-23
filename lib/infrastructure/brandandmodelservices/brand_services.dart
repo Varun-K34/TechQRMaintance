@@ -24,7 +24,7 @@ class BrandServices implements DeiceBrandRepo {
             brandListJson.map((json) => BrandModel.fromJson(json)).toList();
         return Right(brandList);
       } else {
-        log('error ',name: "brand services");
+        log('error ', name: "brand services");
         brandapi.clearStoredToken();
         return Left(MainFailurs.serverFailure());
       }

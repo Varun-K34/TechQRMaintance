@@ -14,4 +14,5 @@ const kCatagory = "api/device-categories";
 const kQrScan = 'api/qr-codes/';
 const kBrand = 'api/brands';
 const kmodel = 'api/device-models';
-const kServices = 'api/service-requests';
+const kServices = 'api/service-requests/';
+const kTechPerfomence = 'api/technician-performances/';

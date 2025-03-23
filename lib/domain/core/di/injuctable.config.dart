@@ -42,9 +42,13 @@ import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_en
     as _i143;
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart'
     as _i142;
+import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart'
+    as _i1045;
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart'
     as _i600;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
+import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart'
+    as _i299;
 import 'package:techqrmaintance/domain/authregmodel/auth_repo.dart' as _i291;
 import 'package:techqrmaintance/domain/catagorymodel/catagory_get_repo.dart'
     as _i185;
@@ -77,6 +81,10 @@ import 'package:techqrmaintance/domain/organizationmodel/organization_repo.dart'
 import 'package:techqrmaintance/domain/scanqrmodel/scan_qr_repo.dart' as _i899;
 import 'package:techqrmaintance/domain/servicerequestmodel/servicerequest_repo.dart'
     as _i1064;
+import 'package:techqrmaintance/domain/servicerequestmodel/services_req_call_by_id.dart'
+    as _i231;
+import 'package:techqrmaintance/domain/techperfomencemodel/tech_perfomence_repo.dart'
+    as _i5;
 import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart' as _i765;
 import 'package:techqrmaintance/infrastructure/authservices/auth_services.dart'
     as _i447;
@@ -108,10 +116,14 @@ import 'package:techqrmaintance/infrastructure/requestqrendpointservices/req_qr_
     as _i834;
 import 'package:techqrmaintance/infrastructure/scanqrservices/scan_qr_services.dart'
     as _i649;
+import 'package:techqrmaintance/infrastructure/servicesrequestservices/service_req_by_id_services.dart'
+    as _i681;
 import 'package:techqrmaintance/infrastructure/servicesrequestservices/services_request_services.dart'
     as _i1025;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
     as _i1027;
+import 'package:techqrmaintance/infrastructure/techperfomenceservices.dart/tech_perfomence_services.dart'
+    as _i986;
 import 'package:techqrmaintance/infrastructure/userlogservices/user_log_services.dart'
     as _i819;
 
@@ -144,6 +156,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i670.GetIdForDeviceRegServices());
     gh.factory<_i600.ServiceRequestBloc>(
         () => _i600.ServiceRequestBloc(gh<_i1064.ServicesRequestRepo>()));
+    gh.lazySingleton<_i5.TechPerfomenceRepo>(
+        () => _i986.TechPerfomenceServices());
     gh.lazySingleton<_i765.UserLogRepo>(() => _i819.UserLogServices());
     gh.factory<_i143.RequestScanQrEndpoindBloc>(
         () => _i143.RequestScanQrEndpoindBloc(gh<_i279.ReqScanQrRepo>()));
@@ -153,6 +167,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1043.DeiceBrandRepo>(() => _i332.BrandServices());
     gh.factory<_i914.MaintenancehistoryBloc>(
         () => _i914.MaintenancehistoryBloc(gh<_i315.MaintanceHistoryRepo>()));
+    gh.lazySingleton<_i231.ServicesReqCallByIdRepo>(
+        () => _i681.ServiceReqByIdServices());
     gh.lazySingleton<_i936.DeviceModelRepo>(() => _i1069.ModelServices());
     gh.factory<_i737.CatogoryBloc>(
         () => _i737.CatogoryBloc(gh<_i185.CatagoryGetRepo>()));
@@ -180,6 +196,10 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i32.GetidregblocBloc(gh<_i1051.GetIdForDeviceRegRepo>()));
     gh.factory<_i134.CustomerBloc>(
         () => _i134.CustomerBloc(gh<_i509.CustomerRepo>()));
+    gh.factory<_i1045.ServiceReqByIdBloc>(
+        () => _i1045.ServiceReqByIdBloc(gh<_i231.ServicesReqCallByIdRepo>()));
+    gh.factory<_i299.TechPerfomenceBloc>(
+        () => _i299.TechPerfomenceBloc(gh<_i5.TechPerfomenceRepo>()));
     gh.factory<_i600.AuthblocBloc>(
         () => _i600.AuthblocBloc(gh<_i291.AuthRepoReg>()));
     gh.factory<_i91.DeviceregblocBloc>(

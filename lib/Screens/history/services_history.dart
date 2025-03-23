@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
+import 'package:techqrmaintance/Screens/history/history_overview.dart';
 import 'package:techqrmaintance/Screens/history/widgets/history_item.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
@@ -90,25 +92,37 @@ class ServicesHistoryScreen extends StatelessWidget {
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 5,
                                         ),
-                                        child: Container(
-                                          padding: EdgeInsets.only(bottom: 10),
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey.shade100,
-                                            borderRadius:
-                                                BorderRadius.circular(30),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                color:
-                                                    Colors.grey.withAlpha(200),
-                                                spreadRadius: 1,
-                                                blurRadius: 4,
-                                                offset: Offset(0, 2),
-                                              ),
-                                            ],
-                                          ),
-                                          child: HistoryItems(
-                                            data: servlist[index],
-                                            stateload: state,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                createRoute(
+                                                    HistoryOverviewScreen(
+                                              taskid:
+                                                  servlist[index].id.toString(),
+                                              key: UniqueKey(),
+                                            )));
+                                          },
+                                          child: Container(
+                                            padding:
+                                                EdgeInsets.only(bottom: 10),
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey.shade100,
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey
+                                                      .withAlpha(200),
+                                                  spreadRadius: 1,
+                                                  blurRadius: 4,
+                                                  offset: Offset(0, 2),
+                                                ),
+                                              ],
+                                            ),
+                                            child: HistoryItems(
+                                              data: servlist[index],
+                                              stateload: state,
+                                            ),
                                           ),
                                         ),
                                       ),

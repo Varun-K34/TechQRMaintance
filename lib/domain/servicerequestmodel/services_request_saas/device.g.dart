@@ -19,7 +19,7 @@ Device _$DeviceFromJson(Map<String, dynamic> json) => Device(
       installationDate: json['installation_date'] as String?,
       warrantyPeriod: (json['warranty_period'] as num?)?.toInt(),
       freeMaintenance: (json['free_maintenance'] as num?)?.toInt(),
-      locationDetails: json['location_details'],
+      locationDetails: json['location_details'] as String?,
       category: json['category'] == null
           ? null
           : Category.fromJson(json['category'] as Map<String, dynamic>),

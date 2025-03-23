@@ -24,16 +24,18 @@ class ServicesRequestServices implements ServicesRequestRepo {
         final servicesData = ServicesRequestSaas.fromJson(servicerespo.data);
 
         if (servicesData.data != null) {
-          //log(servicesData.data.toString(),name: "hello");
+        //log(servicesData.data.toString(),name: "hello 3");
           return right(servicesData.data!);
         } else {
           return left(const MainFailurs.serverFailure());
         }
       } else {
+        log(servicerespo.statusMessage.toString(),name: "hello 2");
         servicesreqapi.clearStoredToken();
         return left(const MainFailurs.serverFailure());
       }
     } catch (e) {
+      log(e.runtimeType.toString() + ": " + e.toString(), name: "hello 1");
       servicesreqapi.clearStoredToken();
       return left(const MainFailurs.clientFailure());
     }

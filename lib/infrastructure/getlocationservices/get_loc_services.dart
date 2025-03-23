@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:injectable/injectable.dart';

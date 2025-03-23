@@ -15,11 +15,11 @@ class Technician {
   @JsonKey(name: 'email')
   String? email;
   @JsonKey(name: 'phone')
-  dynamic phone;
+  String? phone;
   @JsonKey(name: 'area_id')
-  dynamic areaId;
+  int? areaId;
   @JsonKey(name: 'avatar')
-  dynamic avatar;
+  String? avatar;
 
   Technician({
     this.id,

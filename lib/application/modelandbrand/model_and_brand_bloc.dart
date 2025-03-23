@@ -15,7 +15,7 @@ part 'model_and_brand_bloc.freezed.dart';
 class ModelAndBrandBloc extends Bloc<ModelAndBrandEvent, ModelAndBrandState> {
   final DeviceModelRepo modelRepo;
   ModelAndBrandBloc(this.modelRepo) : super(ModelAndBrandState.initial()) {
-    log("model call",name: "model bloc");
+    log("model call", name: "model bloc");
     on<GetModel>((event, emit) async {
       emit(state.copyWith(
         isLoading: true,
