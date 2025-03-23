@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class Skeleton extends StatelessWidget {
   const Skeleton({super.key, this.height, this.width, this.color});
@@ -36,7 +37,7 @@ class CircleSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade400,
+      baseColor: primaryWhite,
       highlightColor: Colors.grey.shade400,
       child: Container(
         height: size,
