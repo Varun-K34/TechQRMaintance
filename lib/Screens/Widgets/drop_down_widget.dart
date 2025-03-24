@@ -10,6 +10,7 @@ class DropDownSearchWidget extends StatelessWidget {
   final String? scarchLabel;
   final String? dropdownLabel;
   final IconData? iconprefix;
+  final bool? serarchbox;
 
   const DropDownSearchWidget({
     super.key,
@@ -18,6 +19,7 @@ class DropDownSearchWidget extends StatelessWidget {
     this.scarchLabel,
     this.dropdownLabel,
     this.iconprefix,
+    this.serarchbox = true,
   });
 
   @override
@@ -61,9 +63,14 @@ class DropDownSearchWidget extends StatelessWidget {
               controller?.text = modelId;
             }
           }
+          else if (key == Key("status")) {
+            if (value != null) {
+              controller?.text = value;
+            }
+          }
         },
         popupProps: PopupProps.bottomSheet(
-          showSearchBox: true,
+          showSearchBox: serarchbox!,
           bottomSheetProps: BottomSheetProps(
             elevation: 8,
             backgroundColor: theme.cardColor,

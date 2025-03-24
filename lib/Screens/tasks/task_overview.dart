@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/tasks/updatetaskscreen.dart';
 import 'package:techqrmaintance/Screens/tasks/widgets/completiondetails.dart';
 import 'package:techqrmaintance/Screens/tasks/widgets/customer_info.dart';
 import 'package:techqrmaintance/Screens/tasks/widgets/device_info.dart';
@@ -42,11 +44,11 @@ class TaskOverviewScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ElevatedButton(
-              onPressed: () {
-                // Implement navigation to edit screen
-              },
-              child: const Text('Edit Task'),
-            ),
+                  onPressed: () => onupdateButtonPressed(
+                      context, currentUserId!),
+                  child: const Text('Edit Task'),
+                ),
+              
           ],
         ),
       ),
@@ -112,5 +114,9 @@ class TaskOverviewScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  void onupdateButtonPressed(BuildContext context, String id) {
+    Navigator.of(context).push(createRoute(UpdateTaskScreen(id: id)));
   }
 }

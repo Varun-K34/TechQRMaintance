@@ -49,6 +49,8 @@ import 'package:techqrmaintance/application/servicesrequest/service_request_bloc
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart'
     as _i299;
+import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart'
+    as _i188;
 import 'package:techqrmaintance/domain/authregmodel/auth_repo.dart' as _i291;
 import 'package:techqrmaintance/domain/catagorymodel/catagory_get_repo.dart'
     as _i185;
@@ -79,6 +81,8 @@ import 'package:techqrmaintance/domain/modelandbrandmodel/device_model_model_rep
 import 'package:techqrmaintance/domain/organizationmodel/organization_repo.dart'
     as _i253;
 import 'package:techqrmaintance/domain/scanqrmodel/scan_qr_repo.dart' as _i899;
+import 'package:techqrmaintance/domain/servicerequestmodel/service_update_repo.dart'
+    as _i553;
 import 'package:techqrmaintance/domain/servicerequestmodel/servicerequest_repo.dart'
     as _i1064;
 import 'package:techqrmaintance/domain/servicerequestmodel/services_req_call_by_id.dart'
@@ -120,6 +124,8 @@ import 'package:techqrmaintance/infrastructure/servicesrequestservices/service_r
     as _i681;
 import 'package:techqrmaintance/infrastructure/servicesrequestservices/services_request_services.dart'
     as _i1025;
+import 'package:techqrmaintance/infrastructure/servicesrequestservices/update_service_service.dart'
+    as _i733;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
     as _i1027;
 import 'package:techqrmaintance/infrastructure/techperfomenceservices.dart/tech_perfomence_services.dart'
@@ -161,6 +167,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i765.UserLogRepo>(() => _i819.UserLogServices());
     gh.factory<_i143.RequestScanQrEndpoindBloc>(
         () => _i143.RequestScanQrEndpoindBloc(gh<_i279.ReqScanQrRepo>()));
+    gh.lazySingleton<_i553.ServiceUpdateRepo>(
+        () => _i733.UpdateServiceService());
     gh.lazySingleton<_i308.ComplaintRepo>(() => _i396.ComplaintGetServices());
     gh.lazySingleton<_i489.DeviceRegRepo>(() => _i1016.DeviceRegService());
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());
@@ -192,6 +200,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i15.SpblocBloc(gh<_i158.SpStoredUser>()));
     gh.factory<_i794.CheckblocBloc>(
         () => _i794.CheckblocBloc(gh<_i829.SplashCheckRepo>()));
+    gh.factory<_i188.UpdateServiceReqBloc>(
+        () => _i188.UpdateServiceReqBloc(gh<_i553.ServiceUpdateRepo>()));
     gh.factory<_i32.GetidregblocBloc>(
         () => _i32.GetidregblocBloc(gh<_i1051.GetIdForDeviceRegRepo>()));
     gh.factory<_i134.CustomerBloc>(
