@@ -1,6 +1,7 @@
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
+import 'package:techqrmaintance/Screens/tasks/updatetaskscreen.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
@@ -21,6 +22,7 @@ import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart';
+import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 
 import 'package:flutter/material.dart';
@@ -100,12 +102,17 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getit<TechPerfomenceBloc>(),
         ),
+        BlocProvider(
+          create: (context) => getit<UpdateServiceReqBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.deepPurple,
+          ),
           useMaterial3: true,
         ),
         home: SplashScreen(),

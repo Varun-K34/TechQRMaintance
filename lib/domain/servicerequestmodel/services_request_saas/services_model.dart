@@ -78,6 +78,13 @@ class ServicesModel {
     this.technician,
   });
 
+  ServicesModel.create({
+    this.status,
+    this.completionNotes,
+    this.completionPhotoUrl,
+    this.completedAt,
+  });
+
   factory ServicesModel.fromJson(Map<String, dynamic> json) {
     try {
       return _$ServicesModelFromJson(json);
