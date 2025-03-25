@@ -75,10 +75,17 @@ class LoginScreen extends StatelessWidget {
                 );
               } else if (state.isSuccess) {
                 // Navigate to the home screen
-                Navigator.of(context).pushAndRemoveUntil(
-                  createRoute(Home()),
-                  (route) => false,
-                );
+                if (state.userModelLists.role == "Technician") {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    createRoute(Home()),
+                    (route) => false,
+                  );
+                } else if (state.userModelLists.role == "Area Manager") {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    createRoute(Home()),
+                    (route) => false,
+                  );
+                }
               }
             }, child: BlocBuilder<LogblocBloc, LogblocState>(
               builder: (context, state) {
