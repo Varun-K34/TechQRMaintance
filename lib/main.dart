@@ -1,3 +1,5 @@
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:techqrmaintance/Screens/area_manager/manager_home/manager_home_screen.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
@@ -28,12 +30,50 @@ import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configinjuction();
+  await initializeNotifications();
   runApp(const MyApp());
 }
 
+
+Future<void> initializeNotifications() async {
+  const AndroidInitializationSettings androidInitializationSettings =
+      AndroidInitializationSettings('@mipmap/ic_launcher');
+
+  final InitializationSettings initializationSettings =
+      InitializationSettings(android: androidInitializationSettings);
+
+  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+}
+
+Future<void> schedulePeriodicNotifications() async {
+  const AndroidNotificationDetails androidNotificationDetails =
+      AndroidNotificationDetails(
+    "1",
+    'jjgfghfgj',
+    channelDescription: 'Repeating notification for updates',
+    importance: Importance.high,
+    priority: Priority.high,
+  );
+
+  const NotificationDetails notificationDetails =
+      NotificationDetails(android: androidNotificationDetails);
+
+  await flutterLocalNotificationsPlugin.periodicallyShow(
+    0, // Notification ID
+    'Task Reminder', // Title
+    'Check for pending tasks!', // Body
+    RepeatInterval.everyMinute, // Interval (closest available option to 10 seconds)
+    notificationDetails,
+    androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+  );
+  
+}
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -119,4 +159,7 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+
+
+  
 }

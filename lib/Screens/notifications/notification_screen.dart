@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
+import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -8,109 +11,140 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: primaryWhite,
-          title: Text(
-            "Notifications",
-            style: TextStyle(
-              fontSize: 24,
-              color: primaryBlue,
-              fontWeight: FontWeight.w700,
-            ),
+      appBar: AppBar(
+        backgroundColor: primaryWhite,
+        title: Text(
+          "Notifications",
+          style: TextStyle(
+            fontSize: 24,
+            color: primaryBlue,
+            fontWeight: FontWeight.w700,
           ),
-          centerTitle: true,
         ),
-        body: ListView(
-          children: List.generate(
-            10,
-            (index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 10,
-                ),
-                child: Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
+        centerTitle: true,
+      ),
+      body: BlocBuilder<SpblocBloc, SpblocState>(
+        builder: (context, spstate) {
+          return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
+            builder: (context, state) {
+              final servlist = state.servicelist
+                  .where(
+                    (service) =>
+                        service.assignedTechnician == spstate.userData.id &&
+                        service.orgId == spstate.userData.orgId &&
+                        service.status == "Pending",
+                  )
+                  .toList();
+              if (servlist.isEmpty) {
+                return Center(
+                  child: Text("No Data"),
+                );
+              }
+              if (state.isFailure) {
+                return Center(
+                  child: Text(
+                    "Oops! Something went wrong. Please try again later.",
                   ),
-                  decoration: BoxDecoration(
-                      color: primaryWhite,
-                      border: Border.all(width: 2, color: primaryBlue),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(
-                          "Device name",
-                          style: TextStyle(
-                            color: primaryBlue,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                          ),
+                );
+              }
+              return ListView(
+                children: List.generate(
+                  servlist.length,
+                  (index) {
+                    final notification = servlist[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
                         ),
-                        subtitle: Column(
+                        decoration: BoxDecoration(
+                            color: primaryWhite,
+                            border: Border.all(width: 2, color: primaryBlue),
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Column(
                           children: [
-                            Text(
-                              "Scheduled: tomorrow at 10:00 AM",
-                              style: TextStyle(
-                                color: primaryBlue,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
+                            ListTile(
+                              title: Text(
+                                notification.device!.category!.name.toString(),
+                                style: TextStyle(
+                                  color: primaryBlue,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              subtitle: Column(
+                                children: [
+                                  Text(
+                                    notification.preferredTimeslot.toString(),
+                                    style: TextStyle(
+                                      color: primaryBlue,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  Text(
+                                    notification.status.toString(),
+                                    style: TextStyle(
+                                      color: primaryBlue,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                ],
+                              ),
+                              leading: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 26,
+                                  vertical: 13,
+                                ),
+                                decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 2, color: primaryBlue),
+                                  color: primaryWhite,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Text(
+                                  notification.id.toString(),
+                                  style: TextStyle(
+                                    color: primaryBlack,
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
-                            Text(
-                              "Technician assignment pending",
-                              style: TextStyle(
-                                color: primaryBlue,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                              ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                CustomMaterialButton(
+                                  height: 10,
+                                  width: 150,
+                                  text: "Track",
+                                  textColor: primaryWhite,
+                                  onPressed: () {},
+                                )
+                              ],
                             )
                           ],
                         ),
-                        leading: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 26,
-                            vertical: 13,
-                          ),
-                          decoration: BoxDecoration(
-                            border: Border.all(width: 2, color: primaryBlue),
-                            color: primaryWhite,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Text(
-                            "${index + 1}",
-                            style: TextStyle(
-                              color: primaryBlack,
-                              fontSize: 22,
-                              fontWeight: FontWeight.w900,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          CustomMaterialButton(
-                            height: 10,
-                            width: 150,
-                            text: "Track",
-                            textColor: primaryWhite,
-                            onPressed: () {},
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                    );
+                  },
                 ),
               );
             },
-          ),
-        ));
+          );
+        },
+      ),
+    );
   }
 }
