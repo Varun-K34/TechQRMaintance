@@ -30,50 +30,102 @@ import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+//     FlutterLocalNotificationsPlugin();
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+// class Notification {
+//   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
+//       FlutterLocalNotificationsPlugin();
+
+//   Future<void> requestNotificationPermission() async {
+//     final bool? granted = await _flutterLocalNotificationsPlugin
+//         .resolvePlatformSpecificImplementation<
+//             AndroidFlutterLocalNotificationsPlugin>()
+//         ?.requestNotificationsPermission();
+//     if (granted != null && granted) {
+//       print('Notification permission granted');
+//     } else {
+//       print('Notification permission denied');
+//     }
+//   }
+
+//   Future<void> initialisenotification() async {
+//     const AndroidInitializationSettings initializationSettingsAndroid =
+//         AndroidInitializationSettings(
+//             '@mipmap/ic_launcher'); // Replace with your app icon name
+//     final InitializationSettings initializationSettings =
+//         InitializationSettings(android: initializationSettingsAndroid);
+
+//     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
+//   }
+
+//   Future<void> shadulesendnotification(String title, String body) async {
+//     const AndroidNotificationDetails androidPlatformChannelSpecifics =
+//         AndroidNotificationDetails(
+//       'channelId',
+//       'channelName',
+//       importance: Importance.max,
+//       priority: Priority.high,
+//     );
+//     const NotificationDetails platformChannelSpecifics =
+//         NotificationDetails(android: androidPlatformChannelSpecifics);
+
+//     await _flutterLocalNotificationsPlugin.periodicallyShow(
+//       0,
+//       title,
+//       body,
+//       RepeatInterval.everyMinute,
+//       platformChannelSpecifics,
+//       androidScheduleMode: AndroidScheduleMode.exact,
+//     );
+//   }
+// }
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configinjuction();
-  await initializeNotifications();
+  //await initializeNotifications();
+  // final Notification notification = Notification();
+  // await notification.initialisenotification();
+  // await notification.requestNotificationPermission();
+  // await notification.shadulesendnotification(
+  //     'techni', 'check for pending tasks');
   runApp(const MyApp());
 }
 
+// Future<void> initializeNotifications() async {
+//   const AndroidInitializationSettings androidInitializationSettings =
+//       AndroidInitializationSettings('@mipmap/ic_launcher');
 
-Future<void> initializeNotifications() async {
-  const AndroidInitializationSettings androidInitializationSettings =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
+//   final InitializationSettings initializationSettings =
+//       InitializationSettings(android: androidInitializationSettings);
 
-  final InitializationSettings initializationSettings =
-      InitializationSettings(android: androidInitializationSettings);
+//   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+// }
 
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-}
+// Future<void> schedulePeriodicNotifications() async {
+//   const AndroidNotificationDetails androidNotificationDetails =
+//       AndroidNotificationDetails(
+//     "1",
+//     'jjgfghfgj',
+//     channelDescription: 'Repeating notification for updates',
+//     importance: Importance.high,
+//     priority: Priority.high,
+//   );
 
-Future<void> schedulePeriodicNotifications() async {
-  const AndroidNotificationDetails androidNotificationDetails =
-      AndroidNotificationDetails(
-    "1",
-    'jjgfghfgj',
-    channelDescription: 'Repeating notification for updates',
-    importance: Importance.high,
-    priority: Priority.high,
-  );
+//   const NotificationDetails notificationDetails =
+//       NotificationDetails(android: androidNotificationDetails);
 
-  const NotificationDetails notificationDetails =
-      NotificationDetails(android: androidNotificationDetails);
+//   await flutterLocalNotificationsPlugin.periodicallyShow(
+//     0, // Notification ID
+//     'Task Reminder', // Title
+//     'Check for pending tasks!', // Body
+//     RepeatInterval.everyMinute, // Interval (closest available option to 10 seconds)
+//     notificationDetails,
+//     androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+//   );
 
-  await flutterLocalNotificationsPlugin.periodicallyShow(
-    0, // Notification ID
-    'Task Reminder', // Title
-    'Check for pending tasks!', // Body
-    RepeatInterval.everyMinute, // Interval (closest available option to 10 seconds)
-    notificationDetails,
-    androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-  );
-  
-}
+// }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -159,7 +211,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-
-
-  
 }

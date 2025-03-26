@@ -1,7 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/area_manager/manager_home/task_view/assigned_task_view_screen.dart';
+import 'package:techqrmaintance/Screens/area_manager/manager_home/task_view/total_task_view.dart';
+import 'package:techqrmaintance/Screens/area_manager/manager_home/task_view/unassigned_task_view_screen.dart';
+import 'package:techqrmaintance/Screens/area_manager/widgets/manager_task_widget.dart';
 import 'package:techqrmaintance/Screens/home/widgets/skelton_home.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
+import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
@@ -20,13 +28,25 @@ class ManagerHomeScreen extends StatelessWidget {
       },
     );
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Manager Home Screen"),
+      backgroundColor: primaryWhite,
+      appBar: AppBar(
+        backgroundColor: primaryWhite,
+        leading: InkWell(
+          onTap: () => onPressmanagerProfile(context),
+          child: Icon(
+            Icons.account_circle_outlined,
+            size: 35,
+            color: primaryBlue,
+          ),
         ),
-        body: Column(
+        title: Text("Manager Home Screen"),
+      ),
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 70),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
               child: Container(
                 height: 170,
                 width: 401,
@@ -39,6 +59,7 @@ class ManagerHomeScreen extends StatelessWidget {
                   builder: (context, spState) {
                     return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
                       builder: (context, state) {
+                        
                         if (state.isLoading) {
                           return Center(
                             child: SkeltonHome(),
@@ -75,8 +96,10 @@ class ManagerHomeScreen extends StatelessWidget {
                               title: "Unassained Task:",
                               value: state.servicelist
                                   .where((task) =>
-                                      task.status == "Pending" &&
-                                      task.orgId == spState.userData.orgId)
+                                      task.technician == null &&
+                                      task.assignedTechnician == null &&
+                                      task.orgId == spState.userData.orgId &&
+                                      task.status != "Completed")
                                   .toList()
                                   .length
                                   .toString(),
@@ -88,8 +111,10 @@ class ManagerHomeScreen extends StatelessWidget {
                               title: "Assigned Task:",
                               value: state.servicelist
                                   .where((task) =>
-                                      task.status == "In Progress" &&
-                                      task.orgId == spState.userData.orgId)
+                                      task.assignedTechnician != null &&
+                                      task.orgId == spState.userData.orgId &&
+                                      (task.status == "pending" ||
+                                          task.status == "In Progress"))
                                   .toList()
                                   .length
                                   .toString(),
@@ -116,7 +141,46 @@ class ManagerHomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: ManagerTaskWidget(
+                title: "Unassigned Task",
+                onTap: () {
+                  Navigator.of(context).push(
+                      createRoute(UnassignedTaskViewScreen(key: UniqueKey())));
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+              child: ManagerTaskWidget(
+                title: "Assigned Task",
+                onTap: () {
+                  Navigator.of(context).push(
+                      createRoute(AssignedTaskViewScreen(key: UniqueKey())));
+                },
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: ManagerTaskWidget(
+                title: "Total Task",
+                onTap: () {
+                  Navigator.of(context)
+                      .push(createRoute(TotalTaskView(key: UniqueKey())));
+                },
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
           ],
-        ));
+        ),
+      ),
+    );
+  }
+
+  void onPressmanagerProfile(BuildContext context) {
+    Navigator.of(context).push(createRoute(PortfolioScreen()));
   }
 }

@@ -5,6 +5,7 @@ import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
+import 'package:techqrmaintance/Screens/area_manager/manager_home/manager_home_screen.dart';
 import 'package:techqrmaintance/Screens/home/home.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
@@ -82,7 +83,7 @@ class LoginScreen extends StatelessWidget {
                   );
                 } else if (state.userModelLists.role == "Area Manager") {
                   Navigator.of(context).pushAndRemoveUntil(
-                    createRoute(Home()),
+                    createRoute(ManagerHomeScreen()),
                     (route) => false,
                   );
                 }
