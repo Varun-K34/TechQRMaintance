@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Authentication/login_screen.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/area_manager/manager_home/manager_home_screen.dart';
 import 'package:techqrmaintance/Screens/home/home.dart';
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
@@ -33,7 +34,7 @@ class SplashScreen extends StatelessWidget {
               );
             } else if (state.authenticated == true&& spstate.userData.role == "Area Manager") {
               Navigator.of(context).pushAndRemoveUntil(
-                createRoute(Home()),
+                createRoute(ManagerHomeScreen()),
                 (route) => false,
               );
             }

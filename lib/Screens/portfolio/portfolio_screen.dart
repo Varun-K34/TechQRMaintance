@@ -78,35 +78,41 @@ class PortfolioScreen extends StatelessWidget {
                         );
                 },
               ),
-              BlocBuilder<TechPerfomenceBloc, TechPerfomenceState>(
-                builder: (context, state) {
-                  if (state.isFailure) {
-                    return Text("No Data Found!");
-                  }
-                  if (state.isLoading) {
-                    return CircleSkeleton(
-                      size: 150,
-                    );
-                  }
-                  return
-                      // state.techPerfimence.totalCompletedServices == 0 &&
-                      //         state.techPerfimence.customerFeedbackRating == null &&
-                      //         state.techPerfimence.averageCompletionTime == null
-                      //     ? Center(
-                      //         child: Text("Insufficient data to generate chart"))
-                      //     :
-                      TechnicianPieChart(
-                          completedServices: 10,
-                          avgTime: double.parse(
-                              state.techPerfimence.averageCompletionTime ??
-                                  '5'),
-                          feedbackRating: state
-                                      .techPerfimence.customerFeedbackRating ==
-                                  null
-                              ? 12
-                              : double.parse(
-                                  state.techPerfimence.customerFeedbackRating ??
-                                      '12'));
+              BlocBuilder<SpblocBloc, SpblocState>(
+                builder: (context, spstate) {
+                  return BlocBuilder<TechPerfomenceBloc, TechPerfomenceState>(
+                    builder: (context, state) {
+                      if (state.isFailure) {
+                        return Text("No Data Found!");
+                      }
+                      if (state.isLoading) {
+                        return CircleSkeleton(
+                          size: 150,
+                        );
+                      }
+                      return
+                          // state.techPerfimence.totalCompletedServices == 0 &&
+                          //         state.techPerfimence.customerFeedbackRating == null &&
+                          //         state.techPerfimence.averageCompletionTime == null
+                          //     ? Center(
+                          //         child: Text("Insufficient data to generate chart"))
+                          //     :
+                          spstate.userData.role == "Area Manager"
+                              ? SizedBox.shrink()
+                              : TechnicianPieChart(
+                                  completedServices: 10,
+                                  avgTime: double.parse(state.techPerfimence
+                                          .averageCompletionTime ??
+                                      '5'),
+                                  feedbackRating: state.techPerfimence
+                                              .customerFeedbackRating ==
+                                          null
+                                      ? 12
+                                      : double.parse(state.techPerfimence
+                                              .customerFeedbackRating ??
+                                          '12'));
+                    },
+                  );
                 },
               ),
               SizedBox(
