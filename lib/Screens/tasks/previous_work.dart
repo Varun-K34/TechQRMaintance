@@ -3,15 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
+import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
-import 'package:techqrmaintance/core/imageurls.dart';
-import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 
-class TaskScreen extends StatelessWidget {
+class PreviousWork extends StatelessWidget {
+  final String?id;
+  final String? serialno;
   final String? title;
-  const TaskScreen({super.key, this.title});
+  const PreviousWork({super.key, this.title, this.serialno, this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,7 @@ class TaskScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: primaryWhite,
         title: Text(
-          "Tasks",
+          "Previous Tasks",
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w700,
@@ -51,10 +52,10 @@ class TaskScreen extends StatelessWidget {
               final servlist = state.servicelist
                   .where(
                     (service) =>
-                        service.assignedTechnician == spstate.userData.id &&
+                    service.device?.serialNumber == serialno&&
+                        //service.assignedTechnician == spstate.userData.id &&
                         service.orgId == spstate.userData.orgId &&
-                        (service.status == "Pending" ||
-                            service.status == "In Progress"),
+                        service.status == "Completed" ,
                   )
                   .toList();
               if (servlist.isEmpty) {
@@ -92,8 +93,8 @@ class TaskScreen extends StatelessWidget {
                                       onTap: () {
                                         Navigator.of(context).push(
                                             createRoute(TaskOverviewScreen(
-                                              serialNo:services.device?.serialNumber ,
-                                              title: title,
+                                          
+                                          title: title,
                                           currentUserId: services.id.toString(),
                                           key: UniqueKey(),
                                         )));
@@ -113,127 +114,6 @@ class TaskScreen extends StatelessWidget {
             },
           );
         },
-      ),
-    );
-  }
-}
-
-class MainContainertask extends StatelessWidget {
-
-  const MainContainertask({
-    super.key,
-    required this.services, 
-  });
-
-  final ServicesModel services;
-  
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: const Color(0xff165069),
-        ),
-        child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 150,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-                color: Color(0xFFF5F5F5),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    ac,
-                    scale: 100,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, bottom: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(
-                    "Job Type : ${services.jobType}",
-                    style: TextStyle(
-                      color: primaryWhite,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TaskBuildRow(
-                    icon: Icons.devices,
-                    text: "${services.device?.category?.name}",
-                  ),
-                  TaskBuildRow(
-                      icon: Icons.person,
-                      text: "${services.customer?.fullName}"),
-                  TaskBuildRow(
-                      icon: Icons.pending_actions, text: "${services.status}"),
-                  TaskBuildRow(
-                      icon: Icons.access_time,
-                      text: "${services.preferredTimeslot}"),
-                  TaskBuildRow(
-                      icon: Icons.flag,
-                      text: "${services.emergency}" == "1"
-                          ? "High priority"
-                          : "Low priority"),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class TaskBuildRow extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  const TaskBuildRow({
-    super.key,
-    required this.icon,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 6),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            size: 16,
-            color: text == "High priority" ? Colors.red : primaryWhite,
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: text == "High priority" ? Colors.red : primaryWhite,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
       ),
     );
   }
