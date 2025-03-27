@@ -68,6 +68,13 @@ class DropDownSearchWidget extends StatelessWidget {
               controller?.text = value;
             }
           }
+          else if (key == Key("tech")) {
+            if (value != null) {
+              final techid = RegExp(r'^\d+').firstMatch(value)?.group(0) ?? '';
+              log(techid);
+              controller?.text = techid;
+            }
+          }
         },
         popupProps: PopupProps.bottomSheet(
           showSearchBox: serarchbox!,

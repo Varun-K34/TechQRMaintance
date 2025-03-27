@@ -59,7 +59,6 @@ class ManagerHomeScreen extends StatelessWidget {
                   builder: (context, spState) {
                     return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
                       builder: (context, state) {
-                        
                         if (state.isLoading) {
                           return Center(
                             child: SkeltonHome(),
@@ -112,9 +111,9 @@ class ManagerHomeScreen extends StatelessWidget {
                               value: state.servicelist
                                   .where((task) =>
                                       task.assignedTechnician != null &&
+                                      task.technician != null &&
                                       task.orgId == spState.userData.orgId &&
-                                      (task.status == "pending" ||
-                                          task.status == "In Progress"))
+                                      task.status != "Completed")
                                   .toList()
                                   .length
                                   .toString(),
@@ -161,19 +160,19 @@ class ManagerHomeScreen extends StatelessWidget {
                 },
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: ManagerTaskWidget(
-                title: "Total Task",
-                onTap: () {
-                  Navigator.of(context)
-                      .push(createRoute(TotalTaskView(key: UniqueKey())));
-                },
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 15),
+            //   child: ManagerTaskWidget(
+            //     title: "Total Task",
+            //     onTap: () {
+            //       Navigator.of(context)
+            //           .push(createRoute(TotalTaskView(key: UniqueKey())));
+            //     },
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 10,
+            // ),
           ],
         ),
       ),

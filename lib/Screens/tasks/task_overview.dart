@@ -12,10 +12,11 @@ import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id
 import 'package:techqrmaintance/core/colors.dart';
 
 class TaskOverviewScreen extends StatelessWidget {
+  final String? title;
   final String? currentUserId;
   const TaskOverviewScreen({
     super.key,
-    this.currentUserId,
+    this.currentUserId, this.title,
   });
 
   @override
@@ -36,7 +37,9 @@ class TaskOverviewScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: primaryWhite,
       ),
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: title == "assigned task"
+          ? SizedBox.shrink()
+          : BottomAppBar(
         shape: const CircularNotchedRectangle(),
         color: primaryTransparent,
         height: 60,
