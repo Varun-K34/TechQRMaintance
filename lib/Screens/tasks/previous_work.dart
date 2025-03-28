@@ -9,7 +9,7 @@ import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
 class PreviousWork extends StatelessWidget {
-  final String?id;
+  final String? id;
   final String? serialno;
   final String? title;
   const PreviousWork({super.key, this.title, this.serialno, this.id});
@@ -52,10 +52,10 @@ class PreviousWork extends StatelessWidget {
               final servlist = state.servicelist
                   .where(
                     (service) =>
-                    service.device?.serialNumber == serialno&&
+                        service.device?.serialNumber == serialno &&
                         //service.assignedTechnician == spstate.userData.id &&
                         service.orgId == spstate.userData.orgId &&
-                        service.status == "Completed" ,
+                        service.status == "Completed",
                   )
                   .toList();
               if (servlist.isEmpty) {
@@ -93,7 +93,6 @@ class PreviousWork extends StatelessWidget {
                                       onTap: () {
                                         Navigator.of(context).push(
                                             createRoute(TaskOverviewScreen(
-                                          
                                           title: title,
                                           currentUserId: services.id.toString(),
                                           key: UniqueKey(),
