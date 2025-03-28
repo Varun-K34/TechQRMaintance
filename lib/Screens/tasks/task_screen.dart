@@ -10,7 +10,8 @@ import 'package:techqrmaintance/core/imageurls.dart';
 import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 
 class TaskScreen extends StatelessWidget {
-  const TaskScreen({super.key});
+  final String? title;
+  const TaskScreen({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +92,8 @@ class TaskScreen extends StatelessWidget {
                                       onTap: () {
                                         Navigator.of(context).push(
                                             createRoute(TaskOverviewScreen(
+                                              serialNo:services.device?.serialNumber ,
+                                              title: title,
                                           currentUserId: services.id.toString(),
                                           key: UniqueKey(),
                                         )));
@@ -116,12 +119,14 @@ class TaskScreen extends StatelessWidget {
 }
 
 class MainContainertask extends StatelessWidget {
+
   const MainContainertask({
     super.key,
-    required this.services,
+    required this.services, 
   });
 
   final ServicesModel services;
+  
 
   @override
   Widget build(BuildContext context) {

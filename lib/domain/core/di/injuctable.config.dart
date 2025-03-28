@@ -47,6 +47,8 @@ import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart'
     as _i600;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
+import 'package:techqrmaintance/application/techlistbloc/tech_list_bloc.dart'
+    as _i300;
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart'
     as _i299;
 import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart'
@@ -89,6 +91,8 @@ import 'package:techqrmaintance/domain/servicerequestmodel/services_req_call_by_
     as _i231;
 import 'package:techqrmaintance/domain/techperfomencemodel/tech_perfomence_repo.dart'
     as _i5;
+import 'package:techqrmaintance/domain/usermodel/technitian_list_repo.dart'
+    as _i740;
 import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart' as _i765;
 import 'package:techqrmaintance/infrastructure/authservices/auth_services.dart'
     as _i447;
@@ -128,6 +132,8 @@ import 'package:techqrmaintance/infrastructure/servicesrequestservices/update_se
     as _i733;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
     as _i1027;
+import 'package:techqrmaintance/infrastructure/technitian_dropdown_services/tecnitiandropdownservices.dart'
+    as _i775;
 import 'package:techqrmaintance/infrastructure/techperfomenceservices.dart/tech_perfomence_services.dart'
     as _i986;
 import 'package:techqrmaintance/infrastructure/userlogservices/user_log_services.dart'
@@ -164,6 +170,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i600.ServiceRequestBloc(gh<_i1064.ServicesRequestRepo>()));
     gh.lazySingleton<_i5.TechPerfomenceRepo>(
         () => _i986.TechPerfomenceServices());
+    gh.lazySingleton<_i740.TechnitianListRepo>(
+        () => _i775.Tecnitiandropdownservices());
     gh.lazySingleton<_i765.UserLogRepo>(() => _i819.UserLogServices());
     gh.factory<_i143.RequestScanQrEndpoindBloc>(
         () => _i143.RequestScanQrEndpoindBloc(gh<_i279.ReqScanQrRepo>()));
@@ -204,6 +212,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i188.UpdateServiceReqBloc(gh<_i553.ServiceUpdateRepo>()));
     gh.factory<_i32.GetidregblocBloc>(
         () => _i32.GetidregblocBloc(gh<_i1051.GetIdForDeviceRegRepo>()));
+    gh.factory<_i300.TechListBloc>(
+        () => _i300.TechListBloc(gh<_i740.TechnitianListRepo>()));
     gh.factory<_i134.CustomerBloc>(
         () => _i134.CustomerBloc(gh<_i509.CustomerRepo>()));
     gh.factory<_i1045.ServiceReqByIdBloc>(

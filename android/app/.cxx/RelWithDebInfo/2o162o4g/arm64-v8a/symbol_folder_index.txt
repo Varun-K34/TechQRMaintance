@@ -1,0 +1,1 @@
+C:\Users\Suhaib\flutter_projects\TechQRMaintance\build\app\intermediates\cxx\RelWithDebInfo\2o162o4g\obj\arm64-v8a

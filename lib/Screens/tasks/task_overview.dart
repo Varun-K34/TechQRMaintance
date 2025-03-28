@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
+import 'package:techqrmaintance/Screens/tasks/previous_work.dart';
 import 'package:techqrmaintance/Screens/tasks/updatetaskscreen.dart';
 import 'package:techqrmaintance/Screens/tasks/widgets/completiondetails.dart';
 import 'package:techqrmaintance/Screens/tasks/widgets/customer_info.dart';
@@ -12,10 +13,14 @@ import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id
 import 'package:techqrmaintance/core/colors.dart';
 
 class TaskOverviewScreen extends StatelessWidget {
+  final String? serialNo;
+  final String? title;
   final String? currentUserId;
   const TaskOverviewScreen({
     super.key,
     this.currentUserId,
+    this.title,
+    this.serialNo,
   });
 
   @override
@@ -36,22 +41,29 @@ class TaskOverviewScreen extends StatelessWidget {
         centerTitle: true,
         backgroundColor: primaryWhite,
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        color: primaryTransparent,
-        height: 60,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                  onPressed: () => onupdateButtonPressed(
-                      context, currentUserId!),
-                  child: const Text('Edit Task'),
-                ),
-              
-          ],
-        ),
-      ),
+      bottomNavigationBar: title == "assigned task"
+          ? SizedBox.shrink()
+          : BottomAppBar(
+              shape: const CircularNotchedRectangle(),
+              color: primaryTransparent,
+              height: 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () =>
+                        onupdateButtonPressed(context, currentUserId!),
+                    child: const Text('Edit Task'),
+                  ),
+                  SizedBox(width: 10,),
+                  ElevatedButton(
+                    onPressed: () => onpreviovstaskButtonPressed(
+                        context, currentUserId!, serialNo),
+                    child: const Text('previous Task'),
+                  ),
+                ],
+              ),
+            ),
       body: BlocBuilder<ServiceReqByIdBloc, ServiceReqByIdState>(
         builder: (context, state) {
           return Padding(
@@ -118,5 +130,14 @@ class TaskOverviewScreen extends StatelessWidget {
 
   void onupdateButtonPressed(BuildContext context, String id) {
     Navigator.of(context).push(createRoute(UpdateTaskScreen(id: id)));
+  }
+
+  void onpreviovstaskButtonPressed(
+      BuildContext context, String id, String? serialno) {
+    Navigator.of(context).push(createRoute(PreviousWork(
+      serialno: serialNo,
+      title: title,
+      id: currentUserId,
+    )));
   }
 }

@@ -39,12 +39,11 @@ class AssignedTaskViewScreen extends StatelessWidget {
                 );
               }
               final List<ServicesModel> assignedtask = state.servicelist
-                  .where(
-                    (service) =>
-                        service.assignedTechnician==null &&
-                        service.orgId == spstate.userData.orgId &&
-                        service.status == "pending",
-                  )
+                  .where((service) =>
+                      service.assignedTechnician != null &&
+                      service.technician != null &&
+                      service.orgId == spstate.userData.orgId &&
+                      service.status != "Completed")
                   .toList();
               if (assignedtask.isEmpty) {
                 return Center(
@@ -79,6 +78,7 @@ class AssignedTaskViewScreen extends StatelessWidget {
                                   Navigator.of(context).push(
                                     createRoute(
                                       TaskOverviewScreen(
+                                        title: "assigned task",
                                         currentUserId: services.id.toString(),
                                         key: UniqueKey(),
                                       ),

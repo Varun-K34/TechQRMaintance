@@ -23,6 +23,7 @@ import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart';
 import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
+import 'package:techqrmaintance/application/techlistbloc/tech_list_bloc.dart';
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart';
 import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
@@ -196,6 +197,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<UpdateServiceReqBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<TechListBloc>(),
         ),
       ],
       child: MaterialApp(

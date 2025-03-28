@@ -6,9 +6,10 @@ import 'package:techqrmaintance/Screens/Widgets/drop_down_widget.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
+import 'package:techqrmaintance/application/techlistbloc/tech_list_bloc.dart';
 import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart';
 import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
-import 'package:techqrmaintance/infrastructure/servicesrequestservices/update_service_service.dart';
 
 class UpdateTaskScreen extends StatelessWidget {
   final String id;
@@ -19,87 +20,129 @@ class UpdateTaskScreen extends StatelessWidget {
   final TextEditingController statusController = TextEditingController();
   final TextEditingController completionNoteController =
       TextEditingController();
+  final TextEditingController techController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        context.read<TechListBloc>().add(TechListEvent.getTechlist());
+      },
+    );
     return Scaffold(
       appBar: AppBar(
-        title: Text("Update Task"),
+        title: BlocBuilder<SpblocBloc, SpblocState>(
+          builder: (context, state) {
+            return state.userData.role == "Area Manager"
+                ? Text("Assign Task")
+                : Text("Update Task");
+          },
+        ),
         centerTitle: true,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          CustomTextField(
-            controller: completedDateController,
-            hintText: "Completed Date",
-            curveRadius: 20,
-            boolVal: true,
-            sufficChild: IconButton(
-                onPressed: () => onSelectDate(context),
-                icon: Icon(Icons.calendar_today_outlined)),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          DropDownSearchWidget(
-            controller: statusController,
-            serarchbox: false,
-            states: ["In Progress", "Completed"],
-            key: Key("status"),
-            dropdownLabel: "Status",
-            iconprefix: Icons.flag,
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          CustomTextField(
-            controller: completionNoteController,
-            hintText: "Completion Note",
-            curveRadius: 20,
-            boolVal: false,
-            maxLine: 5,
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          BlocBuilder<UpdateServiceReqBloc, UpdateServiceReqState>(
-            builder: (context, state) {
-              if (state.isFailure) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  CustomSnackbar.shows(context,
-                      message: "Failed to update task");
-                });
-              } else if (state.respons.isNotEmpty) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  context.read<ServiceReqByIdBloc>().add(
-                        ServiceReqByIdEvent.getservicebyid(id: id),
-                      );
-                  context
-                      .read<ServiceRequestBloc>()
-                      .add(ServiceRequestEvent.getServicesreq());
-
-                  CustomSnackbar.shows(context, message: state.respons);
-                  context.read<UpdateServiceReqBloc>().add(Reset());
-                  Navigator.of(context).pop();
-                });
-              }
-              return state.isLoading
-                  ? CircularProgressIndicator(
-                      strokeWidth: 2,
-                      strokeCap: StrokeCap.round,
+      body: BlocBuilder<SpblocBloc, SpblocState>(
+        builder: (context, spstate) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              spstate.userData.role == "Area Manager"
+                  ? SizedBox.shrink()
+                  : CustomTextField(
+                      controller: completedDateController,
+                      hintText: "Completed Date",
+                      curveRadius: 20,
+                      boolVal: true,
+                      sufficChild: IconButton(
+                          onPressed: () => onSelectDate(context),
+                          icon: Icon(Icons.calendar_today_outlined)),
+                    ),
+              SizedBox(
+                height: 16,
+              ),
+              spstate.userData.role == "Area Manager"
+                  ? BlocBuilder<TechListBloc, TechListState>(
+                      builder: (context, state) {
+                        final List<String> technamelist = state.techlist
+                          .where((onlytech) => onlytech.role == "Technician")
+                          .map((tech) => "${tech.id} ${tech.fullName}")
+                          .toList();
+                        return DropDownSearchWidget(
+                          controller: techController,
+                          serarchbox: true,
+                          states: technamelist,
+                          key: Key("tech"),
+                          dropdownLabel: "Tecnitian",
+                          iconprefix: Icons.man_rounded,
+                        );
+                      },
                     )
-                  : SizedBox(
-                      height: 55,
-                      width: 200,
-                      child: CustomMaterialButton(
-                        text: "update",
-                        onPressed: () => onUpdate(context),
-                      ),
-                    );
-            },
-          ),
-        ],
+                  : DropDownSearchWidget(
+                      controller: statusController,
+                      serarchbox: false,
+                      states: ["In Progress", "Completed"],
+                      key: Key("status"),
+                      dropdownLabel: "Status",
+                      iconprefix: Icons.flag,
+                    ),
+              SizedBox(
+                height: 16,
+              ),
+              spstate.userData.role == "Area Manager"
+                  ? SizedBox.shrink()
+                  : CustomTextField(
+                      controller: completionNoteController,
+                      hintText: "Completion Note",
+                      curveRadius: 20,
+                      boolVal: false,
+                      maxLine: 5,
+                    ),
+              SizedBox(
+                height: 16,
+              ),
+              BlocBuilder<UpdateServiceReqBloc, UpdateServiceReqState>(
+                builder: (context, state) {
+                  if (state.isFailure) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      CustomSnackbar.shows(context,
+                          message: "Failed to update task");
+                    });
+                  } else if (state.respons.isNotEmpty) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      context.read<ServiceReqByIdBloc>().add(
+                            ServiceReqByIdEvent.getservicebyid(id: id),
+                          );
+                      context
+                          .read<ServiceRequestBloc>()
+                          .add(ServiceRequestEvent.getServicesreq());
+
+                      CustomSnackbar.shows(context, message: state.respons);
+                      context.read<UpdateServiceReqBloc>().add(Reset());
+                      Navigator.of(context).pop();
+                    });
+                  }
+                  return state.isLoading
+                      ? CircularProgressIndicator(
+                          strokeWidth: 2,
+                          strokeCap: StrokeCap.round,
+                        )
+                      : SizedBox(
+                          height: 55,
+                          width: 200,
+                          child: CustomMaterialButton(
+                            text: spstate.userData.role == "Area Manager"
+                                ? "Assign"
+                                : "update",
+                            onPressed: () =>
+                                spstate.userData.role == "Area Manager"
+                                    ? onmanagerupdate(context)
+                                    : onUpdate(context),
+                          ),
+                        );
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -174,6 +217,23 @@ class UpdateTaskScreen extends StatelessWidget {
       completionNotes: completionNote,
     );
 
+    context
+        .read<UpdateServiceReqBloc>()
+        .add(UpdateServiceReqEvent.updateService(
+          id: id,
+          model: model,
+        ));
+  }
+
+  void onmanagerupdate(BuildContext context) {
+    String technitianid = techController.text;
+    if (technitianid.isEmpty) {
+      CustomSnackbar.shows(context, message: "Technician ID is empty");
+      return;
+    }
+    final ServicesModel model = ServicesModel.create(
+      assignedTechnician: int.parse(technitianid),
+    );
     context
         .read<UpdateServiceReqBloc>()
         .add(UpdateServiceReqEvent.updateService(
