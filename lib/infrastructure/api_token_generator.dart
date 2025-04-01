@@ -8,7 +8,26 @@ class ApiServices {
   final Dio dio;
   bool isFetchingToken = false;
 
-  ApiServices() : dio = Dio() {
+  
+
+  ApiServices() : dio = Dio(
+          BaseOptions(
+            connectTimeout: const Duration(seconds: 30),
+            receiveTimeout: const Duration(seconds: 30),
+            contentType: 'multipart/form-data',
+          ),
+        ) {
+    // Add logging interceptor first to capture final request details
+    dio.interceptors.add(LogInterceptor(
+      request: true,
+      requestBody: true,
+      responseBody: true,
+      requestHeader: true,
+      responseHeader: false,
+      error: true,
+    ));
+  
+  
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {

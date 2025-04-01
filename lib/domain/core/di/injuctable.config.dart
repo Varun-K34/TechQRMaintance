@@ -27,6 +27,8 @@ import 'package:techqrmaintance/application/custbloc/customer_bloc.dart'
     as _i134;
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart'
     as _i91;
+import 'package:techqrmaintance/application/docuploadbloc/doc_upload_bloc.dart'
+    as _i1062;
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart'
     as _i32;
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart'
@@ -60,6 +62,8 @@ import 'package:techqrmaintance/domain/complaintindetail/complaint_in_detail.dar
     as _i942;
 import 'package:techqrmaintance/domain/complaintmodel/complaint_repo.dart'
     as _i308;
+import 'package:techqrmaintance/domain/core/docuploadrepo/docapload_repo.dart'
+    as _i987;
 import 'package:techqrmaintance/domain/core/getidfordevicereg/get_id_for_device_reg.dart'
     as _i1051;
 import 'package:techqrmaintance/domain/core/getlocation/get_loc_repo.dart'
@@ -136,6 +140,8 @@ import 'package:techqrmaintance/infrastructure/technitian_dropdown_services/tecn
     as _i775;
 import 'package:techqrmaintance/infrastructure/techperfomenceservices.dart/tech_perfomence_services.dart'
     as _i986;
+import 'package:techqrmaintance/infrastructure/uploadfileservices/upload_file_services.dart'
+    as _i882;
 import 'package:techqrmaintance/infrastructure/userlogservices/user_log_services.dart'
     as _i819;
 
@@ -179,6 +185,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i733.UpdateServiceService());
     gh.lazySingleton<_i308.ComplaintRepo>(() => _i396.ComplaintGetServices());
     gh.lazySingleton<_i489.DeviceRegRepo>(() => _i1016.DeviceRegService());
+    gh.lazySingleton<_i987.DocaploadRepo>(() => _i882.UploadFileServices());
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());
     gh.lazySingleton<_i1043.DeiceBrandRepo>(() => _i332.BrandServices());
     gh.factory<_i914.MaintenancehistoryBloc>(
@@ -204,6 +211,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i561.ModelAndBrandBloc(gh<_i936.DeviceModelRepo>()));
     gh.factory<_i818.OranizationBloc>(
         () => _i818.OranizationBloc(gh<_i253.OrganizationRepo>()));
+    gh.factory<_i1062.DocUploadBloc>(
+        () => _i1062.DocUploadBloc(gh<_i987.DocaploadRepo>()));
     gh.factory<_i15.SpblocBloc>(
         () => _i15.SpblocBloc(gh<_i158.SpStoredUser>()));
     gh.factory<_i794.CheckblocBloc>(
