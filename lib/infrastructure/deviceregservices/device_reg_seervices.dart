@@ -23,8 +23,33 @@ class DeviceRegService implements DeviceRegRepo {
 
       log(sanitizedJson.toString(), name: "regservices");
 
+      final formData = FormData.fromMap({
+        // Convert all values to strings
+        for (var entry in sanitizedJson.entries)
+          entry.key: entry.value?.toString(),
+      });
+      // Add PDF file with correct field name
+      if (deviceModel.documentFile != null) {
+        log("hello doc");
+        formData.files.add(MapEntry(
+          'documents', // Match API expected field name
+          await MultipartFile.fromFile(
+            deviceModel.documentFile!.path,
+            filename:
+                'device_document_${DateTime.now().millisecondsSinceEpoch}.pdf',
+          ),
+        ));
+      }
+
+      log('FormData fields: ${formData.fields}');
+
       final Response device =
-          await deviceApi.dio.post(kBaseURL + kDevice, data: sanitizedJson);
+          await deviceApi.dio.post(kBaseURL + kDevice, data: formData,
+        options: Options(
+          contentType: 'multipart/form-data',
+          headers: {'Accept': 'application/json'},
+        ),
+      );
 
       if (device.statusCode == 201) {
         return Right("Device Registration Completed");

@@ -1,5 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:techqrmaintance/Screens/area_manager/manager_home/manager_home_screen.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
@@ -13,6 +14,7 @@ import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
 import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart';
 import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
+import 'package:techqrmaintance/application/docuploadbloc/doc_upload_bloc.dart';
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart';
@@ -200,6 +202,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<TechListBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<DocUploadBloc>(),
         ),
       ],
       child: MaterialApp(

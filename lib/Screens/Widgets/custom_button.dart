@@ -3,6 +3,7 @@ import 'package:techqrmaintance/core/colors.dart';
 
 class CustomMaterialButton extends StatelessWidget {
   final String text;
+  final IconData? icon;
   final VoidCallback onPressed;
   final Color textColor;
   final double height;
@@ -16,7 +17,7 @@ class CustomMaterialButton extends StatelessWidget {
     this.textColor = primaryWhite, // Default text color is white
     this.height = 60.0, // Default height
     this.width = 280.0,
-    this.buttonColor = primaryBlue, // Default width
+    this.buttonColor = primaryBlue, this.icon, // Default width
   });
 
   @override
