@@ -6,6 +6,7 @@ class PdfUploadState with _$PdfUploadState {
     required bool isLoading,
     required bool isFailure,
     required DocData data,
+    @Default(0.0) double uploadProgress, // Add this
   }) = _PdfUploadState;
 
   factory PdfUploadState.initial() {

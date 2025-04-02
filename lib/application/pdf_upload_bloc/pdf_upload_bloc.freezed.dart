@@ -243,6 +243,7 @@ mixin _$PdfUploadState {
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
   DocData get data => throw _privateConstructorUsedError;
+  double get uploadProgress => throw _privateConstructorUsedError;
 
   /// Create a copy of PdfUploadState
   /// with the given fields replaced by the non-null parameter values.
@@ -257,7 +258,8 @@ abstract class $PdfUploadStateCopyWith<$Res> {
           PdfUploadState value, $Res Function(PdfUploadState) then) =
       _$PdfUploadStateCopyWithImpl<$Res, PdfUploadState>;
   @useResult
-  $Res call({bool isLoading, bool isFailure, DocData data});
+  $Res call(
+      {bool isLoading, bool isFailure, DocData data, double uploadProgress});
 }
 
 /// @nodoc
@@ -278,6 +280,7 @@ class _$PdfUploadStateCopyWithImpl<$Res, $Val extends PdfUploadState>
     Object? isLoading = null,
     Object? isFailure = null,
     Object? data = null,
+    Object? uploadProgress = null,
   }) {
     return _then(_value.copyWith(
       isLoading: null == isLoading
@@ -292,6 +295,10 @@ class _$PdfUploadStateCopyWithImpl<$Res, $Val extends PdfUploadState>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as DocData,
+      uploadProgress: null == uploadProgress
+          ? _value.uploadProgress
+          : uploadProgress // ignore: cast_nullable_to_non_nullable
+              as double,
     ) as $Val);
   }
 }
@@ -304,7 +311,8 @@ abstract class _$$PdfUploadStateImplCopyWith<$Res>
       __$$PdfUploadStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({bool isLoading, bool isFailure, DocData data});
+  $Res call(
+      {bool isLoading, bool isFailure, DocData data, double uploadProgress});
 }
 
 /// @nodoc
@@ -323,6 +331,7 @@ class __$$PdfUploadStateImplCopyWithImpl<$Res>
     Object? isLoading = null,
     Object? isFailure = null,
     Object? data = null,
+    Object? uploadProgress = null,
   }) {
     return _then(_$PdfUploadStateImpl(
       isLoading: null == isLoading
@@ -337,6 +346,10 @@ class __$$PdfUploadStateImplCopyWithImpl<$Res>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as DocData,
+      uploadProgress: null == uploadProgress
+          ? _value.uploadProgress
+          : uploadProgress // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -347,7 +360,10 @@ class _$PdfUploadStateImpl
     with DiagnosticableTreeMixin
     implements _PdfUploadState {
   const _$PdfUploadStateImpl(
-      {required this.isLoading, required this.isFailure, required this.data});
+      {required this.isLoading,
+      required this.isFailure,
+      required this.data,
+      this.uploadProgress = 0.0});
 
   @override
   final bool isLoading;
@@ -355,10 +371,13 @@ class _$PdfUploadStateImpl
   final bool isFailure;
   @override
   final DocData data;
+  @override
+  @JsonKey()
+  final double uploadProgress;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PdfUploadState(isLoading: $isLoading, isFailure: $isFailure, data: $data)';
+    return 'PdfUploadState(isLoading: $isLoading, isFailure: $isFailure, data: $data, uploadProgress: $uploadProgress)';
   }
 
   @override
@@ -368,7 +387,8 @@ class _$PdfUploadStateImpl
       ..add(DiagnosticsProperty('type', 'PdfUploadState'))
       ..add(DiagnosticsProperty('isLoading', isLoading))
       ..add(DiagnosticsProperty('isFailure', isFailure))
-      ..add(DiagnosticsProperty('data', data));
+      ..add(DiagnosticsProperty('data', data))
+      ..add(DiagnosticsProperty('uploadProgress', uploadProgress));
   }
 
   @override
@@ -380,11 +400,14 @@ class _$PdfUploadStateImpl
                 other.isLoading == isLoading) &&
             (identical(other.isFailure, isFailure) ||
                 other.isFailure == isFailure) &&
-            (identical(other.data, data) || other.data == data));
+            (identical(other.data, data) || other.data == data) &&
+            (identical(other.uploadProgress, uploadProgress) ||
+                other.uploadProgress == uploadProgress));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, isLoading, isFailure, data);
+  int get hashCode =>
+      Object.hash(runtimeType, isLoading, isFailure, data, uploadProgress);
 
   /// Create a copy of PdfUploadState
   /// with the given fields replaced by the non-null parameter values.
@@ -400,7 +423,8 @@ abstract class _PdfUploadState implements PdfUploadState {
   const factory _PdfUploadState(
       {required final bool isLoading,
       required final bool isFailure,
-      required final DocData data}) = _$PdfUploadStateImpl;
+      required final DocData data,
+      final double uploadProgress}) = _$PdfUploadStateImpl;
 
   @override
   bool get isLoading;
@@ -408,6 +432,8 @@ abstract class _PdfUploadState implements PdfUploadState {
   bool get isFailure;
   @override
   DocData get data;
+  @override
+  double get uploadProgress;
 
   /// Create a copy of PdfUploadState
   /// with the given fields replaced by the non-null parameter values.

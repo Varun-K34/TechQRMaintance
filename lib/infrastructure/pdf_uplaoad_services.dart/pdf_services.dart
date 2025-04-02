@@ -13,7 +13,8 @@ class PdfServices implements UploadPdfRepo {
 
   @override
   Future<Either<MainFailurs, DocData>> uploadPdf(
-      {required DocData modeldata}) async {
+      {required DocData modeldata,
+       Function(int, int)? onProgress}) async {
     try {
       Map<String, dynamic> sanitizedJson = modeldata.toJson();
       sanitizedJson.removeWhere((key, value) => value == null);
@@ -41,6 +42,7 @@ class PdfServices implements UploadPdfRepo {
       Response response = await pdfapi.dio.post(
         kBaseURL + kDoc,
         data: formData,
+        onSendProgress: onProgress,
         options: Options(headers: {
           "Content-Type": "multipart/form-data",
         }),

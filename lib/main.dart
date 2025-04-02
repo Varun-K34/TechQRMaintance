@@ -1,11 +1,5 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:techqrmaintance/Screens/area_manager/manager_home/manager_home_screen.dart';
-import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/upload_pdf_screen.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
-import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
-import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
-import 'package:techqrmaintance/Screens/tasks/updatetaskscreen.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
@@ -221,7 +215,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: UploadPdfScreen(),
+        home: SplashScreen(),
       ),
     );
   }

@@ -27,8 +27,12 @@ class DeviceRegService implements DeviceRegRepo {
           await deviceApi.dio.post(kBaseURL + kDevice, data: sanitizedJson);
 
       if (device.statusCode == 201) {
-        return Right("Device Registration Completed");
+        log("helloooooo");
+        final int? id = device.data["data"]["id"];
+        //log("Extracted ID: $id");
+        return Right(id.toString());
       } else {
+        log("error");
         await deviceApi.clearStoredToken();
         return Left(MainFailurs.clientFailure());
       }

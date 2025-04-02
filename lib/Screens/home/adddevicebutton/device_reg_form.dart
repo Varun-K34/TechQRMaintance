@@ -8,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/drop_down_widget.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/upload_pdf_screen.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/bkink_icon.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/widgets/hint_and_textfield.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
@@ -42,7 +43,6 @@ class DeviceRegFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         context.read<CatogoryBloc>().add(CatogoryEvent.getCatogory());
@@ -237,7 +237,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  
+
                   // CustomButton
                   BlocConsumer<DeviceregblocBloc, DeviceregblocState>(
                     listener: (context, state) {
@@ -248,11 +248,13 @@ class DeviceRegFormScreen extends StatelessWidget {
                               "Device registration failed. Please try again.",
                         );
                       } else if (state.text.isNotEmpty) {
-                        CustomSnackbar.shows(
-                          context,
-                          message: state.text,
-                        );
-                        Navigator.of(context).pop();
+                        final id = state.text;
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => UploadPdfScreen(
+                            id: id,
+                            orgid: orgController.text,
+                          ),
+                        ));
                       }
                     },
                     builder: (context, state) {
@@ -262,8 +264,10 @@ class DeviceRegFormScreen extends StatelessWidget {
                             )
                           : CustomMaterialButton(
                               text: "REGISTER",
-                              onPressed: () =>
-                                  onPressedButton(context, id,),
+                              onPressed: () => onPressedButton(
+                                context,
+                                id,
+                              ),
                             );
                     },
                   ),
@@ -312,7 +316,10 @@ class DeviceRegFormScreen extends StatelessWidget {
     }
   }
 
-  void onPressedButton(BuildContext buttoncontext, int? id,) {
+  void onPressedButton(
+    BuildContext buttoncontext,
+    int? id,
+  ) {
     final String brand = brandController.text.trim();
     final String model = modelController.text.trim();
     final String serial = serialController.text.trim();
@@ -410,7 +417,6 @@ class DeviceRegFormScreen extends StatelessWidget {
       return;
     }
 
-   
     final DeviceModelSaas regModel = DeviceModelSaas.create(
       brand: brand,
       model: model,

@@ -14,9 +14,15 @@ class UploadPdfScreen extends StatelessWidget {
   final TextEditingController orgIdController = TextEditingController();
   final TextEditingController deviceIdController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-   
 
-  UploadPdfScreen({super.key});
+  final String? id;
+  final String? orgid;
+
+  UploadPdfScreen({
+    super.key,
+    this.id,
+    this.orgid,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +44,17 @@ class UploadPdfScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextField(
-              hintText: 'Organization ID',
+              hintText: orgid.toString(),
               controller: orgIdController,
               curveRadius: 10,
-              boolVal: false,
+              boolVal: true,
             ),
             SizedBox(height: 15),
             CustomTextField(
-              hintText: 'Device ID',
+              hintText: id.toString(),
               controller: deviceIdController,
               curveRadius: 10,
-              boolVal: false,
+              boolVal: true,
             ),
             SizedBox(height: 15),
             CustomTextField(
@@ -61,7 +67,7 @@ class UploadPdfScreen extends StatelessWidget {
             Center(
               child: BlocConsumer<DocUploadBloc, DocUploadState>(
                 listener: (context, state) {
-                   if (state.pdfFile != null) {
+                  if (state.pdfFile != null) {
                     selectedFile = state.pdfFile;
                     CustomSnackbar.shows(
                       context,
@@ -74,25 +80,24 @@ class UploadPdfScreen extends StatelessWidget {
                       message: state.errorMessage ?? 'PDF created failed',
                     );
                   }
-
                 },
                 builder: (context, state) {
                   return Column(
                     children: [
-                       state.pdfFile != null
+                      state.pdfFile != null
                           ? Text(
                               'PDF Ready: ${state.lastSavedPath}',
                               style: TextStyle(color: primaryBlue),
                             )
                           : SizedBox.shrink(),
                       SizedBox(height: 10),
-
                       CustomMaterialButton(
                         text: state.isLoading
-                                  ? 'CREATING...'
-                                  : 'CREATE DOCUMENTS',
-
-                        onPressed: () => createfile(context,),
+                            ? 'CREATING...'
+                            : 'CREATE DOCUMENTS',
+                        onPressed: () => createfile(
+                          context,
+                        ),
                         buttonColor: primaryBlack,
                       ),
                     ],
@@ -102,9 +107,41 @@ class UploadPdfScreen extends StatelessWidget {
             ),
             SizedBox(height: 15),
             Center(
+              child: BlocConsumer<PdfUploadBloc, PdfUploadState>(
+                listener: (context, state) {
+                  if (state.isFailure) {
+                    CustomSnackbar.shows(context,
+                        message: "Something went wrong");
+                  }
+                },
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      if (state.uploadProgress > 0 && state.uploadProgress < 1)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: LinearProgressIndicator(
+                              value: state.uploadProgress),
+                        ),
+                      CustomMaterialButton(
+                        text: state.isLoading ? 'UPLOADING...' : 'Upload File',
+                        onPressed: state.isLoading
+                            ? (){}
+                            : () => uploadFile(context, selectedFile),
+                      ),
+                    ],
+                  );
+                },
+              ),
+
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Center(
               child: CustomMaterialButton(
-                text: 'Upload File',
-                onPressed: () => uploadFile(context,selectedFile),
+                text: 'finish',
+                onPressed: () => finishpressed(context),
               ),
             ),
           ],
@@ -117,9 +154,9 @@ class UploadPdfScreen extends StatelessWidget {
     ctx.read<DocUploadBloc>().add(DocUploadEvent.uploadDoc());
   }
 
-  void uploadFile(BuildContext context ,File? selectedFile) {
-    final orgId = orgIdController.text.trim();
-    final deviceId = deviceIdController.text.trim();
+  void uploadFile(BuildContext context, File? selectedFile) {
+    final orgId = orgid;
+    final deviceId = id;
     final fileName = nameController.text.trim();
     if (selectedFile == null) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -128,14 +165,14 @@ class UploadPdfScreen extends StatelessWidget {
       return;
     }
 
-    if (orgId.isEmpty) {
+    if (orgId!.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Organization ID is required')),
       );
       return;
     }
 
-    if (deviceId.isEmpty) {
+    if (deviceId!.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Device ID is required')),
       );
@@ -152,5 +189,9 @@ class UploadPdfScreen extends StatelessWidget {
         .read<PdfUploadBloc>()
         .add(PdfUploadEvent.pdfUpload(model: datamodel));
     // Proceed with file upload logic here
+  }
+
+  void finishpressed(BuildContext context) {
+    Navigator.of(context).pop();
   }
 }

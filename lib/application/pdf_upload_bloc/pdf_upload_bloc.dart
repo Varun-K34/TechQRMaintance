@@ -15,18 +15,26 @@ class PdfUploadBloc extends Bloc<PdfUploadEvent, PdfUploadState> {
   PdfUploadBloc(this.uploadPdfRepo) : super(PdfUploadState.initial()) {
     on<PdfUpload>(
       (event, emit) async {
-        emit(state.copyWith(isLoading: true));
-        await uploadPdfRepo.uploadPdf(modeldata: event.model).then(
+        //emit(state.copyWith(isLoading: true));
+        await uploadPdfRepo.uploadPdf(modeldata: event.model,
+              onProgress: (sent, total) {
+                double progress = sent / total;
+                emit(state.copyWith(
+                    uploadProgress: progress)); // Update UI with progress
+              },
+            ).then(
               (docupload) => docupload.fold(
                 (l) => emit(state.copyWith(
                   isFailure: true,
                   isLoading: false,
+                  uploadProgress: 0.0,
                 )),
                 (r) => emit(
                   state.copyWith(
                     data: r,
                     isFailure: false,
                     isLoading: false,
+                    uploadProgress: 1.0,
                   ),
                 ),
               ),
