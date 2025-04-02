@@ -92,8 +92,9 @@ class TaskScreen extends StatelessWidget {
                                       onTap: () {
                                         Navigator.of(context).push(
                                             createRoute(TaskOverviewScreen(
-                                              serialNo:services.device?.serialNumber ,
-                                              title: title,
+                                          serialNo:
+                                              services.device?.serialNumber,
+                                          title: title,
                                           currentUserId: services.id.toString(),
                                           key: UniqueKey(),
                                         )));
@@ -119,14 +120,12 @@ class TaskScreen extends StatelessWidget {
 }
 
 class MainContainertask extends StatelessWidget {
-
   const MainContainertask({
     super.key,
-    required this.services, 
+    required this.services,
   });
 
   final ServicesModel services;
-  
 
   @override
   Widget build(BuildContext context) {

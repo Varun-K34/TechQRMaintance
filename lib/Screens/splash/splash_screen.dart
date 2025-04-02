@@ -15,30 +15,27 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        context
-            .read<SpblocBloc>()
-            .add(SpblocEvent.getSpStoredData());
-         context
-            .read<CheckblocBloc>()
-            .add(CheckblocEvent.checkLogOrNot());
+        context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
+        context.read<CheckblocBloc>().add(CheckblocEvent.checkLogOrNot());
       },
     );
     return BlocBuilder<SpblocBloc, SpblocState>(
       builder: (context, spstate) {
         return BlocListener<CheckblocBloc, CheckblocState>(
           listener: (context, state) {
-            if (state.authenticated == true&& spstate.userData.role == "Technician") {
+            if (state.authenticated == true &&
+                spstate.userData.role == "Technician") {
               Navigator.of(context).pushAndRemoveUntil(
                 createRoute(Home()),
                 (route) => false,
               );
-            } else if (state.authenticated == true&& spstate.userData.role == "Area Manager") {
+            } else if (state.authenticated == true &&
+                spstate.userData.role == "Area Manager") {
               Navigator.of(context).pushAndRemoveUntil(
                 createRoute(ManagerHomeScreen()),
                 (route) => false,
               );
-            }
-            else if (state.unauthenticated == true) {
+            } else if (state.unauthenticated == true) {
               Navigator.of(context).pushAndRemoveUntil(
                 createRoute(LoginScreen()),
                 (route) => false,

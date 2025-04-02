@@ -1,6 +1,7 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:techqrmaintance/Screens/area_manager/manager_home/manager_home_screen.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/upload_pdf_screen.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
@@ -20,6 +21,7 @@ import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart';
 import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart';
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
+import 'package:techqrmaintance/application/pdf_upload_bloc/pdf_upload_bloc.dart';
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart';
 import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
@@ -206,6 +208,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => getit<DocUploadBloc>(),
         ),
+        BlocProvider(
+          create: (context) => getit<PdfUploadBloc>(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -216,7 +221,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: SplashScreen(),
+        home: UploadPdfScreen(),
       ),
     );
   }

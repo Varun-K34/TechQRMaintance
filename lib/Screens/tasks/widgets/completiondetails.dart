@@ -39,8 +39,7 @@ class CompletionDetailes extends StatelessWidget {
             ),
             InfoRowWidget(
               label: 'Parts Used:',
-              value:
-                  partsUsed?.join(', ') ?? "no parts used",
+              value: partsUsed?.join(', ') ?? "no parts used",
               icon: Icons.hardware,
             ),
             const SizedBox(height: 8),
@@ -57,7 +56,7 @@ class CompletionDetailes extends StatelessWidget {
                     child: Container(
                       constraints: const BoxConstraints(maxHeight: 200),
                       child: Image.network(
-                        kBaseURL+completionPhotoUrl!,
+                        kBaseURL + completionPhotoUrl!,
                         fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) {
                           return Container(

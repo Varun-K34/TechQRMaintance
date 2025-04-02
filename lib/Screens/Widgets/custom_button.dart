@@ -17,7 +17,8 @@ class CustomMaterialButton extends StatelessWidget {
     this.textColor = primaryWhite, // Default text color is white
     this.height = 60.0, // Default height
     this.width = 280.0,
-    this.buttonColor = primaryBlue, this.icon, // Default width
+    this.buttonColor = primaryBlue,
+    this.icon, // Default width
   });
 
   @override

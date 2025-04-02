@@ -1,5 +1,5 @@
 // ignore: depend_on_referenced_packages
-import 'dart:io';
+
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/customer_model/customer_model_list_saas/customer_model_saas.dart';
@@ -51,8 +51,7 @@ class DeviceModelSaas {
   Category? category;
   @JsonKey(name: 'documents')
   List<dynamic>? documents;
-  @JsonKey(includeFromJson: false, includeToJson: false) // Add this
-  File? documentFile;
+  
 
   DeviceModelSaas(
       {this.id,
@@ -74,7 +73,7 @@ class DeviceModelSaas {
       this.qrCode,
       this.category,
       this.documents,
-      this.documentFile});
+      });
 
   DeviceModelSaas.create({
     this.orgId,

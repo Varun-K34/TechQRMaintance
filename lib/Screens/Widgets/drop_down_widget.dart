@@ -62,13 +62,11 @@ class DropDownSearchWidget extends StatelessWidget {
               log(modelId);
               controller?.text = modelId;
             }
-          }
-          else if (key == Key("status")) {
+          } else if (key == Key("status")) {
             if (value != null) {
               controller?.text = value;
             }
-          }
-          else if (key == Key("tech")) {
+          } else if (key == Key("tech")) {
             if (value != null) {
               final techid = RegExp(r'^\d+').firstMatch(value)?.group(0) ?? '';
               log(techid);

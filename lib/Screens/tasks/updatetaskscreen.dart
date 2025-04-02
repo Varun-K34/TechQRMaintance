@@ -63,9 +63,9 @@ class UpdateTaskScreen extends StatelessWidget {
                   ? BlocBuilder<TechListBloc, TechListState>(
                       builder: (context, state) {
                         final List<String> technamelist = state.techlist
-                          .where((onlytech) => onlytech.role == "Technician")
-                          .map((tech) => "${tech.id} ${tech.fullName}")
-                          .toList();
+                            .where((onlytech) => onlytech.role == "Technician")
+                            .map((tech) => "${tech.id} ${tech.fullName}")
+                            .toList();
                         return DropDownSearchWidget(
                           controller: techController,
                           serarchbox: true,

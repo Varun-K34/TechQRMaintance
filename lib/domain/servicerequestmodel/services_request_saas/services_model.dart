@@ -91,7 +91,7 @@ class ServicesModel {
       return _$ServicesModelFromJson(json);
     } catch (e) {
       //log('Error deserializing ServicesModel: $e');
-      return ServicesModel(); 
+      return ServicesModel();
     }
   }
 
@@ -100,9 +100,7 @@ class ServicesModel {
       return _$ServicesModelToJson(this);
     } catch (e) {
       log('Error serializing ServicesModel: $e');
-      return {}; 
+      return {};
     }
   }
-
-  
 }

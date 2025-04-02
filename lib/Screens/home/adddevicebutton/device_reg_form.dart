@@ -14,7 +14,6 @@ import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/brandnadmodel/brand_and_model_bloc.dart';
 import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
-import 'package:techqrmaintance/application/docuploadbloc/doc_upload_bloc.dart';
 import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart';
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
@@ -43,7 +42,7 @@ class DeviceRegFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    File? file;
+    
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         context.read<CatogoryBloc>().add(CatogoryEvent.getCatogory());
@@ -238,50 +237,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  BlocConsumer<DocUploadBloc, DocUploadState>(
-                    listener: (context, state) {
-                      if (state.pdfFile != null) {
-                        file = state.pdfFile;
-                        CustomSnackbar.shows(
-                          context,
-                          message: 'PDF created successfully',
-                        );
-                      }
-                      if (state.isFailure) {
-                        CustomSnackbar.shows(
-                          context,
-                          message: state.errorMessage ?? 'PDF created failed',
-                        );
-                      }
-                    },
-                    builder: (context, state) {
-                      return Column(
-                        children: [
-                          state.pdfFile != null
-                              ? Text(
-                                  'PDF Ready: ${state.lastSavedPath}',
-                                  style: TextStyle(color: primaryBlue),
-                                )
-                              : SizedBox.shrink(),
-                          SizedBox(height: 10),
-                          CustomMaterialButton(
-                              text: state.isLoading
-                                  ? 'UPLOADING...'
-                                  : 'UPLOAD DEVICE DOCUMENTS',
-                              onPressed: state.isLoading
-                                  ? () {}
-                                  : () {
-                                      context
-                                          .read<DocUploadBloc>()
-                                          .add(DocUploadEvent.uploadDoc());
-                                    }),
-                        ],
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  
                   // CustomButton
                   BlocConsumer<DeviceregblocBloc, DeviceregblocState>(
                     listener: (context, state) {
@@ -307,7 +263,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                           : CustomMaterialButton(
                               text: "REGISTER",
                               onPressed: () =>
-                                  onPressedButton(context, id, file),
+                                  onPressedButton(context, id,),
                             );
                     },
                   ),
@@ -356,7 +312,7 @@ class DeviceRegFormScreen extends StatelessWidget {
     }
   }
 
-  void onPressedButton(BuildContext buttoncontext, int? id, File? file) {
+  void onPressedButton(BuildContext buttoncontext, int? id,) {
     final String brand = brandController.text.trim();
     final String model = modelController.text.trim();
     final String serial = serialController.text.trim();
@@ -454,14 +410,7 @@ class DeviceRegFormScreen extends StatelessWidget {
       return;
     }
 
-    if (file == null) {
-      CustomSnackbar.shows(
-        buttoncontext,
-        message: "file is missing",
-      );
-      return;
-    }
-
+   
     final DeviceModelSaas regModel = DeviceModelSaas.create(
       brand: brand,
       model: model,
@@ -474,7 +423,7 @@ class DeviceRegFormScreen extends StatelessWidget {
       locationDetails: locController.text,
       categoryId: catagoryController.text,
       customerId: regBy,
-    )..documentFile = file;
+    );
     log("regModel: $regModel");
     buttoncontext.read<DeviceregblocBloc>().add(DeviceregblocEvent.regDevice(
           model: regModel,

@@ -53,9 +53,8 @@ class UploadFileServices implements DocaploadRepo {
 
       await file.writeAsBytes(await pdf.save());
       return Right(file);
-      
     } on Exception catch (e) {
-      log(e.toString(),name: "file upload");
+      log(e.toString(), name: "file upload");
       return Left(MainFailurs.clientFailure());
     }
   }

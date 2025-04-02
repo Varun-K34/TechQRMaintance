@@ -55,7 +55,9 @@ class TaskOverviewScreen extends StatelessWidget {
                         onupdateButtonPressed(context, currentUserId!),
                     child: const Text('Edit Task'),
                   ),
-                  SizedBox(width: 10,),
+                  SizedBox(
+                    width: 10,
+                  ),
                   ElevatedButton(
                     onPressed: () => onpreviovstaskButtonPressed(
                         context, currentUserId!, serialNo),
