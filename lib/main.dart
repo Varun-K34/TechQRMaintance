@@ -29,6 +29,7 @@ import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techqrmaintance/local_notification/local_notifications.dart';
 
 // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 //     FlutterLocalNotificationsPlugin();
@@ -84,12 +85,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configinjuction();
-  //await initializeNotifications();
-  // final Notification notification = Notification();
-  // await notification.initialisenotification();
-  // await notification.requestNotificationPermission();
-  // await notification.shadulesendnotification(
-  //     'techni', 'check for pending tasks');
+  await LocalNotifications.init();
   runApp(const MyApp());
 }
 
