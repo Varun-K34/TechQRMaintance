@@ -13,12 +13,11 @@ class PdfServices implements UploadPdfRepo {
 
   @override
   Future<Either<MainFailurs, DocData>> uploadPdf(
-      {required DocData modeldata,
-       Function(int, int)? onProgress}) async {
+      {required DocData modeldata, Function(int, int)? onProgress}) async {
     try {
       Map<String, dynamic> sanitizedJson = modeldata.toJson();
       sanitizedJson.removeWhere((key, value) => value == null);
-      
+
       // Check if file is null before proceeding
       if (modeldata.file == null) {
         return Left(MainFailurs.clientFailure());
@@ -27,7 +26,6 @@ class PdfServices implements UploadPdfRepo {
       // Prepare multipart file
       MultipartFile file = await MultipartFile.fromFile(
         modeldata.file!.path,
-        
       );
 
       // Prepare form data
@@ -38,7 +36,6 @@ class PdfServices implements UploadPdfRepo {
         "file": file,
       });
 
-      
       Response response = await pdfapi.dio.post(
         kBaseURL + kDoc,
         data: formData,

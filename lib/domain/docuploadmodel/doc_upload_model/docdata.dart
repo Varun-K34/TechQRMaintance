@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:json_annotation/json_annotation.dart';
@@ -15,7 +14,9 @@ class DocData {
   String? name;
   @JsonKey(name: 'file_url')
   String? fileUrl;
-  @JsonKey(includeFromJson: false,)
+  @JsonKey(
+    includeFromJson: false,
+  )
   File? file;
   @JsonKey(name: 'id')
   int? id;
@@ -36,9 +37,8 @@ class DocData {
     this.name,
   });
 
-  factory DocData.fromJson(Map<String, dynamic> json) => _$DocDataFromJson(json);
+  factory DocData.fromJson(Map<String, dynamic> json) =>
+      _$DocDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$DocDataToJson(this);
-
-  
 }

@@ -11,6 +11,7 @@ import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
 import 'package:techqrmaintance/application/docuploadbloc/doc_upload_bloc.dart';
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
+import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart';
 import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart';
@@ -204,6 +205,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<PdfUploadBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<InventryBloc>(),
         ),
       ],
       child: MaterialApp(

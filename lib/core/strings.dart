@@ -17,3 +17,4 @@ const kmodel = 'api/device-models';
 const kServices = 'api/service-requests/';
 const kTechPerfomence = 'api/technician-performances/';
 const kDoc = 'api/documents';
+const kinventry = "api/inventories";

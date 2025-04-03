@@ -84,6 +84,7 @@ class ServicesModel {
     this.completionPhotoUrl,
     this.completedAt,
     this.assignedTechnician,
+    this.newPartsUsed,
   });
 
   factory ServicesModel.fromJson(Map<String, dynamic> json) {

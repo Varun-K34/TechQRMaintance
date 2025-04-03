@@ -1,6 +1,5 @@
 // ignore: depend_on_referenced_packages
 
-
 import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/customer_model/customer_model_list_saas/customer_model_saas.dart';
 import 'package:techqrmaintance/domain/organizationmodel/organization_model/organization_model/organization.dart';
@@ -51,29 +50,28 @@ class DeviceModelSaas {
   Category? category;
   @JsonKey(name: 'documents')
   List<dynamic>? documents;
-  
 
-  DeviceModelSaas(
-      {this.id,
-      this.orgId,
-      this.customerId,
-      this.technicianId,
-      this.qrId,
-      this.brand,
-      this.categoryId,
-      this.model,
-      this.serialNumber,
-      this.installationDate,
-      this.warrantyPeriod,
-      this.freeMaintenance,
-      this.locationDetails,
-      this.organization,
-      this.customer,
-      this.technician,
-      this.qrCode,
-      this.category,
-      this.documents,
-      });
+  DeviceModelSaas({
+    this.id,
+    this.orgId,
+    this.customerId,
+    this.technicianId,
+    this.qrId,
+    this.brand,
+    this.categoryId,
+    this.model,
+    this.serialNumber,
+    this.installationDate,
+    this.warrantyPeriod,
+    this.freeMaintenance,
+    this.locationDetails,
+    this.organization,
+    this.customer,
+    this.technician,
+    this.qrCode,
+    this.category,
+    this.documents,
+  });
 
   DeviceModelSaas.create({
     this.orgId,

@@ -33,6 +33,8 @@ import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart'
     as _i32;
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart'
     as _i306;
+import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart'
+    as _i585;
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart' as _i651;
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart'
     as _i914;
@@ -84,6 +86,8 @@ import 'package:techqrmaintance/domain/docuploadmodel/upload_pdf_repo.dart'
     as _i641;
 import 'package:techqrmaintance/domain/historymodel/maintance_history_repo.dart'
     as _i315;
+import 'package:techqrmaintance/domain/inventrymodel/inventry_repo.dart'
+    as _i896;
 import 'package:techqrmaintance/domain/modelandbrandmodel/brand_repo.dart'
     as _i1043;
 import 'package:techqrmaintance/domain/modelandbrandmodel/device_model_model_repo.dart'
@@ -124,6 +128,8 @@ import 'package:techqrmaintance/infrastructure/getiddeviceregservices/get_id_for
     as _i670;
 import 'package:techqrmaintance/infrastructure/getlocationservices/get_loc_services.dart'
     as _i42;
+import 'package:techqrmaintance/infrastructure/inventry_services/inventries_services.dart'
+    as _i960;
 import 'package:techqrmaintance/infrastructure/maintancehistoryservices.dart/maintance_history_services.dart'
     as _i1007;
 import 'package:techqrmaintance/infrastructure/orgservices/org_services.dart'
@@ -175,6 +181,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1064.ServicesRequestRepo>(
         () => _i1025.ServicesRequestServices());
     gh.lazySingleton<_i158.SpStoredUser>(() => _i1027.SpStoredItem());
+    gh.lazySingleton<_i896.InventryRepo>(() => _i960.InventriesServices());
     gh.lazySingleton<_i899.ScanQRRepo>(() => _i649.ScanQrServices());
     gh.lazySingleton<_i1051.GetIdForDeviceRegRepo>(
         () => _i670.GetIdForDeviceRegServices());
@@ -216,6 +223,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i437.PdfUploadBloc(gh<_i641.UploadPdfRepo>()));
     gh.factory<_i941.ComplaintblocBloc>(
         () => _i941.ComplaintblocBloc(gh<_i308.ComplaintRepo>()));
+    gh.factory<_i585.InventryBloc>(
+        () => _i585.InventryBloc(gh<_i896.InventryRepo>()));
     gh.factory<_i561.ModelAndBrandBloc>(
         () => _i561.ModelAndBrandBloc(gh<_i936.DeviceModelRepo>()));
     gh.factory<_i818.OranizationBloc>(

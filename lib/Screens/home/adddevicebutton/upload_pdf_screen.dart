@@ -126,14 +126,13 @@ class UploadPdfScreen extends StatelessWidget {
                       CustomMaterialButton(
                         text: state.isLoading ? 'UPLOADING...' : 'Upload File',
                         onPressed: state.isLoading
-                            ? (){}
+                            ? () {}
                             : () => uploadFile(context, selectedFile),
                       ),
                     ],
                   );
                 },
               ),
-
             ),
             SizedBox(
               height: 15,
