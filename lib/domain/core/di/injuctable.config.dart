@@ -33,6 +33,8 @@ import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart'
     as _i32;
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart'
     as _i306;
+import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart'
+    as _i585;
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart' as _i651;
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart'
     as _i914;
@@ -40,6 +42,8 @@ import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.d
     as _i561;
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart'
     as _i818;
+import 'package:techqrmaintance/application/pdf_upload_bloc/pdf_upload_bloc.dart'
+    as _i437;
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart'
     as _i143;
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart'
@@ -78,8 +82,12 @@ import 'package:techqrmaintance/domain/customer_model/customer_repo.dart'
     as _i509;
 import 'package:techqrmaintance/domain/deviceregmodel/device_reg_repo.dart'
     as _i489;
+import 'package:techqrmaintance/domain/docuploadmodel/upload_pdf_repo.dart'
+    as _i641;
 import 'package:techqrmaintance/domain/historymodel/maintance_history_repo.dart'
     as _i315;
+import 'package:techqrmaintance/domain/inventrymodel/inventry_repo.dart'
+    as _i896;
 import 'package:techqrmaintance/domain/modelandbrandmodel/brand_repo.dart'
     as _i1043;
 import 'package:techqrmaintance/domain/modelandbrandmodel/device_model_model_repo.dart'
@@ -120,10 +128,14 @@ import 'package:techqrmaintance/infrastructure/getiddeviceregservices/get_id_for
     as _i670;
 import 'package:techqrmaintance/infrastructure/getlocationservices/get_loc_services.dart'
     as _i42;
+import 'package:techqrmaintance/infrastructure/inventry_services/inventries_services.dart'
+    as _i960;
 import 'package:techqrmaintance/infrastructure/maintancehistoryservices.dart/maintance_history_services.dart'
     as _i1007;
 import 'package:techqrmaintance/infrastructure/orgservices/org_services.dart'
     as _i844;
+import 'package:techqrmaintance/infrastructure/pdf_uplaoad_services.dart/pdf_services.dart'
+    as _i124;
 import 'package:techqrmaintance/infrastructure/requestqrendpointservices/req_qr_endpoint_services.dart'
     as _i834;
 import 'package:techqrmaintance/infrastructure/scanqrservices/scan_qr_services.dart'
@@ -169,6 +181,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1064.ServicesRequestRepo>(
         () => _i1025.ServicesRequestServices());
     gh.lazySingleton<_i158.SpStoredUser>(() => _i1027.SpStoredItem());
+    gh.lazySingleton<_i896.InventryRepo>(() => _i960.InventriesServices());
     gh.lazySingleton<_i899.ScanQRRepo>(() => _i649.ScanQrServices());
     gh.lazySingleton<_i1051.GetIdForDeviceRegRepo>(
         () => _i670.GetIdForDeviceRegServices());
@@ -184,6 +197,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i553.ServiceUpdateRepo>(
         () => _i733.UpdateServiceService());
     gh.lazySingleton<_i308.ComplaintRepo>(() => _i396.ComplaintGetServices());
+    gh.lazySingleton<_i641.UploadPdfRepo>(() => _i124.PdfServices());
     gh.lazySingleton<_i489.DeviceRegRepo>(() => _i1016.DeviceRegService());
     gh.lazySingleton<_i987.DocaploadRepo>(() => _i882.UploadFileServices());
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());
@@ -205,8 +219,12 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i651.LogblocBloc(gh<_i765.UserLogRepo>()));
     gh.factory<_i638.ComplaintdetailblocBloc>(
         () => _i638.ComplaintdetailblocBloc(gh<_i942.DetailComplaintRepo>()));
+    gh.factory<_i437.PdfUploadBloc>(
+        () => _i437.PdfUploadBloc(gh<_i641.UploadPdfRepo>()));
     gh.factory<_i941.ComplaintblocBloc>(
         () => _i941.ComplaintblocBloc(gh<_i308.ComplaintRepo>()));
+    gh.factory<_i585.InventryBloc>(
+        () => _i585.InventryBloc(gh<_i896.InventryRepo>()));
     gh.factory<_i561.ModelAndBrandBloc>(
         () => _i561.ModelAndBrandBloc(gh<_i936.DeviceModelRepo>()));
     gh.factory<_i818.OranizationBloc>(

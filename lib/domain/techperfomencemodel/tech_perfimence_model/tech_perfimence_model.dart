@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/organizationmodel/organization_model/organization_model/organization.dart';
 import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/technician.dart';
 
-
 part 'tech_perfimence_model.g.dart';
 
 @JsonSerializable()

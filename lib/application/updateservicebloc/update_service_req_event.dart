@@ -5,5 +5,5 @@ class UpdateServiceReqEvent with _$UpdateServiceReqEvent {
   const factory UpdateServiceReqEvent.updateService(
       {required String id, required ServicesModel model}) = UpdateService;
 
-      const factory UpdateServiceReqEvent.reset() = Reset;
+  const factory UpdateServiceReqEvent.reset() = Reset;
 }

@@ -9,6 +9,9 @@ android {
     namespace = "com.example.techqrmaintance"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
+    defaultConfig {
+        multiDexEnabled true
+        }
 
     compileOptions {
         coreLibraryDesugaringEnabled true 
@@ -21,8 +24,9 @@ android {
     }
 
     dependencies {
+        coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
     // For AGP 7.4+
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+    //coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
     // For AGP 7.3
     // coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.2.3")
     // For AGP 4.0 to 7.2

@@ -1,10 +1,5 @@
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:techqrmaintance/Screens/area_manager/manager_home/manager_home_screen.dart';
-import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
+import 'package:techqrmaintance/Screens/home/adddevicebutton/upload_pdf_screen.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
-import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
-import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
-import 'package:techqrmaintance/Screens/tasks/updatetaskscreen.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
@@ -16,10 +11,12 @@ import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
 import 'package:techqrmaintance/application/docuploadbloc/doc_upload_bloc.dart';
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
+import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart';
 import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart';
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
+import 'package:techqrmaintance/application/pdf_upload_bloc/pdf_upload_bloc.dart';
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart';
 import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
@@ -32,6 +29,7 @@ import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:techqrmaintance/local_notification/local_notifications.dart';
 
 // final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 //     FlutterLocalNotificationsPlugin();
@@ -87,12 +85,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configinjuction();
-  //await initializeNotifications();
-  // final Notification notification = Notification();
-  // await notification.initialisenotification();
-  // await notification.requestNotificationPermission();
-  // await notification.shadulesendnotification(
-  //     'techni', 'check for pending tasks');
+  await LocalNotifications.init();
   runApp(const MyApp());
 }
 
@@ -205,6 +198,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<DocUploadBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<PdfUploadBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<InventryBloc>(),
         ),
       ],
       child: MaterialApp(

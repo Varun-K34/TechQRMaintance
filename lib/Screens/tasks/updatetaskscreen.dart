@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/drop_down_widget.dart';
+import 'package:techqrmaintance/Screens/Widgets/multiselectiondropdown.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
+import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart';
 import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
@@ -13,7 +15,7 @@ import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas
 
 class UpdateTaskScreen extends StatelessWidget {
   final String id;
-  UpdateTaskScreen({super.key, required this.id});
+  UpdateTaskScreen({super.key, required this.id,  });
 
   // Controllers for the text fields
   final TextEditingController completedDateController = TextEditingController();
@@ -21,12 +23,15 @@ class UpdateTaskScreen extends StatelessWidget {
   final TextEditingController completionNoteController =
       TextEditingController();
   final TextEditingController techController = TextEditingController();
+   
 
   @override
   Widget build(BuildContext context) {
+    List<int>? newpart;
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         context.read<TechListBloc>().add(TechListEvent.getTechlist());
+        context.read<InventryBloc>().add(InventryEvent.getInventry());
       },
     );
     return Scaffold(
@@ -45,6 +50,7 @@ class UpdateTaskScreen extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // completion date
               spstate.userData.role == "Area Manager"
                   ? SizedBox.shrink()
                   : CustomTextField(
@@ -59,13 +65,15 @@ class UpdateTaskScreen extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
+
               spstate.userData.role == "Area Manager"
                   ? BlocBuilder<TechListBloc, TechListState>(
                       builder: (context, state) {
                         final List<String> technamelist = state.techlist
-                          .where((onlytech) => onlytech.role == "Technician")
-                          .map((tech) => "${tech.id} ${tech.fullName}")
-                          .toList();
+                            .where((onlytech) => onlytech.role == "Technician")
+                            .map((tech) => "${tech.id} ${tech.fullName}")
+                            .toList();
+                        //select tech
                         return DropDownSearchWidget(
                           controller: techController,
                           serarchbox: true,
@@ -76,6 +84,7 @@ class UpdateTaskScreen extends StatelessWidget {
                         );
                       },
                     )
+                  // select status
                   : DropDownSearchWidget(
                       controller: statusController,
                       serarchbox: false,
@@ -87,6 +96,33 @@ class UpdateTaskScreen extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
+
+              // select inventry
+              spstate.userData.role == "Area Manager"
+                  ? SizedBox.shrink()
+                  : BlocBuilder<InventryBloc, InventryState>(
+                      builder: (context, state) {
+                        final List<String> inventoryItems = state.inventry
+                            .where(
+                                (item) => item.orgId == spstate.userData.orgId)
+                            .map((e) => "${e.id} ${e.name}")
+                            .whereType<String>()
+                            .toList();
+
+                        return MultiSelectDropdown<String>(
+                          items: inventoryItems,
+                          label: "Inventory Items",
+                          selectedItems: [],
+                          onSelectionChanged: (selectedParts) {
+                            newpart = selectedParts;
+                          },
+                        );
+                      },
+                    ),
+              SizedBox(
+                height: 16,
+              ),
+              // add completion note
               spstate.userData.role == "Area Manager"
                   ? SizedBox.shrink()
                   : CustomTextField(
@@ -135,7 +171,7 @@ class UpdateTaskScreen extends StatelessWidget {
                             onPressed: () =>
                                 spstate.userData.role == "Area Manager"
                                     ? onmanagerupdate(context)
-                                    : onUpdate(context),
+                                    : onUpdate(context,newpart??[]),
                           ),
                         );
                 },
@@ -183,7 +219,7 @@ class UpdateTaskScreen extends StatelessWidget {
     }
   }
 
-  void onUpdate(BuildContext context) {
+  void onUpdate(BuildContext context,List<int> newpart) {
     String completedDate = completedDateController.text;
     String status = statusController.text;
     String completionNote = completionNoteController.text;
@@ -215,6 +251,7 @@ class UpdateTaskScreen extends StatelessWidget {
       completedAt: completedDateTime,
       status: status,
       completionNotes: completionNote,
+      newPartsUsed: newpart
     );
 
     context

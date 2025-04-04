@@ -6,7 +6,8 @@ class ManagerTaskWidget extends StatelessWidget {
   final VoidCallback onTap;
   const ManagerTaskWidget({
     super.key,
-    required this.title, required this.onTap,
+    required this.title,
+    required this.onTap,
   });
 
   @override

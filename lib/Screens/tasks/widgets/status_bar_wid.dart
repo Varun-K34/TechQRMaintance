@@ -40,7 +40,7 @@ class StatusBarWidget extends StatelessWidget {
               Icon(Icons.circle, size: 12, color: statusColor),
               const SizedBox(width: 8),
               Text(
-                status?? "no status",
+                status ?? "no status",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: statusColor,
