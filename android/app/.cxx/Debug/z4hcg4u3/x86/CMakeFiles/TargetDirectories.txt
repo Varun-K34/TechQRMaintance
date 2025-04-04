@@ -1,2 +1,0 @@
-C:/Users/appuv/techqrmaintance/android/app/.cxx/Debug/z4hcg4u3/x86/CMakeFiles/edit_cache.dir
-C:/Users/appuv/techqrmaintance/android/app/.cxx/Debug/z4hcg4u3/x86/CMakeFiles/rebuild_cache.dir
