@@ -25,7 +25,7 @@ class CustomerModelSaas {
   @JsonKey(name: 'master_qr_id')
   int? masterQrId;
   @JsonKey(name: 'pin')
-  int? pin;
+  String? pin;
   @JsonKey(name: 'organization')
   Organization? organization;
   @JsonKey(name: 'master_qr')
@@ -56,5 +56,10 @@ class CustomerModelSaas {
   factory CustomerModelSaas.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelSaasFromJson(json);
 
-  Map<String, dynamic> toJson() => _$CustomerModelSaasToJson(this);
+  // Map<String, dynamic> toJson() => _$CustomerModelSaasToJson(this);
+  Map<String, dynamic> toJson() {
+    final data = _$CustomerModelSaasToJson(this);
+    data.removeWhere((key, value) => value == null); // Removes null fields
+    return data;
+  }
 }

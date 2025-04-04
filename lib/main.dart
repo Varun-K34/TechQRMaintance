@@ -86,6 +86,15 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configinjuction();
   await LocalNotifications.init();
+
+  await LocalNotifications.requestExactAlarmPermission();
+
+  // LocalNotifications.showShuduldNotification(
+  //   title: "Test Notification",
+  //   body: "This should repeat every minute.",
+  //   payload: "test_payload",
+  //   intervalMinutes: 1, // Change to 11 after testing
+  // );
   runApp(const MyApp());
 }
 

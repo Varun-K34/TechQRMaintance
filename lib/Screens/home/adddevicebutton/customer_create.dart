@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
@@ -164,8 +165,8 @@ class CustomerCreate extends StatelessWidget {
                                 fullName: username,
                                 phone: phoneNumber,
                                 email: email,
-                                pin: int.parse(postCode));
-                            //log(customerModel.toJson().toString());
+                                pin: postCode);
+                            log(customerModel.toJson().toString());
                             context.read<CustomerBloc>().add(
                                   CustomerEvent.signup(
                                       customerModel: customerModel),

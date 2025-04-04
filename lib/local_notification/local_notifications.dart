@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -75,11 +74,51 @@ class LocalNotifications {
     }
   }
 
+// static Future<void> showShuduldNotification({
+//   required String title,
+//   required String body,
+//   required String payload,
+//   int intervalMinutes = 1, // Default: 1 minute for testing
+// }) async {
+//   try {
+//     tz.initializeTimeZones();
+//     var localtime = tz.local;
+
+//     // Cancel existing notification with ID 2
+//     await _flutterLocalNotificationsPlugin.cancel(2);
+
+//     // Schedule a recurring notification
+//     await _flutterLocalNotificationsPlugin.zonedSchedule(
+//       2, // Notification ID
+//       title,
+//       body,
+//       tz.TZDateTime.now(localtime).add(Duration(minutes: intervalMinutes)),
+//       NotificationDetails(
+//         android: AndroidNotificationDetails(
+//           "channel_1",
+//           "techmaintanceappchannel",
+//           channelDescription: "notification channel",
+//           importance: Importance.max,
+//           priority: Priority.high,
+//           ticker: "ticker",
+//           autoCancel: false,
+//         ),
+//       ),
+//       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+//       matchDateTimeComponents: DateTimeComponents.time, // Ensures it repeats every interval
+//     );
+
+//     log("✅ Notification scheduled every $intervalMinutes minutes");
+//   } catch (e) {
+//     log("❌ Error scheduling notification: $e");
+//   }
+// }
+
+
   static Future<bool?> requestExactAlarmPermission() async {
     return await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
         ?.requestExactAlarmsPermission();
   }
-
 }
