@@ -1,12 +1,9 @@
-import 'package:techqrmaintance/Screens/home/adddevicebutton/upload_pdf_screen.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
-import 'package:techqrmaintance/application/bloccomplaint/complaintbloc_bloc.dart';
 import 'package:techqrmaintance/application/brandnadmodel/brand_and_model_bloc.dart';
 import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
 import 'package:techqrmaintance/application/checkbloc/checkbloc_bloc.dart';
-import 'package:techqrmaintance/application/complaintdetailbloc/complaintdetailbloc_bloc.dart';
 import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
 import 'package:techqrmaintance/application/docuploadbloc/doc_upload_bloc.dart';
@@ -18,7 +15,6 @@ import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.d
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
 import 'package:techqrmaintance/application/pdf_upload_bloc/pdf_upload_bloc.dart';
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
-import 'package:techqrmaintance/application/scanqrbloc/scan_qr_bloc_bloc.dart';
 import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
@@ -29,108 +25,15 @@ import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:techqrmaintance/local_notification/local_notifications.dart';
-
-// final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-//     FlutterLocalNotificationsPlugin();
-
-// class Notification {
-//   final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
-//       FlutterLocalNotificationsPlugin();
-
-//   Future<void> requestNotificationPermission() async {
-//     final bool? granted = await _flutterLocalNotificationsPlugin
-//         .resolvePlatformSpecificImplementation<
-//             AndroidFlutterLocalNotificationsPlugin>()
-//         ?.requestNotificationsPermission();
-//     if (granted != null && granted) {
-//       print('Notification permission granted');
-//     } else {
-//       print('Notification permission denied');
-//     }
-//   }
-
-//   Future<void> initialisenotification() async {
-//     const AndroidInitializationSettings initializationSettingsAndroid =
-//         AndroidInitializationSettings(
-//             '@mipmap/ic_launcher'); // Replace with your app icon name
-//     final InitializationSettings initializationSettings =
-//         InitializationSettings(android: initializationSettingsAndroid);
-
-//     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
-//   }
-
-//   Future<void> shadulesendnotification(String title, String body) async {
-//     const AndroidNotificationDetails androidPlatformChannelSpecifics =
-//         AndroidNotificationDetails(
-//       'channelId',
-//       'channelName',
-//       importance: Importance.max,
-//       priority: Priority.high,
-//     );
-//     const NotificationDetails platformChannelSpecifics =
-//         NotificationDetails(android: androidPlatformChannelSpecifics);
-
-//     await _flutterLocalNotificationsPlugin.periodicallyShow(
-//       0,
-//       title,
-//       body,
-//       RepeatInterval.everyMinute,
-//       platformChannelSpecifics,
-//       androidScheduleMode: AndroidScheduleMode.exact,
-//     );
-//   }
-// }
+import 'package:techqrmaintance/local_notification/awesome_nitification.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configinjuction();
-  await LocalNotifications.init();
-
-  await LocalNotifications.requestExactAlarmPermission();
-
-  // LocalNotifications.showShuduldNotification(
-  //   title: "Test Notification",
-  //   body: "This should repeat every minute.",
-  //   payload: "test_payload",
-  //   intervalMinutes: 1, // Change to 11 after testing
-  // );
+  await NotificationController.initializeLocalNotifications();
   runApp(const MyApp());
 }
 
-// Future<void> initializeNotifications() async {
-//   const AndroidInitializationSettings androidInitializationSettings =
-//       AndroidInitializationSettings('@mipmap/ic_launcher');
-
-//   final InitializationSettings initializationSettings =
-//       InitializationSettings(android: androidInitializationSettings);
-
-//   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-// }
-
-// Future<void> schedulePeriodicNotifications() async {
-//   const AndroidNotificationDetails androidNotificationDetails =
-//       AndroidNotificationDetails(
-//     "1",
-//     'jjgfghfgj',
-//     channelDescription: 'Repeating notification for updates',
-//     importance: Importance.high,
-//     priority: Priority.high,
-//   );
-
-//   const NotificationDetails notificationDetails =
-//       NotificationDetails(android: androidNotificationDetails);
-
-//   await flutterLocalNotificationsPlugin.periodicallyShow(
-//     0, // Notification ID
-//     'Task Reminder', // Title
-//     'Check for pending tasks!', // Body
-//     RepeatInterval.everyMinute, // Interval (closest available option to 10 seconds)
-//     notificationDetails,
-//     androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-//   );
-
-// }
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -143,9 +46,6 @@ class MyApp extends StatelessWidget {
           create: (context) => getit<AuthblocBloc>(),
         ),
         BlocProvider(
-          create: (context) => getit<ComplaintblocBloc>(),
-        ),
-        BlocProvider(
           create: (context) => getit<LogblocBloc>(),
         ),
         BlocProvider(
@@ -155,16 +55,10 @@ class MyApp extends StatelessWidget {
           create: (context) => getit<CheckblocBloc>(),
         ),
         BlocProvider(
-          create: (context) => getit<ComplaintdetailblocBloc>(),
-        ),
-        BlocProvider(
           create: (context) => getit<DeviceregblocBloc>(),
         ),
         BlocProvider(
           create: (context) => getit<GetidregblocBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => getit<ScanQrBlocBloc>(),
         ),
         BlocProvider(
           create: (context) => getit<CustomerBloc>(),

@@ -15,15 +15,17 @@ class CustomerServices implements CustomerRepo {
   @override
   Future<Either<MainFailurs, int?>> createCustomer(
       {required CustomerModelSaas customerModel}) async {
+        
     try {
       Map<String, dynamic> sanitizedJson = customerModel.toJson();
       sanitizedJson.removeWhere(
           (key, value) => value == null && key != 'pin' && key != 'phone');
+      log(sanitizedJson.toString(), name: "Customer Creation JSON");
       final Response response = await api.dio.post(
         kBaseURL + kCustomer,
         data: sanitizedJson,
       );
-
+      
       if (response.statusCode == 200 || response.statusCode == 201) {
         final customerSuccess =
             CustomerModelSaas.fromJson(response.data['data']);
@@ -34,6 +36,7 @@ class CustomerServices implements CustomerRepo {
         return Left(MainFailurs.serverFailure());
       }
     } on DioException catch (e) {
+      log(e.message.toString(), name: "DioException");
       await api.clearStoredToken();
       if (e.response?.statusCode == 302) {
         log('Redirect detected to: ${e.response?.headers.value('location')}');

@@ -23,8 +23,7 @@ HisData _$HisDataFromJson(Map<String, dynamic> json) => HisData(
           : Device.fromJson(json['device'] as Map<String, dynamic>),
       technician: json['technician'] == null
           ? null
-          : AssignedTechnician.fromJson(
-              json['technician'] as Map<String, dynamic>),
+          : UserModel.fromJson(json['technician'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$HisDataToJson(HisData instance) => <String, dynamic>{

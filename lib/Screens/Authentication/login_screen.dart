@@ -81,7 +81,7 @@ class LoginScreen extends StatelessWidget {
                     createRoute(Home()),
                     (route) => false,
                   );
-                } else if (state.userModelLists.role == "Area Manager") {
+                }  if (state.userModelLists.role == "Area Manager") {
                   Navigator.of(context).pushAndRemoveUntil(
                     createRoute(ManagerHomeScreen()),
                     (route) => false,

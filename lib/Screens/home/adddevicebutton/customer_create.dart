@@ -165,7 +165,8 @@ class CustomerCreate extends StatelessWidget {
                                 fullName: username,
                                 phone: phoneNumber,
                                 email: email,
-                                pin: postCode);
+                                pin: postCode
+                                );
                             log(customerModel.toJson().toString());
                             context.read<CustomerBloc>().add(
                                   CustomerEvent.signup(

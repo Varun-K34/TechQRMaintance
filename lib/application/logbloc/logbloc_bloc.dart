@@ -28,5 +28,11 @@ class LogblocBloc extends Bloc<LogblocEvent, LogblocState> {
         );
       });
     });
+
+    on<Reset>(
+      (event, emit) {
+        emit(LogblocState.initial());
+      },
+    );
   }
 }

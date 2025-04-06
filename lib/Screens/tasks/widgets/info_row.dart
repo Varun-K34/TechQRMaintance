@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class InfoRowWidget extends StatelessWidget {
   final IconData icon;
@@ -19,7 +20,7 @@ class InfoRowWidget extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 18, color: Colors.blue[700]),
+          Icon(icon, size: 18, color: primaryBlue),
           const SizedBox(width: 8),
           Expanded(
             child: Column(
@@ -28,11 +29,18 @@ class InfoRowWidget extends StatelessWidget {
                 Text(
                   label,
                   style: const TextStyle(
+                    fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black54,
+                    color: primaryBlue,
                   ),
                 ),
-                Text(value),
+                Text(
+                  value,
+                  style: TextStyle(
+                    color: primaryBlue,
+                    fontSize: 16,
+                  ),
+                ),
               ],
             ),
           ),

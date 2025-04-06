@@ -8,6 +8,7 @@ import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/middle_widget.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/pichart.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/top_widget.dart';
+import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
@@ -121,6 +122,7 @@ class PortfolioScreen extends StatelessWidget {
               CustomMaterialButton(
                 text: "Logout",
                 onPressed: () async {
+                  context.read<LogblocBloc>().add(LogblocEvent.reset());
                   Navigator.of(context).pushAndRemoveUntil(
                     createRoute(LoginScreen()),
                     (route) => false,

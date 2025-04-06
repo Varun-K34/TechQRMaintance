@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:techqrmaintance/domain/complaintmodel/complanits_list/Technician.dart';
-import 'package:techqrmaintance/domain/complaintmodel/complanits_list/device.dart';
+import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/device.dart';
+import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/user_model.dart';
 
 part 'hisdata.g.dart';
 
@@ -27,7 +27,7 @@ class HisData {
   @JsonKey(name: 'device')
   Device? device;
   @JsonKey(name: 'technician')
-  AssignedTechnician? technician;
+  UserModel? technician;
 
   HisData({
     this.id,

@@ -58,7 +58,7 @@ class GetIdForDeviceRegServices implements GetIdForDeviceRegRepo {
       log('DioException: ${e.message}');
       return Left(MainFailurs.clientFailure());
     } catch (e) {
-      log('Unexpected Error: $e');
+      log('Unexpected Error: $e',name: "GetIdForDeviceRegServices");
       return Left(MainFailurs.clientFailure());
     }
   }
