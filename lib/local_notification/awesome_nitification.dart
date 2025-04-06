@@ -48,8 +48,6 @@ class NotificationController {
   }
 
   static Future<void> myNotifyScheduleEvery5Seconds({
-    required String heroThumbUrl,
-    required String username,
     required String title,
     required String msg,
   }) async {
@@ -60,26 +58,14 @@ class NotificationController {
         repeats: true,
       ),
       content: NotificationContent(
-        id: 1001,
+        id: 1002,
         channelKey: 'alerts',
-        title: '${Emojis.food_bowl_with_spoon} $title',
-        body: '$username, $msg',
-        bigPicture: heroThumbUrl,
+        title: '${Emojis.activites_reminder_ribbon} $title',
+        body: msg,
         notificationLayout: NotificationLayout.BigPicture,
         color: Colors.black,
         backgroundColor: Colors.black,
-        payload: {'actPag': 'myAct', 'actType': 'food', 'username': username},
       ),
-      actionButtons: [
-        NotificationActionButton(
-          key: 'NOW',
-          label: 'btnAct1',
-        ),
-        NotificationActionButton(
-          key: 'LATER',
-          label: 'btnAct2',
-        ),
-      ],
     );
   }
 }

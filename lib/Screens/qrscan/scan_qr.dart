@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
-import 'package:techqrmaintance/Screens/repair_overview.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/core/strings.dart';
 
@@ -85,12 +84,6 @@ class ScanQr extends StatelessWidget {
                       key: Key("Register"),
                       id: id,
                       updateid: extractedNumber,
-                    )));
-                  } else if (key == Key("Repair")) {
-                    Navigator.of(context)
-                        .pushReplacement(createRoute(RepairOverviewScreen(
-                      key: Key("Repair"),
-                      id: extractedNumber,
                     )));
                   }
                 } else {

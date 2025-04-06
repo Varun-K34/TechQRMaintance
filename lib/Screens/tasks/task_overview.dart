@@ -31,7 +31,7 @@ class TaskOverviewScreen extends StatelessWidget {
           );
     });
     return Scaffold(
-      backgroundColor: primaryWhite,
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
         title: Text(
           "Task Overview",
@@ -39,7 +39,7 @@ class TaskOverviewScreen extends StatelessWidget {
               color: primaryBlue, fontSize: 22, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        backgroundColor: primaryWhite,
+        backgroundColor: Color(0xfff5f5f5),
       ),
       bottomNavigationBar: title == "assigned task"
           ? SizedBox.shrink()

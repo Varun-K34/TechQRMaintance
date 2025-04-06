@@ -24,7 +24,9 @@ class CustomerModelSaas {
   dynamic gpsCoordinates;
   @JsonKey(name: 'master_qr_id')
   int? masterQrId;
-  @JsonKey(name: 'pin')
+  // @JsonKey(name: 'pin', includeToJson: false, includeFromJson: true)
+  // int? pin;
+  @JsonKey(name: 'pin',includeFromJson: false, includeToJson: true)
   String? pin;
   @JsonKey(name: 'organization')
   Organization? organization;
@@ -56,10 +58,5 @@ class CustomerModelSaas {
   factory CustomerModelSaas.fromJson(Map<String, dynamic> json) =>
       _$CustomerModelSaasFromJson(json);
 
-  // Map<String, dynamic> toJson() => _$CustomerModelSaasToJson(this);
-  Map<String, dynamic> toJson() {
-    final data = _$CustomerModelSaasToJson(this);
-    data.removeWhere((key, value) => value == null); // Removes null fields
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$CustomerModelSaasToJson(this);
 }
