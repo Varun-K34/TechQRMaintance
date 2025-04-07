@@ -15,7 +15,6 @@ class CustomerServices implements CustomerRepo {
   @override
   Future<Either<MainFailurs, int?>> createCustomer(
       {required CustomerModelSaas customerModel}) async {
-        
     try {
       Map<String, dynamic> sanitizedJson = customerModel.toJson();
       sanitizedJson.removeWhere(
@@ -25,7 +24,7 @@ class CustomerServices implements CustomerRepo {
         kBaseURL + kCustomer,
         data: sanitizedJson,
       );
-      
+
       if (response.statusCode == 200 || response.statusCode == 201) {
         final customerSuccess =
             CustomerModelSaas.fromJson(response.data['data']);

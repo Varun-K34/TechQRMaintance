@@ -172,7 +172,7 @@ abstract class GetSpStoredData implements SpblocEvent {
 
 /// @nodoc
 mixin _$SpblocState {
-  UserModel get userData => throw _privateConstructorUsedError;
+  int? get userData => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isFailure => throw _privateConstructorUsedError;
 
@@ -189,7 +189,7 @@ abstract class $SpblocStateCopyWith<$Res> {
           SpblocState value, $Res Function(SpblocState) then) =
       _$SpblocStateCopyWithImpl<$Res, SpblocState>;
   @useResult
-  $Res call({UserModel userData, bool isLoading, bool isFailure});
+  $Res call({int? userData, bool isLoading, bool isFailure});
 }
 
 /// @nodoc
@@ -207,15 +207,15 @@ class _$SpblocStateCopyWithImpl<$Res, $Val extends SpblocState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userData = null,
+    Object? userData = freezed,
     Object? isLoading = null,
     Object? isFailure = null,
   }) {
     return _then(_value.copyWith(
-      userData: null == userData
+      userData: freezed == userData
           ? _value.userData
           : userData // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as int?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -236,7 +236,7 @@ abstract class _$$ComplaintblocStateImplCopyWith<$Res>
       __$$ComplaintblocStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({UserModel userData, bool isLoading, bool isFailure});
+  $Res call({int? userData, bool isLoading, bool isFailure});
 }
 
 /// @nodoc
@@ -252,15 +252,15 @@ class __$$ComplaintblocStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userData = null,
+    Object? userData = freezed,
     Object? isLoading = null,
     Object? isFailure = null,
   }) {
     return _then(_$ComplaintblocStateImpl(
-      userData: null == userData
+      userData: freezed == userData
           ? _value.userData
           : userData // ignore: cast_nullable_to_non_nullable
-              as UserModel,
+              as int?,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -282,7 +282,7 @@ class _$ComplaintblocStateImpl implements _ComplaintblocState {
       required this.isFailure});
 
   @override
-  final UserModel userData;
+  final int? userData;
   @override
   final bool isLoading;
   @override
@@ -321,12 +321,12 @@ class _$ComplaintblocStateImpl implements _ComplaintblocState {
 
 abstract class _ComplaintblocState implements SpblocState {
   const factory _ComplaintblocState(
-      {required final UserModel userData,
+      {required final int? userData,
       required final bool isLoading,
       required final bool isFailure}) = _$ComplaintblocStateImpl;
 
   @override
-  UserModel get userData;
+  int? get userData;
   @override
   bool get isLoading;
   @override

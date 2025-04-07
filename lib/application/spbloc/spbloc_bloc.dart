@@ -24,7 +24,7 @@ class SpblocBloc extends Bloc<SpblocEvent, SpblocState> {
             isLoading: false,
             isFailure: true,
           )),
-          (UserModel r) => emit(state.copyWith(
+          (r) => emit(state.copyWith(
             isLoading: false,
             isFailure: false,
             userData: r,

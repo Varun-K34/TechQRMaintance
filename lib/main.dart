@@ -10,16 +10,18 @@ import 'package:techqrmaintance/application/docuploadbloc/doc_upload_bloc.dart';
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
-import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart';
 import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart';
+import 'package:techqrmaintance/application/notify_setting_bloc/notify_setting_bloc.dart';
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
 import 'package:techqrmaintance/application/pdf_upload_bloc/pdf_upload_bloc.dart';
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
 import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/application/techlistbloc/tech_list_bloc.dart';
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart';
+import 'package:techqrmaintance/application/update_user_bloc/update_user_bloc.dart';
 import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart';
 import 'package:techqrmaintance/domain/core/di/injuctable.dart';
 
@@ -64,9 +66,6 @@ class MyApp extends StatelessWidget {
           create: (context) => getit<CustomerBloc>(),
         ),
         BlocProvider(
-          create: (context) => getit<MaintenancehistoryBloc>(),
-        ),
-        BlocProvider(
           create: (context) => getit<GetLocationBloc>(),
         ),
         BlocProvider(
@@ -107,6 +106,15 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<InventryBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<NotifySettingBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<UpdateUserBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<SingleUserBloc>(),
         ),
       ],
       child: MaterialApp(

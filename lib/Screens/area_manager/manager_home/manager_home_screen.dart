@@ -11,6 +11,7 @@ import 'package:techqrmaintance/Screens/home/widgets/skelton_home.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
 import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
@@ -25,19 +26,26 @@ class ManagerHomeScreen extends StatelessWidget {
             .read<ServiceRequestBloc>()
             .add(ServiceRequestEvent.getServicesreq());
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
+        context
+            .read<SingleUserBloc>()
+            .add(SingleUserEvent.singleUser(id: context.read<SpblocBloc>().state.userData.toString()));
       },
     );
     return Scaffold(
       backgroundColor: primaryWhite,
       appBar: AppBar(
         backgroundColor: primaryWhite,
-        leading: InkWell(
-          onTap: () => onPressmanagerProfile(context),
-          child: Icon(
-            Icons.account_circle_outlined,
-            size: 35,
-            color: primaryBlue,
-          ),
+        leading: BlocBuilder<SpblocBloc, SpblocState>(
+          builder: (context, state) {
+            return InkWell(
+                  onTap: () => onPressmanagerProfile(context , state.userData.toString()),
+                  child: Icon(
+                    Icons.account_circle_outlined,
+                    size: 35,
+                    color: primaryBlue,
+                  ),
+                );
+          },
         ),
         title: Text("Manager Home Screen"),
       ),
@@ -55,7 +63,7 @@ class ManagerHomeScreen extends StatelessWidget {
                     border: Border.all(width: 2, color: primaryBlue),
                     color: primaryWhite,
                     borderRadius: BorderRadius.circular(30)),
-                child: BlocBuilder<SpblocBloc, SpblocState>(
+                child: BlocBuilder<SingleUserBloc, SingleUserState>(
                   builder: (context, spState) {
                     return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
                       builder: (context, state) {
@@ -97,7 +105,7 @@ class ManagerHomeScreen extends StatelessWidget {
                                   .where((task) =>
                                       task.technician == null &&
                                       task.assignedTechnician == null &&
-                                      task.orgId == spState.userData.orgId &&
+                                      task.orgId == spState.user.orgId &&
                                       task.status != "Completed")
                                   .toList()
                                   .length
@@ -112,7 +120,7 @@ class ManagerHomeScreen extends StatelessWidget {
                                   .where((task) =>
                                       task.assignedTechnician != null &&
                                       task.technician != null &&
-                                      task.orgId == spState.userData.orgId &&
+                                      task.orgId == spState.user.orgId &&
                                       task.status != "Completed")
                                   .toList()
                                   .length
@@ -127,7 +135,7 @@ class ManagerHomeScreen extends StatelessWidget {
                                   .where((task) =>
                                       (task.status == "In Progress" ||
                                           task.status == "Pending") &&
-                                      task.orgId == spState.userData.orgId)
+                                      task.orgId == spState.user.orgId)
                                   .toList()
                                   .length
                                   .toString(),
@@ -179,7 +187,7 @@ class ManagerHomeScreen extends StatelessWidget {
     );
   }
 
-  void onPressmanagerProfile(BuildContext context) {
-    Navigator.of(context).push(createRoute(PortfolioScreen()));
+  void onPressmanagerProfile(BuildContext context, String id) {
+    Navigator.of(context).push(createRoute(PortfolioScreen(id: id,)));
   }
 }

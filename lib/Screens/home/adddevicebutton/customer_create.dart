@@ -7,6 +7,7 @@ import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/qrscan/scan_qr.dart';
 import 'package:techqrmaintance/application/custbloc/customer_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/customer_model/customer_model_list_saas/customer_model_saas.dart';
@@ -25,6 +26,11 @@ class CustomerCreate extends StatelessWidget {
       (_) {
         context.read<SpblocBloc>().add(
               SpblocEvent.getSpStoredData(),
+            );
+            context.read<SingleUserBloc>().add(
+              SingleUserEvent.singleUser(
+                id: context.read<SpblocBloc>().state.userData.toString(),
+              ),
             );
       },
     );
@@ -49,9 +55,9 @@ class CustomerCreate extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            BlocBuilder<SpblocBloc, SpblocState>(
+            BlocBuilder<SingleUserBloc, SingleUserState>(
               builder: (context, state) {
-                _organizationController.text = state.userData.orgId.toString();
+                _organizationController.text = state.user.orgId.toString();
                 return CustomTextField(
                   hintText: 'Organization',
                   controller: _organizationController,
@@ -165,8 +171,7 @@ class CustomerCreate extends StatelessWidget {
                                 fullName: username,
                                 phone: phoneNumber,
                                 email: email,
-                                pin: postCode
-                                );
+                                pin: postCode);
                             log(customerModel.toJson().toString());
                             context.read<CustomerBloc>().add(
                                   CustomerEvent.signup(

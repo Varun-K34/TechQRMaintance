@@ -7,6 +7,7 @@ import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 
@@ -21,13 +22,18 @@ class AssignedTaskViewScreen extends StatelessWidget {
             .read<ServiceRequestBloc>()
             .add(ServiceRequestEvent.getServicesreq());
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
+        context.read<SingleUserBloc>().add(
+              SingleUserEvent.singleUser(
+                id: context.read<SpblocBloc>().state.userData.toString(),
+              ),
+            );
       },
     );
     return Scaffold(
       appBar: AppBar(
         title: Text("assigned task"),
       ),
-      body: BlocBuilder<SpblocBloc, SpblocState>(
+      body: BlocBuilder<SingleUserBloc, SingleUserState>(
         builder: (context, spstate) {
           return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
             builder: (context, state) {
@@ -42,7 +48,7 @@ class AssignedTaskViewScreen extends StatelessWidget {
                   .where((service) =>
                       service.assignedTechnician != null &&
                       service.technician != null &&
-                      service.orgId == spstate.userData.orgId &&
+                      service.orgId == spstate.user.orgId &&
                       service.status != "Completed")
                   .toList();
               if (assignedtask.isEmpty) {

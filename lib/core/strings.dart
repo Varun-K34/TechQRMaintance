@@ -15,3 +15,4 @@ const kServices = 'api/service-requests/';
 const kTechPerfomence = 'api/technician-performances/';
 const kDoc = 'api/documents';
 const kinventry = "api/inventories";
+const kSettingNotify = "api/settings";

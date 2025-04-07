@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
@@ -10,6 +11,19 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        context
+            .read<ServiceRequestBloc>()
+            .add(ServiceRequestEvent.getServicesreq());
+        context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
+        context.read<SingleUserBloc>().add(
+              SingleUserEvent.singleUser(
+                id: context.read<SpblocBloc>().state.userData.toString(),
+              ),
+            );
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryWhite,
@@ -23,15 +37,15 @@ class NotificationScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: BlocBuilder<SpblocBloc, SpblocState>(
+      body: BlocBuilder<SingleUserBloc, SingleUserState>(
         builder: (context, spstate) {
           return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
             builder: (context, state) {
               final servlist = state.servicelist
                   .where(
                     (service) =>
-                        service.assignedTechnician == spstate.userData.id &&
-                        service.orgId == spstate.userData.orgId &&
+                        service.assignedTechnician == spstate.user.id &&
+                        service.orgId == spstate.user.orgId &&
                         service.status == "Pending",
                   )
                   .toList();

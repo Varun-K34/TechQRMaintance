@@ -5,6 +5,7 @@ import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
 import 'package:techqrmaintance/Screens/history/history_overview.dart';
 import 'package:techqrmaintance/Screens/history/widgets/history_item.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
@@ -19,6 +20,11 @@ class ServicesHistoryScreen extends StatelessWidget {
               ServiceRequestEvent.getServicesreq(),
             );
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
+        context.read<SingleUserBloc>().add(
+              SingleUserEvent.singleUser(
+                id: context.read<SpblocBloc>().state.userData.toString(),
+              ),
+            );
       },
     );
     return Scaffold(
@@ -36,7 +42,7 @@ class ServicesHistoryScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: BlocBuilder<SpblocBloc, SpblocState>(
+        child: BlocBuilder<SingleUserBloc, SingleUserState>(
           builder: (context, spstate) {
             return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
               builder: (context, state) {
@@ -50,8 +56,8 @@ class ServicesHistoryScreen extends StatelessWidget {
                 final servlist = state.servicelist
                     .where(
                       (service) =>
-                          service.assignedTechnician == spstate.userData.id &&
-                          service.orgId == spstate.userData.orgId &&
+                          service.assignedTechnician == spstate.user.id &&
+                          service.orgId == spstate.user.orgId &&
                           service.status == "Completed",
                     )
                     .toList();
