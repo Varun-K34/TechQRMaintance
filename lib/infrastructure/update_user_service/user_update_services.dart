@@ -27,20 +27,6 @@ class UserUpdateServices implements UpdateUserRepo {
       if (repo.statusCode == 200) {
         final UserModel updatedUser = UserModel.fromJson(repo.data);
 
-        try {
-          final SharedPreferences prefs = await SharedPreferences.getInstance();
-          await prefs.remove('userItem');
-          await prefs.remove('userID');
-
-          String updatedJsonUser = jsonEncode(updatedUser);
-          await prefs.setString("userItem", updatedJsonUser);
-          await prefs.setInt('userID', updatedUser.id!);
-          log("Updated user saved in SharedPreferences");
-        } catch (e) {
-          log("Error saving updated user in SharedPreferences: $e");
-        }
-        log("User updated successfully: ${updatedUser.toJson()}");
-
         return Right(updatedUser);
       } else {
         return Left(MainFailurs.serverFailure());

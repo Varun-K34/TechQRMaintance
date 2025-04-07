@@ -23,7 +23,7 @@ class SingleUserServices implements SingleUserRepo {
         return Left(MainFailurs.serverFailure());
       }
     } on DioException catch (e) {
-      log('DioException: ${e.message}', error: e);
+      log('DioException: ${e.message}', error: e,name: "singleUserServices", stackTrace: StackTrace.current);
       await singleUserApi.clearStoredToken();
       return Left(MainFailurs.serverFailure());
     } catch (e) {
