@@ -23,12 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    // Notifications
-    NotificationController.requestNotificationPermissions();
-    NotificationController.myNotifyScheduleEvery5Seconds(
-      title: 'Reminder',
-      msg: 'You have some unfinished tasks!',
-    );
+    
 
     // Initial SharedPref and auth check
     WidgetsBinding.instance.addPostFrameCallback(
