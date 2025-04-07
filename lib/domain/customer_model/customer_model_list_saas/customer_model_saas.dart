@@ -26,7 +26,7 @@ class CustomerModelSaas {
   int? masterQrId;
   // @JsonKey(name: 'pin', includeToJson: false, includeFromJson: true)
   // int? pin;
-  @JsonKey(name: 'pin',includeFromJson: false, includeToJson: true)
+  @JsonKey(name: 'pin', includeFromJson: false, includeToJson: true)
   String? pin;
   @JsonKey(name: 'organization')
   Organization? organization;

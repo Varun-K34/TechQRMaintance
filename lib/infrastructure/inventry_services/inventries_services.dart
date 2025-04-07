@@ -19,7 +19,7 @@ class InventriesServices implements InventryRepo {
           await inventriesapi.dio.get(kBaseURL + kinventry);
 
       if (inventrespo.statusCode == 200) {
-        final responseData = inventrespo.data; 
+        final responseData = inventrespo.data;
 
         // Ensure 'data' exists and is a list
         if (responseData is Map<String, dynamic> &&
@@ -45,5 +45,4 @@ class InventriesServices implements InventryRepo {
       return Left(MainFailurs.clientFailure());
     }
   }
-
 }

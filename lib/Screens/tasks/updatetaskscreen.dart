@@ -8,6 +8,7 @@ import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart';
 import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/application/techlistbloc/tech_list_bloc.dart';
 import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart';
@@ -15,7 +16,10 @@ import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas
 
 class UpdateTaskScreen extends StatelessWidget {
   final String id;
-  UpdateTaskScreen({super.key, required this.id,  });
+  UpdateTaskScreen({
+    super.key,
+    required this.id,
+  });
 
   // Controllers for the text fields
   final TextEditingController completedDateController = TextEditingController();
@@ -23,7 +27,6 @@ class UpdateTaskScreen extends StatelessWidget {
   final TextEditingController completionNoteController =
       TextEditingController();
   final TextEditingController techController = TextEditingController();
-   
 
   @override
   Widget build(BuildContext context) {
@@ -32,26 +35,32 @@ class UpdateTaskScreen extends StatelessWidget {
       (_) {
         context.read<TechListBloc>().add(TechListEvent.getTechlist());
         context.read<InventryBloc>().add(InventryEvent.getInventry());
+        context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
+        context.read<SingleUserBloc>().add(
+              SingleUserEvent.singleUser(
+                id: context.read<SpblocBloc>().state.userData.toString(),
+              ),
+            );
       },
     );
     return Scaffold(
       appBar: AppBar(
-        title: BlocBuilder<SpblocBloc, SpblocState>(
+        title: BlocBuilder<SingleUserBloc, SingleUserState>(
           builder: (context, state) {
-            return state.userData.role == "Area Manager"
+            return state.user.role == "Area Manager"
                 ? Text("Assign Task")
                 : Text("Update Task");
           },
         ),
         centerTitle: true,
       ),
-      body: BlocBuilder<SpblocBloc, SpblocState>(
+      body: BlocBuilder<SingleUserBloc, SingleUserState>(
         builder: (context, spstate) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // completion date
-              spstate.userData.role == "Area Manager"
+              spstate.user.role == "Area Manager"
                   ? SizedBox.shrink()
                   : CustomTextField(
                       controller: completedDateController,
@@ -66,7 +75,7 @@ class UpdateTaskScreen extends StatelessWidget {
                 height: 16,
               ),
 
-              spstate.userData.role == "Area Manager"
+              spstate.user.role == "Area Manager"
                   ? BlocBuilder<TechListBloc, TechListState>(
                       builder: (context, state) {
                         final List<String> technamelist = state.techlist
@@ -98,13 +107,13 @@ class UpdateTaskScreen extends StatelessWidget {
               ),
 
               // select inventry
-              spstate.userData.role == "Area Manager"
+              spstate.user.role == "Area Manager"
                   ? SizedBox.shrink()
                   : BlocBuilder<InventryBloc, InventryState>(
                       builder: (context, state) {
                         final List<String> inventoryItems = state.inventry
                             .where(
-                                (item) => item.orgId == spstate.userData.orgId)
+                                (item) => item.orgId == spstate.user.orgId)
                             .map((e) => "${e.id} ${e.name}")
                             .whereType<String>()
                             .toList();
@@ -123,7 +132,7 @@ class UpdateTaskScreen extends StatelessWidget {
                 height: 16,
               ),
               // add completion note
-              spstate.userData.role == "Area Manager"
+              spstate.user.role == "Area Manager"
                   ? SizedBox.shrink()
                   : CustomTextField(
                       controller: completionNoteController,
@@ -165,13 +174,13 @@ class UpdateTaskScreen extends StatelessWidget {
                           height: 55,
                           width: 200,
                           child: CustomMaterialButton(
-                            text: spstate.userData.role == "Area Manager"
+                            text: spstate.user.role == "Area Manager"
                                 ? "Assign"
                                 : "update",
                             onPressed: () =>
-                                spstate.userData.role == "Area Manager"
+                                spstate.user.role == "Area Manager"
                                     ? onmanagerupdate(context)
-                                    : onUpdate(context,newpart??[]),
+                                    : onUpdate(context, newpart ?? []),
                           ),
                         );
                 },
@@ -219,7 +228,7 @@ class UpdateTaskScreen extends StatelessWidget {
     }
   }
 
-  void onUpdate(BuildContext context,List<int> newpart) {
+  void onUpdate(BuildContext context, List<int> newpart) {
     String completedDate = completedDateController.text;
     String status = statusController.text;
     String completionNote = completionNoteController.text;
@@ -248,11 +257,10 @@ class UpdateTaskScreen extends StatelessWidget {
     }
 
     final ServicesModel model = ServicesModel.create(
-      completedAt: completedDateTime,
-      status: status,
-      completionNotes: completionNote,
-      newPartsUsed: newpart
-    );
+        completedAt: completedDateTime,
+        status: status,
+        completionNotes: completionNote,
+        newPartsUsed: newpart);
 
     context
         .read<UpdateServiceReqBloc>()

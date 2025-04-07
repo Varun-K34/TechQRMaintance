@@ -6,10 +6,10 @@ part 'inventries_model.g.dart';
 
 @JsonSerializable()
 class InventriesModel {
-  @JsonKey(name:'data')
+  @JsonKey(name: 'data')
   List<Inventry>? data;
 
-  InventriesModel({ this.data});
+  InventriesModel({this.data});
 
   factory InventriesModel.fromJson(Map<String, dynamic> json) {
     return _$InventriesModelFromJson(json);

@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/container_values.dart';
+import 'package:techqrmaintance/Screens/portfolio/widgets/update_bottom_sheet.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
+import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
+import 'package:techqrmaintance/domain/usermodel/single_user_repo.dart';
 
 class MiddleWidget extends StatelessWidget {
   const MiddleWidget({
     super.key,
     required this.name,
     required this.org,
-    required this.role,
+    required this.role, required this.state,
   });
 
   final String name;
   final String org;
   final String role;
+  final SingleUserState  state;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +35,20 @@ class MiddleWidget extends StatelessWidget {
         ),
         child: Column(
           children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: Icon(Icons.edit, color: primaryBlue),
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    builder: (_) => EditUserBottomSheet(user: state.user),
+                  );
+                },
+              ),
+            ),
+
             ContainerInsidevaluesWidgets(
               icon: Icons.account_circle_outlined,
               text: name.toUpperCase(),

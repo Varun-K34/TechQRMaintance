@@ -5,6 +5,7 @@ import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
 import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
@@ -22,6 +23,11 @@ class PreviousWork extends StatelessWidget {
             .read<ServiceRequestBloc>()
             .add(ServiceRequestEvent.getServicesreq());
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
+        context.read<SingleUserBloc>().add(
+              SingleUserEvent.singleUser(
+                id: context.read<SpblocBloc>().state.userData.toString(),
+              ),
+            );
       },
     );
 
@@ -38,7 +44,7 @@ class PreviousWork extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: BlocBuilder<SpblocBloc, SpblocState>(
+      body: BlocBuilder<SingleUserBloc, SingleUserState>(
         builder: (context, spstate) {
           return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
             builder: (context, state) {
@@ -54,7 +60,7 @@ class PreviousWork extends StatelessWidget {
                     (service) =>
                         service.device?.serialNumber == serialno &&
                         //service.assignedTechnician == spstate.userData.id &&
-                        service.orgId == spstate.userData.orgId &&
+                        service.orgId == spstate.user.orgId &&
                         service.status == "Completed",
                   )
                   .toList();

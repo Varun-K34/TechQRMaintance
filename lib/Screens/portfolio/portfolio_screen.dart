@@ -9,23 +9,26 @@ import 'package:techqrmaintance/Screens/portfolio/widgets/middle_widget.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/pichart.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/top_widget.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
 class PortfolioScreen extends StatelessWidget {
-  const PortfolioScreen({super.key});
+  final String id;
+  const PortfolioScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
         context.read<TechPerfomenceBloc>().add(
-              TechPerfomenceEvent.getTechPerfomance(techid: "1"),
+              TechPerfomenceEvent.getTechPerfomance(techid: id),
             );
         context.read<SpblocBloc>().add(
               SpblocEvent.getSpStoredData(),
             );
+        context.read<SingleUserBloc>().add(SingleUserEvent.singleUser(id: id));
       },
     );
     return Scaffold(
@@ -52,34 +55,35 @@ class PortfolioScreen extends StatelessWidget {
           scrollDirection: Axis.vertical,
           child: Column(
             children: [
-              BlocBuilder<SpblocBloc, SpblocState>(
+              BlocBuilder<SingleUserBloc, SingleUserState>(
                 builder: (context, state) {
-                  if (state.isFailure) {
+                  if (state.isError) {
                     return Text("Oops! No user data found 🫣");
                   }
                   return state.isLoading
                       ? CircularProgressIndicator()
                       : TopWidgetportfolio(
-                          emailid: state.userData.email ?? "No Email ID Found",
+                          emailid: state.user.email ?? "No Email ID Found",
                         );
                 },
               ),
-              BlocBuilder<SpblocBloc, SpblocState>(
+              BlocBuilder<SingleUserBloc, SingleUserState>(
                 builder: (context, state) {
-                  if (state.isFailure) {
+                  if (state.isError) {
                     return Text("No Data Found!");
                   }
                   return state.isLoading
                       ? CircularProgressIndicator()
                       : MiddleWidget(
-                          name: state.userData.fullName ?? "No Username",
-                          org: state.userData.organization?.orgName ??
+                          state: state,
+                          name: state.user.fullName ?? "No Username",
+                          org: state.user.organization?.orgName ??
                               'No Organization',
-                          role: state.userData.role ?? 'No Role',
+                          role: state.user.role ?? 'No Role',
                         );
                 },
               ),
-              BlocBuilder<SpblocBloc, SpblocState>(
+              BlocBuilder<SingleUserBloc, SingleUserState>(
                 builder: (context, spstate) {
                   return BlocBuilder<TechPerfomenceBloc, TechPerfomenceState>(
                     builder: (context, state) {
@@ -92,13 +96,13 @@ class PortfolioScreen extends StatelessWidget {
                         );
                       }
                       return
-                          // state.techPerfimence.totalCompletedServices == 0 &&
-                          //         state.techPerfimence.customerFeedbackRating == null &&
-                          //         state.techPerfimence.averageCompletionTime == null
-                          //     ? Center(
-                          //         child: Text("Insufficient data to generate chart"))
-                          //     :
-                          spstate.userData.role == "Area Manager"
+                           state.techPerfimence.totalCompletedServices == 0 &&
+                                   state.techPerfimence.customerFeedbackRating == null &&
+                                   state.techPerfimence.averageCompletionTime == null
+                               ? Center(
+                                   child: Text("Insufficient data to generate chart"))
+                               :
+                          spstate.user.role == "Area Manager"
                               ? SizedBox.shrink()
                               : TechnicianPieChart(
                                   completedServices: 10,

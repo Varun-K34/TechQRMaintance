@@ -39,6 +39,12 @@ class UserModel {
     this.area,
   });
 
+  UserModel.create({
+    this.fullName,
+    this.email,
+    this.phone,
+  });
+
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 

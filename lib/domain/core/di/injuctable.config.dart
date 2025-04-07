@@ -32,10 +32,10 @@ import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart'
 import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart'
     as _i585;
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart' as _i651;
-import 'package:techqrmaintance/application/maintenancehistory/maintenancehistory_bloc.dart'
-    as _i914;
 import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart'
     as _i561;
+import 'package:techqrmaintance/application/notify_setting_bloc/notify_setting_bloc.dart'
+    as _i828;
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart'
     as _i818;
 import 'package:techqrmaintance/application/pdf_upload_bloc/pdf_upload_bloc.dart'
@@ -46,11 +46,15 @@ import 'package:techqrmaintance/application/servicereqbyidbloc/service_req_by_id
     as _i1045;
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart'
     as _i600;
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart'
+    as _i848;
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart' as _i15;
 import 'package:techqrmaintance/application/techlistbloc/tech_list_bloc.dart'
     as _i300;
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart'
     as _i299;
+import 'package:techqrmaintance/application/update_user_bloc/update_user_bloc.dart'
+    as _i208;
 import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart'
     as _i188;
 import 'package:techqrmaintance/domain/authregmodel/auth_repo.dart' as _i291;
@@ -74,8 +78,6 @@ import 'package:techqrmaintance/domain/deviceregmodel/device_reg_repo.dart'
     as _i489;
 import 'package:techqrmaintance/domain/docuploadmodel/upload_pdf_repo.dart'
     as _i641;
-import 'package:techqrmaintance/domain/historymodel/maintance_history_repo.dart'
-    as _i315;
 import 'package:techqrmaintance/domain/inventrymodel/inventry_repo.dart'
     as _i896;
 import 'package:techqrmaintance/domain/modelandbrandmodel/brand_repo.dart'
@@ -90,10 +92,15 @@ import 'package:techqrmaintance/domain/servicerequestmodel/servicerequest_repo.d
     as _i1064;
 import 'package:techqrmaintance/domain/servicerequestmodel/services_req_call_by_id.dart'
     as _i231;
+import 'package:techqrmaintance/domain/settingnotify/get_setting_notify_repo.dart'
+    as _i1001;
 import 'package:techqrmaintance/domain/techperfomencemodel/tech_perfomence_repo.dart'
     as _i5;
+import 'package:techqrmaintance/domain/usermodel/single_user_repo.dart'
+    as _i911;
 import 'package:techqrmaintance/domain/usermodel/technitian_list_repo.dart'
     as _i740;
+import 'package:techqrmaintance/domain/usermodel/update_user_repo.dart' as _i87;
 import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart' as _i765;
 import 'package:techqrmaintance/infrastructure/authservices/auth_services.dart'
     as _i447;
@@ -127,12 +134,18 @@ import 'package:techqrmaintance/infrastructure/servicesrequestservices/services_
     as _i1025;
 import 'package:techqrmaintance/infrastructure/servicesrequestservices/update_service_service.dart'
     as _i733;
+import 'package:techqrmaintance/infrastructure/setting_notify_service/setings_notify_services.dart'
+    as _i1019;
+import 'package:techqrmaintance/infrastructure/single_user_services/single_user_services.dart'
+    as _i597;
 import 'package:techqrmaintance/infrastructure/spstroeditemservices/sp_stored_item_services.dart'
     as _i1027;
 import 'package:techqrmaintance/infrastructure/technitian_dropdown_services/tecnitiandropdownservices.dart'
     as _i775;
 import 'package:techqrmaintance/infrastructure/techperfomenceservices.dart/tech_perfomence_services.dart'
     as _i986;
+import 'package:techqrmaintance/infrastructure/update_user_service/user_update_services.dart'
+    as _i511;
 import 'package:techqrmaintance/infrastructure/uploadfileservices/upload_file_services.dart'
     as _i882;
 import 'package:techqrmaintance/infrastructure/userlogservices/user_log_services.dart'
@@ -165,6 +178,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i600.ServiceRequestBloc(gh<_i1064.ServicesRequestRepo>()));
     gh.lazySingleton<_i5.TechPerfomenceRepo>(
         () => _i986.TechPerfomenceServices());
+    gh.lazySingleton<_i87.UpdateUserRepo>(() => _i511.UserUpdateServices());
     gh.lazySingleton<_i740.TechnitianListRepo>(
         () => _i775.Tecnitiandropdownservices());
     gh.lazySingleton<_i765.UserLogRepo>(() => _i819.UserLogServices());
@@ -173,17 +187,20 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i553.ServiceUpdateRepo>(
         () => _i733.UpdateServiceService());
     gh.lazySingleton<_i641.UploadPdfRepo>(() => _i124.PdfServices());
+    gh.lazySingleton<_i1001.GetSettingNotifyRepo>(
+        () => _i1019.SetingsNotifyServices());
     gh.lazySingleton<_i489.DeviceRegRepo>(() => _i1016.DeviceRegService());
     gh.lazySingleton<_i987.DocaploadRepo>(() => _i882.UploadFileServices());
+    gh.lazySingleton<_i911.SingleUserRepo>(() => _i597.SingleUserServices());
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());
     gh.lazySingleton<_i1043.DeiceBrandRepo>(() => _i332.BrandServices());
-    gh.factory<_i914.MaintenancehistoryBloc>(
-        () => _i914.MaintenancehistoryBloc(gh<_i315.MaintanceHistoryRepo>()));
     gh.lazySingleton<_i231.ServicesReqCallByIdRepo>(
         () => _i681.ServiceReqByIdServices());
     gh.lazySingleton<_i936.DeviceModelRepo>(() => _i1069.ModelServices());
     gh.factory<_i737.CatogoryBloc>(
         () => _i737.CatogoryBloc(gh<_i185.CatagoryGetRepo>()));
+    gh.factory<_i208.UpdateUserBloc>(
+        () => _i208.UpdateUserBloc(gh<_i87.UpdateUserRepo>()));
     gh.factory<_i606.BrandAndModelBloc>(
         () => _i606.BrandAndModelBloc(gh<_i1043.DeiceBrandRepo>()));
     gh.factory<_i306.GetLocationBloc>(
@@ -202,6 +219,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1062.DocUploadBloc(gh<_i987.DocaploadRepo>()));
     gh.factory<_i15.SpblocBloc>(
         () => _i15.SpblocBloc(gh<_i158.SpStoredUser>()));
+    gh.factory<_i848.SingleUserBloc>(
+        () => _i848.SingleUserBloc(gh<_i911.SingleUserRepo>()));
     gh.factory<_i794.CheckblocBloc>(
         () => _i794.CheckblocBloc(gh<_i829.SplashCheckRepo>()));
     gh.factory<_i188.UpdateServiceReqBloc>(
@@ -216,6 +235,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1045.ServiceReqByIdBloc(gh<_i231.ServicesReqCallByIdRepo>()));
     gh.factory<_i299.TechPerfomenceBloc>(
         () => _i299.TechPerfomenceBloc(gh<_i5.TechPerfomenceRepo>()));
+    gh.factory<_i828.NotifySettingBloc>(
+        () => _i828.NotifySettingBloc(gh<_i1001.GetSettingNotifyRepo>()));
     gh.factory<_i600.AuthblocBloc>(
         () => _i600.AuthblocBloc(gh<_i291.AuthRepoReg>()));
     gh.factory<_i91.DeviceregblocBloc>(

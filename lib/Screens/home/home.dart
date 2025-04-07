@@ -5,7 +5,9 @@ import 'package:techqrmaintance/Screens/home/widgets/grid_button.dart';
 import 'package:techqrmaintance/Screens/home/widgets/skelton_home.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
 import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
+import 'package:techqrmaintance/application/notify_setting_bloc/notify_setting_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
@@ -34,23 +36,33 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) async {
+        context.read<NotifySettingBloc>().add(NotifySettingEvent.getNotify());
         context
             .read<ServiceRequestBloc>()
             .add(ServiceRequestEvent.getServicesreq());
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
+        context.read<SingleUserBloc>().add(
+              SingleUserEvent.singleUser(
+                id: context.read<SpblocBloc>().state.userData.toString(),
+              ),
+            );
       },
     );
     return Scaffold(
       backgroundColor: Color(0xFFF2F2F2),
       appBar: AppBar(
         backgroundColor: Color(0xFFF2F2F2),
-        leading: InkWell(
-          onTap: () => onPressProfile(context),
-          child: Icon(
-            Icons.account_circle_outlined,
-            size: 35,
-            color: primaryBlue,
-          ),
+        leading: BlocBuilder<SingleUserBloc, SingleUserState>(
+          builder: (context, state) {
+            return InkWell(
+              onTap: () => onPressProfile(context, state.user.id.toString()),
+              child: Icon(
+                Icons.account_circle_outlined,
+                size: 35,
+                color: primaryBlue,
+              ),
+            );
+          },
         ),
         title: Text(
           "Welcome",
@@ -73,7 +85,7 @@ class Home extends StatelessWidget {
                   border: Border.all(width: 2, color: primaryBlue),
                   color: primaryWhite,
                   borderRadius: BorderRadius.circular(30)),
-              child: BlocBuilder<SpblocBloc, SpblocState>(
+              child: BlocBuilder<SingleUserBloc, SingleUserState>(
                 builder: (context, spState) {
                   return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
                     builder: (context, state) {
@@ -115,8 +127,8 @@ class Home extends StatelessWidget {
                                 .where((task) =>
                                     task.status == "Pending" &&
                                     task.assignedTechnician ==
-                                        spState.userData.id &&
-                                    task.orgId == spState.userData.orgId)
+                                        spState.user.id &&
+                                    task.orgId == spState.user.orgId)
                                 .toList()
                                 .length
                                 .toString(),
@@ -130,8 +142,8 @@ class Home extends StatelessWidget {
                                 .where((task) =>
                                     task.status == "In Progress" &&
                                     task.assignedTechnician ==
-                                        spState.userData.id &&
-                                    task.orgId == spState.userData.orgId)
+                                        spState.user.id &&
+                                    task.orgId == spState.user.orgId)
                                 .toList()
                                 .length
                                 .toString(),
@@ -145,8 +157,8 @@ class Home extends StatelessWidget {
                                 .where((task) =>
                                     task.status == "Completed" &&
                                     task.assignedTechnician ==
-                                        spState.userData.id &&
-                                    task.orgId == spState.userData.orgId)
+                                        spState.user.id &&
+                                    task.orgId == spState.user.orgId)
                                 .toList()
                                 .length
                                 .toString(),
@@ -192,7 +204,7 @@ class Home extends StatelessWidget {
     );
   }
 
-  void onPressProfile(BuildContext context) {
-    Navigator.of(context).push(createRoute(PortfolioScreen()));
+  void onPressProfile(BuildContext context, String id) {
+    Navigator.of(context).push(createRoute(PortfolioScreen( id: id,)));
   }
 }

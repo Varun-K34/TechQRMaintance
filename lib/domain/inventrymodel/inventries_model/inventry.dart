@@ -1,8 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/organizationmodel/organization_model/organization_model/organization.dart';
 
-
-
 part 'inventry.g.dart';
 
 @JsonSerializable()
@@ -44,7 +42,8 @@ class Inventry {
     this.organization,
   });
 
-  factory Inventry.fromJson(Map<String, dynamic> json) => _$InventryFromJson(json);
+  factory Inventry.fromJson(Map<String, dynamic> json) =>
+      _$InventryFromJson(json);
 
   Map<String, dynamic> toJson() => _$InventryToJson(this);
 }

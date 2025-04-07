@@ -13,7 +13,7 @@ class CheckLoginServices implements SplashCheckRepo {
       await Future.delayed(Duration(seconds: 3));
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? checkuserString = prefs.getString("userItem");
+      String? checkuserString = prefs.getInt("userID")?.toString() ;
 
       bool ischeck = checkuserString != null;
 

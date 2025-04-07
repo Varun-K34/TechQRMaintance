@@ -68,5 +68,4 @@ class MultiSelectDropdown<T> extends StatelessWidget {
     log("Selected numbers: $selectedNumbers");
     onSelectionChanged(selectedNumbers);
   }
-
 }

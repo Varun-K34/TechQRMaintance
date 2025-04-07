@@ -4,6 +4,7 @@ import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
 import 'package:techqrmaintance/Screens/tasks/task_overview.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/core/imageurls.dart';
@@ -21,6 +22,11 @@ class TaskScreen extends StatelessWidget {
             .read<ServiceRequestBloc>()
             .add(ServiceRequestEvent.getServicesreq());
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
+        context.read<SingleUserBloc>().add(
+              SingleUserEvent.singleUser(
+                id: context.read<SpblocBloc>().state.userData.toString(),
+              ),
+            );
       },
     );
 
@@ -37,7 +43,7 @@ class TaskScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: BlocBuilder<SpblocBloc, SpblocState>(
+      body: BlocBuilder<SingleUserBloc, SingleUserState>(
         builder: (context, spstate) {
           return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
             builder: (context, state) {
@@ -51,8 +57,8 @@ class TaskScreen extends StatelessWidget {
               final servlist = state.servicelist
                   .where(
                     (service) =>
-                        service.assignedTechnician == spstate.userData.id &&
-                        service.orgId == spstate.userData.orgId &&
+                        service.assignedTechnician == spstate.user.id &&
+                        service.orgId == spstate.user.orgId &&
                         (service.status == "Pending" ||
                             service.status == "In Progress"),
                   )

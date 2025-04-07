@@ -48,8 +48,8 @@ class UserLogServices implements UserLogRepo {
         }
         // store the user to SP
         final SharedPreferences user = await SharedPreferences.getInstance();
-        String jsonUser = jsonEncode(matchingUser);
-        await user.setString("userItem", jsonUser);
+        //String jsonUser = jsonEncode(matchingUser);
+        //await user.setString("userItem", jsonUser);
         await user.setInt('userID', matchingUser.id!);
         log("saving completed");
 
