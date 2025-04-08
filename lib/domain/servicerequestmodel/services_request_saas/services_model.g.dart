@@ -17,9 +17,7 @@ ServicesModel _$ServicesModelFromJson(Map<String, dynamic> json) =>
       selectedIssue: (json['selected_issue'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      preferredTimeslot: json['preferred_timeslot'] == null
-          ? null
-          : DateTime.parse(json['preferred_timeslot'] as String),
+      preferredTimeslot: json['preferred_date'] as String?,
       status: json['status'] as String?,
       completionNotes: json['completion_notes'],
       completionPhotoUrl: json['completion_photo_url'] as String?,
@@ -46,9 +44,11 @@ ServicesModel _$ServicesModelFromJson(Map<String, dynamic> json) =>
       technician: json['technician'] == null
           ? null
           : Technician.fromJson(json['technician'] as Map<String, dynamic>),
-    )..createdAt = json['created_at'] == null
-        ? null
-        : DateTime.parse(json['created_at'] as String);
+    )
+      ..preferedstarttime = json['preferred_start_time'] as String?
+      ..createdAt = json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String);
 
 Map<String, dynamic> _$ServicesModelToJson(ServicesModel instance) =>
     <String, dynamic>{
@@ -59,7 +59,8 @@ Map<String, dynamic> _$ServicesModelToJson(ServicesModel instance) =>
       'assigned_technician': instance.assignedTechnician,
       'issue_description': instance.issueDescription,
       'selected_issue': instance.selectedIssue,
-      'preferred_timeslot': instance.preferredTimeslot?.toIso8601String(),
+      'preferred_date': instance.preferredTimeslot,
+      'preferred_start_time': instance.preferedstarttime,
       'status': instance.status,
       'completion_notes': instance.completionNotes,
       'completion_photo_url': instance.completionPhotoUrl,

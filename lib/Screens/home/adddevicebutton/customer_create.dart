@@ -27,7 +27,7 @@ class CustomerCreate extends StatelessWidget {
         context.read<SpblocBloc>().add(
               SpblocEvent.getSpStoredData(),
             );
-            context.read<SingleUserBloc>().add(
+        context.read<SingleUserBloc>().add(
               SingleUserEvent.singleUser(
                 id: context.read<SpblocBloc>().state.userData.toString(),
               ),
@@ -35,9 +35,9 @@ class CustomerCreate extends StatelessWidget {
       },
     );
     return Scaffold(
-      backgroundColor: primaryWhite,
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
-        backgroundColor: primaryWhite,
+        backgroundColor: Color(0xfff5f5f5),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),

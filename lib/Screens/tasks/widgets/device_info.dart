@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:techqrmaintance/Screens/tasks/widgets/info_row.dart';
+import 'package:techqrmaintance/core/colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Deviceinfo extends StatelessWidget {
   final String? catagory;
@@ -22,58 +24,105 @@ class Deviceinfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Device Information',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
+      margin: const EdgeInsets.all(12),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      color: primaryWhite,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: double.infinity,
+            padding:
+                const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+            decoration: const BoxDecoration(
+              color: primaryBlue,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12.0),
+                topRight: Radius.circular(12.0),
               ),
             ),
-            const Divider(),
-            InfoRowWidget(
-              label: 'Category:',
-              value: catagory ?? "no category",
-              icon: Icons.category,
-            ),
-            InfoRowWidget(
-              label: 'Serial Number:',
-              value: serialNumber ?? "no serial number",
-              icon: Icons.qr_code,
-            ),
-            InfoRowWidget(
-              label: 'Installation:',
-              value: installation ?? "no installation",
-              icon: Icons.calendar_today,
-            ),
-            InfoRowWidget(
-              label: 'Warranty:',
-              value: warranty ?? "no warranty",
-              icon: Icons.security,
-            ),
-            InfoRowWidget(
-              label: 'Free Maintenance:',
-              value: freeMaintenance ?? "no free maintenance",
-              icon: Icons.build,
-            ),
-            InfoRowWidget(
-              label: 'Location:',
-              value: location ?? "no location",
-              icon: Icons.location_on,
-              actionButton: IconButton(
-                icon: const Icon(Icons.navigation, size: 20),
-                onPressed: () {
-                  // Implement navigation functionality
-                },
+            child: Center(
+              child: const Text(
+                'Device Information',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: primaryWhite,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10,
+              vertical: 10,
+            ),
+            child: Column(
+              children: [
+                InfoRowWidget(
+                  label: 'Category:',
+                  value: catagory ?? "no category",
+                  icon: Icons.category,
+                ),
+                Divider(),
+                InfoRowWidget(
+                  label: 'Serial Number:',
+                  value: serialNumber ?? "no serial number",
+                  icon: Icons.qr_code,
+                ),
+                Divider(),
+                InfoRowWidget(
+                  label: 'Installation:',
+                  value: installation ?? "no installation",
+                  icon: Icons.calendar_today,
+                ),
+                Divider(),
+                InfoRowWidget(
+                  label: 'Warranty:',
+                  value: warranty ?? "no warranty",
+                  icon: Icons.security,
+                ),
+                Divider(),
+                InfoRowWidget(
+                  label: 'Free Maintenance:',
+                  value: freeMaintenance ?? "no free maintenance",
+                  icon: Icons.build,
+                ),
+                Divider(),
+                InfoRowWidget(
+                  label: 'Location:',
+                  value: location ?? "no location",
+                  icon: Icons.location_on,
+                  actionButton: IconButton(
+                    icon: const Icon(Icons.navigation, size: 20),
+                    onPressed: () {
+                      final String loc = location ?? "no location";
+                      if (loc != "no location") {
+                        final Uri url = Uri.parse(loc);
+                        _launchUrl(url);
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('No location available'),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
+  }
+
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
   }
 }

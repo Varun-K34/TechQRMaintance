@@ -17,7 +17,9 @@ class SingleUserServices implements SingleUserRepo {
     try {
       final Response  respo= await singleUserApi.dio.get("$kBaseURL$kuserADD/$id");
       if (respo.statusCode == 200) {
+        log("hello",name: "singleUserServices",);
         final user = UserModel.fromJson(respo.data['data']);
+        log("User hello: ${user.toJson()}",name: "singleUserServices",);
         return Right(user);
       } else {
         return Left(MainFailurs.serverFailure());
@@ -28,7 +30,7 @@ class SingleUserServices implements SingleUserRepo {
       return Left(MainFailurs.serverFailure());
     } catch (e) {
       log('Unexpected error: ${e.toString()}',
-          error: e, stackTrace: StackTrace.current);
+          error: e, stackTrace: StackTrace.current,name: "singleUserServices");
       return Left(MainFailurs.clientFailure());
     }
   }

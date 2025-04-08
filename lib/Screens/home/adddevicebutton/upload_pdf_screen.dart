@@ -94,7 +94,7 @@ class UploadPdfScreen extends StatelessWidget {
                       CustomMaterialButton(
                         text: state.isLoading
                             ? 'CREATING...'
-                            : 'CREATE DOCUMENTS',
+                            : 'SELECT DOCUMENTS',
                         onPressed: () => createfile(
                           context,
                         ),
@@ -112,6 +112,10 @@ class UploadPdfScreen extends StatelessWidget {
                   if (state.isFailure) {
                     CustomSnackbar.shows(context,
                         message: "Something went wrong");
+                  }
+                  if (state.uploadProgress == 1.0) {
+                    CustomSnackbar.shows(context,
+                        message: "File uploaded successfully!");
                   }
                 },
                 builder: (context, state) {
@@ -187,7 +191,7 @@ class UploadPdfScreen extends StatelessWidget {
     context
         .read<PdfUploadBloc>()
         .add(PdfUploadEvent.pdfUpload(model: datamodel));
-    // Proceed with file upload logic here
+    
   }
 
   void finishpressed(BuildContext context) {

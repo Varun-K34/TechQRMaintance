@@ -26,28 +26,35 @@ class ManagerHomeScreen extends StatelessWidget {
             .read<ServiceRequestBloc>()
             .add(ServiceRequestEvent.getServicesreq());
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
-        context
-            .read<SingleUserBloc>()
-            .add(SingleUserEvent.singleUser(id: context.read<SpblocBloc>().state.userData.toString()));
+        context.read<SingleUserBloc>().add(SingleUserEvent.singleUser(
+            id: context.read<SpblocBloc>().state.userData.toString()));
       },
     );
     return Scaffold(
-      backgroundColor: primaryWhite,
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
-        backgroundColor: primaryWhite,
+        backgroundColor: Color(0xfff5f5f5),
         leading: BlocBuilder<SpblocBloc, SpblocState>(
           builder: (context, state) {
             return InkWell(
-                  onTap: () => onPressmanagerProfile(context , state.userData.toString()),
-                  child: Icon(
-                    Icons.account_circle_outlined,
-                    size: 35,
-                    color: primaryBlue,
-                  ),
-                );
+              onTap: () =>
+                  onPressmanagerProfile(context, state.userData.toString()),
+              child: Icon(
+                Icons.account_circle_outlined,
+                size: 35,
+                color: primaryBlue,
+              ),
+            );
           },
         ),
-        title: Text("Manager Home Screen"),
+        title: Text(
+          "Manager Home Screen",
+          style: TextStyle(
+            fontSize: 22,
+            color: primaryBlue,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -188,6 +195,8 @@ class ManagerHomeScreen extends StatelessWidget {
   }
 
   void onPressmanagerProfile(BuildContext context, String id) {
-    Navigator.of(context).push(createRoute(PortfolioScreen(id: id,)));
+    Navigator.of(context).push(createRoute(PortfolioScreen(
+      id: id,
+    )));
   }
 }

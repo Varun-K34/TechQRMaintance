@@ -78,7 +78,7 @@ class DropDownSearchWidget extends StatelessWidget {
           showSearchBox: serarchbox!,
           bottomSheetProps: BottomSheetProps(
             elevation: 8,
-            backgroundColor: theme.cardColor,
+            backgroundColor: primaryWhite,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
@@ -121,7 +121,7 @@ class DropDownSearchWidget extends StatelessWidget {
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               filled: true,
-              fillColor: theme.scaffoldBackgroundColor,
+              fillColor: primaryWhite,
             ),
           ),
           listViewProps: ListViewProps(
@@ -177,13 +177,12 @@ class DropDownSearchWidget extends StatelessWidget {
           decoration: InputDecoration(
             labelText: dropdownLabel,
             labelStyle: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: theme.primaryColor,
+              color: primaryBlack,
             ),
             hintText: "Select an $dropdownLabel",
             prefixIcon: Icon(
               iconprefix,
-              color: theme.primaryColor,
+              color: primaryBlack,
             ),
             suffixIcon: Container(
               padding: EdgeInsets.all(8),
@@ -194,7 +193,7 @@ class DropDownSearchWidget extends StatelessWidget {
                 ),
                 child: Icon(
                   Icons.keyboard_arrow_down_rounded,
-                  color: theme.primaryColor,
+                  color: primaryBlack,
                 ),
               ),
             ),

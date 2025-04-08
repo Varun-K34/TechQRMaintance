@@ -26,8 +26,10 @@ class ServicesModel {
   String? issueDescription;
   @JsonKey(name: 'selected_issue')
   List<String>? selectedIssue;
-  @JsonKey(name: 'preferred_timeslot')
-  DateTime? preferredTimeslot;
+  @JsonKey(name: 'preferred_date')
+  String? preferredTimeslot;
+  @JsonKey(name: "preferred_start_time")
+  String? preferedstarttime;
   @JsonKey(name: 'status')
   String? status;
   @JsonKey(name: 'completion_notes')

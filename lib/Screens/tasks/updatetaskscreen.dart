@@ -12,6 +12,7 @@ import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.da
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/application/techlistbloc/tech_list_bloc.dart';
 import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 
 class UpdateTaskScreen extends StatelessWidget {
@@ -44,12 +45,26 @@ class UpdateTaskScreen extends StatelessWidget {
       },
     );
     return Scaffold(
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
+        backgroundColor: Color(0xfff5f5f5),
         title: BlocBuilder<SingleUserBloc, SingleUserState>(
           builder: (context, state) {
             return state.user.role == "Area Manager"
-                ? Text("Assign Task")
-                : Text("Update Task");
+                ? Text(
+                    "Assign Task",
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: primaryBlue,
+                        fontWeight: FontWeight.w700),
+                  )
+                : Text(
+                    "Update Task",
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: primaryBlue,
+                        fontWeight: FontWeight.w700),
+                  );
           },
         ),
         centerTitle: true,
@@ -112,8 +127,7 @@ class UpdateTaskScreen extends StatelessWidget {
                   : BlocBuilder<InventryBloc, InventryState>(
                       builder: (context, state) {
                         final List<String> inventoryItems = state.inventry
-                            .where(
-                                (item) => item.orgId == spstate.user.orgId)
+                            .where((item) => item.orgId == spstate.user.orgId)
                             .map((e) => "${e.id} ${e.name}")
                             .whereType<String>()
                             .toList();
@@ -177,10 +191,9 @@ class UpdateTaskScreen extends StatelessWidget {
                             text: spstate.user.role == "Area Manager"
                                 ? "Assign"
                                 : "update",
-                            onPressed: () =>
-                                spstate.user.role == "Area Manager"
-                                    ? onmanagerupdate(context)
-                                    : onUpdate(context, newpart ?? []),
+                            onPressed: () => spstate.user.role == "Area Manager"
+                                ? onmanagerupdate(context)
+                                : onUpdate(context, newpart ?? []),
                           ),
                         );
                 },

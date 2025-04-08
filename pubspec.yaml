@@ -54,6 +54,7 @@ dependencies:
   path_provider: ^2.1.5
   awesome_notifications_core: ^0.10.1
   awesome_notifications: ^0.10.1
+  url_launcher: ^6.3.1
   
   
 

@@ -9,7 +9,7 @@ class ServicesRequestSaas {
   @JsonKey(name: 'data')
   List<ServicesModel>? data;
 
-  ServicesRequestSaas({this.data});
+  ServicesRequestSaas({this.data = const []});
 
   factory ServicesRequestSaas.fromJson(Map<String, dynamic> json) {
     return _$ServicesRequestSaasFromJson(json);

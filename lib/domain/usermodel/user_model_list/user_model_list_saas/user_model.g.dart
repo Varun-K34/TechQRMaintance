@@ -13,13 +13,17 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       fullName: json['full_name'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
-      areaId: json['area_id'],
+      areaId: (json['area_id'] as num?)?.toInt(),
       avatar: json['avatar'] as String?,
       organization: json['organization'] == null
           ? null
           : Organization.fromJson(json['organization'] as Map<String, dynamic>),
-      area: json['area'],
-    );
+      area: json['area'] == null
+          ? null
+          : AreaModel.fromJson(json['area'] as Map<String, dynamic>),
+    )..services = (json['service_requests'] as List<dynamic>?)
+        ?.map((e) => ServicesModel.fromJson(e as Map<String, dynamic>))
+        .toList();
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'id': instance.id,
@@ -32,4 +36,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'avatar': instance.avatar,
       'organization': instance.organization,
       'area': instance.area,
+      'service_requests': instance.services,
     };

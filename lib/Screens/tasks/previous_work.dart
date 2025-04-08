@@ -97,7 +97,7 @@ class PreviousWork extends StatelessWidget {
                                     ),
                                     child: GestureDetector(
                                       onTap: () {
-                                        Navigator.of(context).push(
+                                        Navigator.of(context).pushReplacement(
                                             createRoute(TaskOverviewScreen(
                                           title: title,
                                           currentUserId: services.id.toString(),

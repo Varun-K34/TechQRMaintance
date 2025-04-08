@@ -43,28 +43,62 @@ class TaskOverviewScreen extends StatelessWidget {
       ),
       bottomNavigationBar: title == "assigned task"
           ? SizedBox.shrink()
-          : BottomAppBar(
-              shape: const CircularNotchedRectangle(),
-              color: primaryTransparent,
-              height: 60,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    onPressed: () =>
-                        onupdateButtonPressed(context, currentUserId!),
-                    child: const Text('Edit Task'),
+          : BlocBuilder<ServiceReqByIdBloc, ServiceReqByIdState>(
+              builder: (context, state) {
+                return state.servicesModel.status == "Completed"?SizedBox.shrink():BottomAppBar(
+                  shape: const CircularNotchedRectangle(),
+                  color: primaryTransparent,
+                  height: 60,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStatePropertyAll<Color>(primaryBlue),
+                          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                        ),
+                        onPressed: () =>
+                            onupdateButtonPressed(context, currentUserId!),
+                        child: const Text(
+                          'Edit Task',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: primaryWhite,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStatePropertyAll<Color>(primaryBlue),
+                          shape: WidgetStatePropertyAll<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                          ),
+                        ),
+                        onPressed: () => onpreviovstaskButtonPressed(
+                            context, currentUserId!, serialNo),
+                        child: const Text(
+                          'Previous Task',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: primaryWhite,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ElevatedButton(
-                    onPressed: () => onpreviovstaskButtonPressed(
-                        context, currentUserId!, serialNo),
-                    child: const Text('previous Task'),
-                  ),
-                ],
-              ),
+                );
+              },
             ),
       body: BlocBuilder<ServiceReqByIdBloc, ServiceReqByIdState>(
         builder: (context, state) {
@@ -136,9 +170,9 @@ class TaskOverviewScreen extends StatelessWidget {
 
   void onpreviovstaskButtonPressed(
       BuildContext context, String id, String? serialno) {
-    Navigator.of(context).push(createRoute(PreviousWork(
+    Navigator.of(context).pushReplacement(createRoute(PreviousWork(
       serialno: serialNo,
-      title: title,
+      title: "previous",
       id: currentUserId,
     )));
   }
