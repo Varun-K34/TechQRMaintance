@@ -64,7 +64,10 @@ class MainInfo extends StatelessWidget {
                 Divider(),
                 InfoRowWidget(
                   label: 'Job Description:',
-                  value: jobDescription ?? "no job description",
+                  value: (jobDescription == null ||
+                          jobDescription?.toLowerCase() == "null")
+                      ? "No Description"
+                      : jobDescription!,
                   icon: Icons.description,
                 ),
               ],
