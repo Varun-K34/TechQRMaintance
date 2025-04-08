@@ -69,53 +69,57 @@ class TaskScreen extends StatelessWidget {
                   child: Text("No Data"),
                 );
               }
-              return ListView(
-                children: List.generate(
-                  servlist.length,
-                  (index) {
-                    final services = servlist[index];
-                    return state.isLoading
-                        ? Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Skeleton(
-                              height: 300,
-                              width: double.infinity,
-                              color: primaryWhite,
-                            ),
-                          )
-                        : TweenAnimationBuilder(
-                            tween: Tween<double>(begin: 0.0, end: 1.0),
-                            duration: Duration(milliseconds: 500),
-                            builder: (context, double value, child) {
-                              return Opacity(
-                                opacity: value,
-                                child: Transform.translate(
-                                  offset: Offset(0, 50 * (1 - value)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context).push(
-                                            createRoute(TaskOverviewScreen(
-                                          serialNo:
-                                              services.device?.serialNumber,
-                                          title: title,
-                                          currentUserId: services.id.toString(),
-                                          key: UniqueKey(),
-                                        )));
-                                      },
-                                      child: MainContainertask(
-                                        services: services,
+              return RefreshIndicator(
+                onRefresh: () => onRefreshTask(context),
+                child: ListView(
+                  children: List.generate(
+                    servlist.length,
+                    (index) {
+                      final services = servlist[index];
+                      return state.isLoading
+                          ? Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Skeleton(
+                                height: 300,
+                                width: double.infinity,
+                                color: primaryWhite,
+                              ),
+                            )
+                          : TweenAnimationBuilder(
+                              tween: Tween<double>(begin: 0.0, end: 1.0),
+                              duration: Duration(milliseconds: 500),
+                              builder: (context, double value, child) {
+                                return Opacity(
+                                  opacity: value,
+                                  child: Transform.translate(
+                                    offset: Offset(0, 50 * (1 - value)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 10,
+                                      ),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                              createRoute(TaskOverviewScreen(
+                                            serialNo:
+                                                services.device?.serialNumber,
+                                            title: title,
+                                            currentUserId:
+                                                services.id.toString(),
+                                            key: UniqueKey(),
+                                          )));
+                                        },
+                                        child: MainContainertask(
+                                          services: services,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
-                          );
-                  },
+                                );
+                              },
+                            );
+                    },
+                  ),
                 ),
               );
             },
@@ -123,6 +127,10 @@ class TaskScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Future<void> onRefreshTask(BuildContext ctx) async {
+    ctx.read<ServiceRequestBloc>().add(ServiceRequestEvent.getServicesreq());
   }
 }
 
