@@ -110,7 +110,7 @@ class _HomeState extends State<Home> {
             },
           ),
           title: Text(
-            "Welcome Technitian",
+            "Welcome Technician",
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w500,

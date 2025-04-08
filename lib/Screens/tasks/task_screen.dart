@@ -70,7 +70,7 @@ class TaskScreen extends StatelessWidget {
                 );
               }
               return RefreshIndicator(
-                onRefresh: () => onRefreshTask(context),
+                onRefresh: () =>  onRefreshTask(context),
                 child: ListView(
                   children: List.generate(
                     servlist.length,
