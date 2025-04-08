@@ -54,7 +54,7 @@ class DeviceRegFormScreen extends StatelessWidget {
       },
     );
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
         title: Text(
           "Device Registration",
@@ -62,7 +62,7 @@ class DeviceRegFormScreen extends StatelessWidget {
               color: primaryBlue, fontSize: 22, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
-        backgroundColor: primaryWhite,
+        backgroundColor: Color(0xfff5f5f5),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30),

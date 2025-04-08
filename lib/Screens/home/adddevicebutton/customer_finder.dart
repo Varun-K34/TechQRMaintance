@@ -21,8 +21,10 @@ class CustomerFinder extends StatelessWidget {
       },
     );
     return Scaffold(
-      backgroundColor: primaryWhite,
-      appBar: AppBar(),
+      backgroundColor: Color(0xfff5f5f5),
+      appBar: AppBar(
+        backgroundColor: Color(0xfff5f5f5),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

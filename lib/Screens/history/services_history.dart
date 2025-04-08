@@ -28,13 +28,14 @@ class ServicesHistoryScreen extends StatelessWidget {
       },
     );
     return Scaffold(
-      backgroundColor: primaryWhite,
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
-        backgroundColor: primaryWhite,
+        backgroundColor: Color(0xfff5f5f5),
         title: Text(
           "Service History",
           style: TextStyle(
             fontSize: 24,
+            color: primaryBlue,
             fontWeight: FontWeight.w700,
           ),
         ),

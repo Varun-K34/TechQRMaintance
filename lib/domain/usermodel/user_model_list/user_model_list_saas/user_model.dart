@@ -1,9 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/organizationmodel/organization_model/organization_model/organization.dart';
+import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
+import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_request_saas.dart';
+import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/area_model.dart';
 
 part 'user_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(ignoreUnannotated: true)
 class UserModel {
   @JsonKey(name: 'id')
   int? id;
@@ -18,13 +21,15 @@ class UserModel {
   @JsonKey(name: 'phone')
   String? phone;
   @JsonKey(name: 'area_id')
-  dynamic areaId;
+  int? areaId;
   @JsonKey(name: 'avatar')
   String? avatar;
   @JsonKey(name: 'organization')
   Organization? organization;
   @JsonKey(name: 'area')
-  dynamic area;
+  AreaModel? area;
+  @JsonKey(name: 'service_requests')
+  List<ServicesModel>? services;
 
   UserModel({
     this.id,

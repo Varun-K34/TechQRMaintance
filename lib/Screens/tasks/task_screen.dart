@@ -31,13 +31,14 @@ class TaskScreen extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: primaryWhite,
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
-        backgroundColor: primaryWhite,
+        backgroundColor: Color(0xfff5f5f5),
         title: Text(
           "Tasks",
           style: TextStyle(
             fontSize: 24,
+            color: primaryBlue,
             fontWeight: FontWeight.w700,
           ),
         ),

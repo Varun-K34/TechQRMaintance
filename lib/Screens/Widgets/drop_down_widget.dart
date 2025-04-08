@@ -177,13 +177,12 @@ class DropDownSearchWidget extends StatelessWidget {
           decoration: InputDecoration(
             labelText: dropdownLabel,
             labelStyle: TextStyle(
-              fontWeight: FontWeight.w500,
-              color: theme.primaryColor,
+              color: primaryBlack,
             ),
             hintText: "Select an $dropdownLabel",
             prefixIcon: Icon(
               iconprefix,
-              color: theme.primaryColor,
+              color: primaryBlack,
             ),
             suffixIcon: Container(
               padding: EdgeInsets.all(8),

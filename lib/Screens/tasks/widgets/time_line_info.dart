@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:techqrmaintance/core/colors.dart';
 
 class Timelineinfo extends StatelessWidget {
   final IconData icon;
@@ -15,7 +16,7 @@ class Timelineinfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, size: 18, color: Colors.blue[700]),
+        Icon(icon, size: 18, color: primaryBlue),
         const SizedBox(width: 8),
         Text(
           label,

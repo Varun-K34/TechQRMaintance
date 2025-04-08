@@ -66,19 +66,25 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<NotifySettingBloc, NotifySettingState>(
-      listenWhen: (previous, current) => previous.notifyList != current.notifyList,
+      listenWhen: (previous, current) =>
+          previous.notifyList != current.notifyList,
       listener: (context, state) {
         if (state.isLoading == false && state.notifyList.isNotEmpty) {
-        final notify =    state.notifyList.firstWhere((element) {
-             return element.orgId == context.read<SingleUserBloc>().state.user.orgId;
-           }, orElse: () {
-            return NotifyModel();
-           },);
-           log(notify.notificationInterval.toString(), name: "notify model (home)");
+          final notify = state.notifyList.firstWhere(
+            (element) {
+              return element.orgId ==
+                  context.read<SingleUserBloc>().state.user.orgId;
+            },
+            orElse: () {
+              return NotifyModel();
+            },
+          );
+          log(notify.notificationInterval.toString(),
+              name: "notify model (home)");
 
-        final intervel=   notify.notificationInterval ?? 1;
+          final intervel = notify.notificationInterval ?? 1;
 
-        // Schedule notification using the interval
+          // Schedule notification using the interval
           NotificationController.requestNotificationPermissions();
           NotificationController.myNotifyScheduleEvery5Seconds(
             interval: intervel,
@@ -88,14 +94,13 @@ class _HomeState extends State<Home> {
         }
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFFF2F2F2),
+        backgroundColor: Color(0xfff5f5f5),
         appBar: AppBar(
-          backgroundColor: const Color(0xFFF2F2F2),
-          leading: BlocBuilder<SingleUserBloc, SingleUserState>(
+          backgroundColor: Color(0xfff5f5f5),
+          leading: BlocBuilder<SpblocBloc, SpblocState>(
             builder: (context, state) {
               return InkWell(
-                onTap: () =>
-                    onPressProfile(context, state.user.id.toString()),
+                onTap: () => onPressProfile(context, state.userData.toString()),
                 child: Icon(
                   Icons.account_circle_outlined,
                   size: 35,
@@ -105,7 +110,7 @@ class _HomeState extends State<Home> {
             },
           ),
           title: Text(
-            "Welcome",
+            "Welcome Technitian",
             style: TextStyle(
               fontSize: 26,
               fontWeight: FontWeight.w500,
@@ -116,8 +121,7 @@ class _HomeState extends State<Home> {
         body: Column(
           children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 70),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 70),
               child: Container(
                 height: 170,
                 width: 401,
@@ -129,8 +133,7 @@ class _HomeState extends State<Home> {
                 ),
                 child: BlocBuilder<SingleUserBloc, SingleUserState>(
                   builder: (context, spState) {
-                    return BlocBuilder<ServiceRequestBloc,
-                        ServiceRequestState>(
+                    return BlocBuilder<ServiceRequestBloc, ServiceRequestState>(
                       builder: (context, state) {
                         if (state.isLoading) {
                           return const Center(child: SkeltonHome());
@@ -209,8 +212,7 @@ class _HomeState extends State<Home> {
               child: GridView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 10,

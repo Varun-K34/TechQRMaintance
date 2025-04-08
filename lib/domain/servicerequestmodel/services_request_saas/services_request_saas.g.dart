@@ -9,8 +9,9 @@ part of 'services_request_saas.dart';
 ServicesRequestSaas _$ServicesRequestSaasFromJson(Map<String, dynamic> json) =>
     ServicesRequestSaas(
       data: (json['data'] as List<dynamic>?)
-          ?.map((e) => ServicesModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+              ?.map((e) => ServicesModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$ServicesRequestSaasToJson(
