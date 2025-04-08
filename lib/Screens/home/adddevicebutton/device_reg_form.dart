@@ -249,7 +249,7 @@ class DeviceRegFormScreen extends StatelessWidget {
                         );
                       } else if (state.text.isNotEmpty) {
                         final id = state.text;
-                        Navigator.of(context).push(MaterialPageRoute(
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => UploadPdfScreen(
                             id: id,
                             orgid: orgController.text,

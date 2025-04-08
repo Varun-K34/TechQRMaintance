@@ -18,7 +18,12 @@ class TopWidgetportfolio extends StatelessWidget {
             height: 150,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
+              color: primaryWhite,
+            ),
+            child: Icon(
+              Icons.account_circle_outlined,
               color: primaryBlue,
+              size: 150,
             ),
           ),
           SizedBox(

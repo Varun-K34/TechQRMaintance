@@ -43,7 +43,7 @@ class MultiSelectDropdown<T> extends StatelessWidget {
           showSearchBox: true,
           bottomSheetProps: BottomSheetProps(
             elevation: 8,
-            backgroundColor: theme.cardColor,
+            backgroundColor: primaryWhite,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),

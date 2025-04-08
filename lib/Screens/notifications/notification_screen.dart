@@ -5,6 +5,7 @@ import 'package:techqrmaintance/application/servicesrequest/service_request_bloc
 import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
+import 'package:intl/intl.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -31,12 +32,13 @@ class NotificationScreen extends StatelessWidget {
         title: Text(
           "Notifications",
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 22,
             color: primaryBlue,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
           ),
         ),
         centerTitle: true,
+        elevation: 0,
       ),
       body: BlocBuilder<SingleUserBloc, SingleUserState>(
         builder: (context, spstate) {
@@ -50,114 +52,155 @@ class NotificationScreen extends StatelessWidget {
                         service.status == "Pending",
                   )
                   .toList();
-              if (servlist.isEmpty) {
+
+              if (state.isLoading) {
                 return Center(
-                  child: Text("No Data"),
+                  child: CircularProgressIndicator(color: primaryBlue),
                 );
               }
+
               if (state.isFailure) {
                 return Center(
-                  child: Text(
-                    "Oops! Something went wrong. Please try again later.",
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.error_outline, size: 48, color: Colors.red),
+                      SizedBox(height: 16),
+                      Text(
+                        "Oops! Something went wrong.",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      TextButton(
+                        onPressed: () {
+                          context.read<ServiceRequestBloc>().add(
+                                ServiceRequestEvent.getServicesreq(),
+                              );
+                        },
+                        child: Text("Try Again",
+                            style: TextStyle(color: primaryBlue)),
+                      ),
+                    ],
                   ),
                 );
               }
-              return ListView(
-                children: List.generate(
-                  servlist.length,
-                  (index) {
-                    final notification = servlist[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 10,
-                      ),
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
+
+              if (servlist.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.notifications_off_outlined,
+                          size: 64, color: Colors.grey),
+                      SizedBox(height: 16),
+                      Text(
+                        "No notifications yet",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.grey[700],
                         ),
-                        decoration: BoxDecoration(
-                            color: primaryWhite,
-                            border: Border.all(width: 2, color: primaryBlue),
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Column(
+                      ),
+                    ],
+                  ),
+                );
+              }
+
+              return ListView.separated(
+                itemCount: servlist.length,
+                separatorBuilder: (context, index) => Divider(
+                  height: 1,
+                  color: Colors.grey[300],
+                  indent: 70,
+                ),
+                itemBuilder: (context, index) {
+                  final notification = servlist[index];
+
+                  return ListTile(
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    leading: CircleAvatar(
+                      radius: 26,
+                      backgroundColor: primaryBlue,
+                      child: Text(
+                        notification.id.toString(),
+                        style: TextStyle(
+                          color: primaryWhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    title: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            notification.device!.category!.name.toString(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              color: Colors.black87,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 4),
+                        Row(
                           children: [
-                            ListTile(
-                              title: Text(
-                                notification.device!.category!.name.toString(),
+                            Expanded(
+                              child: Text(
+                                'Preferred Date: ${notification.preferredTimeslot}',
                                 style: TextStyle(
-                                  color: primaryBlue,
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w700,
+                                  color: Colors.grey[700],
+                                  fontSize: 14,
                                 ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              subtitle: Column(
-                                children: [
-                                  Text(
-                                    notification.preferredTimeslot.toString(),
-                                    style: TextStyle(
-                                      color: primaryBlue,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  Text(
-                                    notification.status.toString(),
-                                    style: TextStyle(
-                                      color: primaryBlue,
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  )
-                                ],
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: primaryBlue,
+                                borderRadius: BorderRadius.circular(12),
                               ),
-                              leading: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 26,
-                                  vertical: 13,
-                                ),
-                                decoration: BoxDecoration(
-                                  border:
-                                      Border.all(width: 2, color: primaryBlue),
+                              child: Text(
+                                notification.status.toString(),
+                                style: TextStyle(
                                   color: primaryWhite,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Text(
-                                  notification.id.toString(),
-                                  style: TextStyle(
-                                    color: primaryBlack,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                  textAlign: TextAlign.center,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                CustomMaterialButton(
-                                  height: 10,
-                                  width: 150,
-                                  text: "Track",
-                                  textColor: primaryWhite,
-                                  onPressed: () {},
-                                )
-                              ],
-                            )
                           ],
                         ),
-                      ),
-                    );
-                  },
-                ),
+                      ],
+                    ),
+                  );
+                },
               );
             },
           );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: primaryBlue,
+        child: Icon(Icons.refresh, color: primaryWhite),
+        onPressed: () {
+          context
+              .read<ServiceRequestBloc>()
+              .add(ServiceRequestEvent.getServicesreq());
         },
       ),
     );

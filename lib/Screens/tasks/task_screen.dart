@@ -155,10 +155,10 @@ class MainContainertask extends StatelessWidget {
                 ),
                 color: Color(0xFFF5F5F5),
                 image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    ac,
-                    scale: 100,
+                  fit: BoxFit.contain,
+                  scale: 50,
+                  image: AssetImage(
+                    "assets/images/technician.png",
                   ),
                 ),
               ),

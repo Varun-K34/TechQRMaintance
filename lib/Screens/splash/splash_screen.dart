@@ -23,8 +23,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    
-
     // Initial SharedPref and auth check
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
@@ -83,16 +81,25 @@ class _SplashScreenState extends State<SplashScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                height: 100,
-                                width: 100,
-                                decoration: const BoxDecoration(
-                                  image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/aminations/helmet.gif"),
-                                  ),
+                              CircleAvatar(
+                                radius: 100,
+                                backgroundColor: primaryWhite,
+                                child: Image.asset(
+                                  "assets/images/settings.png",
+                                  height: 80,
+                                  width: 80,
                                 ),
-                              )
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                "Qloop",
+                                style: TextStyle(
+                                    color: primaryWhite,
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.w800),
+                              ),
                             ],
                           ),
                   ),

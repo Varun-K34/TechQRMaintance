@@ -28,10 +28,15 @@ class UnassignedTaskViewScreen extends StatelessWidget {
       },
     );
     return Scaffold(
-      backgroundColor: primaryWhite,
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
-        backgroundColor: primaryWhite,
-        title: Text("Unassigned Task View Screen"),
+        centerTitle: true,
+        backgroundColor: Color(0xfff5f5f5),
+        title: Text(
+          "Unassigned Task View Screen",
+          style: TextStyle(
+              fontSize: 22, color: primaryBlue, fontWeight: FontWeight.w700),
+        ),
       ),
       body: BlocBuilder<SingleUserBloc, SingleUserState>(
         builder: (context, spstate) {

@@ -9,6 +9,7 @@ import 'package:techqrmaintance/Screens/tasks/task_screen.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
+import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 
 class AssignedTaskViewScreen extends StatelessWidget {
@@ -30,8 +31,18 @@ class AssignedTaskViewScreen extends StatelessWidget {
       },
     );
     return Scaffold(
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
-        title: Text("assigned task"),
+        centerTitle: true,
+        backgroundColor: Color(0xfff5f5f5),
+        title: Text(
+          "Assigned task",
+          style: TextStyle(
+            color: primaryBlue,
+            fontSize: 22,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ),
       body: BlocBuilder<SingleUserBloc, SingleUserState>(
         builder: (context, spstate) {
