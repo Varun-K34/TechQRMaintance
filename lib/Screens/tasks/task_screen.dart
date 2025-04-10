@@ -296,7 +296,7 @@ class TaskScreen extends StatelessWidget {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          "My Tasks.",
+          "My Tasks",
           style: TextStyle(
             fontSize: 20,
             color: primaryBlue,
