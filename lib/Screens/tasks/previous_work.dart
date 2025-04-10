@@ -40,6 +40,7 @@ class PreviousWork extends StatelessWidget {
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.w700,
+            color: primaryBlue,
           ),
         ),
         centerTitle: true,

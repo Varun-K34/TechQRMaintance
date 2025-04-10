@@ -7,6 +7,8 @@ part 'brand_model.g.dart';
 class BrandModel {
   @JsonKey(name: 'id')
   int? id;
+  @JsonKey(name: 'org_id')
+  int? orgId;
   @JsonKey(name: 'category_id')
   int? categoryId;
   @JsonKey(name: 'name')
@@ -16,6 +18,7 @@ class BrandModel {
 
   BrandModel({
     this.id,
+    this.orgId,
     this.categoryId,
     this.name,
     this.category,

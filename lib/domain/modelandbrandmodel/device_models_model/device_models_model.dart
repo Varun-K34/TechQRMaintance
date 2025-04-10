@@ -8,6 +8,8 @@ part 'device_models_model.g.dart';
 class DeviceModelsModel {
   @JsonKey(name: 'id')
   int? id;
+  @JsonKey(name: 'org_id')
+  int? orgId;
   @JsonKey(name: 'brand_id')
   int? brandId;
   @JsonKey(name: 'name')
@@ -17,6 +19,7 @@ class DeviceModelsModel {
 
   DeviceModelsModel({
     this.id,
+    this.orgId,
     this.brandId,
     this.name,
     this.brand,

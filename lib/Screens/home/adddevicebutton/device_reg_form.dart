@@ -17,6 +17,8 @@ import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
 import 'package:techqrmaintance/application/deviceregbloc/deviceregbloc_bloc.dart';
 import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart';
 import 'package:techqrmaintance/application/requestscanqrbloc/request_scan_qr_endpoind_bloc.dart';
+import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
+import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/deviceregmodel/devices_reg_model_saas/device_model_saas.dart';
 
@@ -45,12 +47,33 @@ class DeviceRegFormScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
+        final spState = context.read<SpblocBloc>().state;
         context.read<CatogoryBloc>().add(CatogoryEvent.getCatogory());
         context
             .read<RequestScanQrEndpoindBloc>()
             .add(RequestScanQrEndpoindEvent.getQrdata(id: updateid ?? ""));
         context.read<ModelAndBrandBloc>().add(ModelAndBrandEvent.getModel());
         context.read<BrandAndModelBloc>().add(BrandAndModelEvent.getBrand());
+
+        if (spState.userData != null) {
+          context.read<SingleUserBloc>().add(
+                SingleUserEvent.singleUser(id: spState.userData.toString()),
+              );
+        } else {
+          /// Wait for SpblocBloc to emit loaded state
+          context
+              .read<SpblocBloc>()
+              .stream
+              .firstWhere((spState) => spState.userData != null)
+              .then((spState) {
+            // ignore: use_build_context_synchronously
+            context.read<SingleUserBloc>().add(
+                  SingleUserEvent.singleUser(id: spState.userData.toString()),
+                );
+          }).catchError((error) {
+            log("Error waiting for SpblocBloc state: $error");
+          });
+        }
       },
     );
     return Scaffold(
@@ -84,65 +107,78 @@ class DeviceRegFormScreen extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BlocBuilder<CatogoryBloc, CatogoryState>(
-                    builder: (context, state) {
-                      // if (state.isFailure) {
-                      //   CustomSnackbar.shows(context,
-                      //       message: "can't fatch catagory");
-                      // }
-                      return DropDownSearchWidget(
-                        iconprefix: Icons.category,
-                        states: state.complaints.data
-                                ?.map(
-                                  (catName) => "${catName.id}${catName.name}",
-                                )
+                  BlocBuilder<SingleUserBloc, SingleUserState>(
+                      builder: (context, userState) {
+                    final userOrgId = userState.user.orgId;
+                    return BlocBuilder<CatogoryBloc, CatogoryState>(
+                      builder: (context, state) {
+                        // if (state.isFailure) {
+                        //   CustomSnackbar.shows(context,
+                        //       message: "can't fatch catagory");
+                        // }
+                        log("User org id: $userOrgId");
+                        final filteredCategories = state.complaints.data
+                                ?.where((cat) => cat.orgId == userOrgId)
+                                .map((cat) => "${cat.id} ${cat.name}")
                                 .toList() ??
-                            [],
-                        controller: catagoryController,
-                        dropdownLabel: "Category",
-                        scarchLabel: "Search Category",
-                        key: Key("category"),
-                      );
-                    },
-                  ),
+                            [];
+                        return DropDownSearchWidget(
+                          iconprefix: Icons.category,
+                          states: filteredCategories,
+                          controller: catagoryController,
+                          dropdownLabel: "Category",
+                          scarchLabel: "Search Category",
+                          key: Key("category"),
+                        );
+                      },
+                    );
+                  }),
                   SizedBox(
                     height: 10,
                   ),
-                  BlocBuilder<BrandAndModelBloc, BrandAndModelState>(
-                    builder: (context, state) {
-                      return DropDownSearchWidget(
-                        iconprefix: Icons.devices,
-                        dropdownLabel: "Brand",
-                        scarchLabel: "Search Brand",
-                        key: Key("brand"),
-                        controller: brandController,
-                        states: state.brandList
-                            .map(
-                              (brand) => "${brand.id} ${brand.name}",
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
+                  BlocBuilder<SingleUserBloc, SingleUserState>(
+                      builder: (context, userState) {
+                    final userOrgId = userState.user.orgId;
+                    return BlocBuilder<BrandAndModelBloc, BrandAndModelState>(
+                      builder: (context, state) {
+                        final filteredBrands = state.brandList
+                            .where((brand) => brand.orgId == userOrgId)
+                            .map((brand) => "${brand.id} ${brand.name}")
+                            .toList();
+                        return DropDownSearchWidget(
+                          iconprefix: Icons.devices,
+                          dropdownLabel: "Brand",
+                          scarchLabel: "Search Brand",
+                          key: Key("brand"),
+                          controller: brandController,
+                          states: filteredBrands,
+                        );
+                      },
+                    );
+                  }),
                   SizedBox(
                     height: 10,
                   ),
-                  BlocBuilder<ModelAndBrandBloc, ModelAndBrandState>(
-                    builder: (context, state) {
-                      return DropDownSearchWidget(
-                        iconprefix: Icons.devices,
-                        dropdownLabel: "Model",
-                        scarchLabel: "Search Model",
-                        key: Key("model"),
-                        controller: modelController,
-                        states: state.modelList
-                            .map(
-                              (model) => "${model.id} ${model.name}",
-                            )
-                            .toList(),
-                      );
-                    },
-                  ),
+                  BlocBuilder<SingleUserBloc, SingleUserState>(
+                      builder: (context, userState) {
+                    final userOrgId = userState.user.orgId;
+                    return BlocBuilder<ModelAndBrandBloc, ModelAndBrandState>(
+                      builder: (context, state) {
+                        final filteredModels = state.modelList
+                            .where((model) => model.orgId == userOrgId)
+                            .map((model) => "${model.id} ${model.name}")
+                            .toList();
+                        return DropDownSearchWidget(
+                          iconprefix: Icons.devices,
+                          dropdownLabel: "Model",
+                          scarchLabel: "Search Model",
+                          key: Key("model"),
+                          controller: modelController,
+                          states: filteredModels,
+                        );
+                      },
+                    );
+                  }),
 
                   HintAndTextFieldWidget(
                     hintText: orgController.text,

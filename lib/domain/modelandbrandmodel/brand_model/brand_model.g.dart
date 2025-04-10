@@ -8,6 +8,7 @@ part of 'brand_model.dart';
 
 BrandModel _$BrandModelFromJson(Map<String, dynamic> json) => BrandModel(
       id: (json['id'] as num?)?.toInt(),
+      orgId: (json['org_id'] as num?)?.toInt(),
       categoryId: (json['category_id'] as num?)?.toInt(),
       name: json['name'] as String?,
       category: json['category'] == null
@@ -18,6 +19,7 @@ BrandModel _$BrandModelFromJson(Map<String, dynamic> json) => BrandModel(
 Map<String, dynamic> _$BrandModelToJson(BrandModel instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'org_id': instance.orgId,
       'category_id': instance.categoryId,
       'name': instance.name,
       'category': instance.category,

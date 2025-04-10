@@ -9,9 +9,11 @@ part of 'category.dart';
 Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
+      orgId: (json['org_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
       'id': instance.id,
+      'org_id': instance.orgId,
       'name': instance.name,
     };

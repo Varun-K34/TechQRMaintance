@@ -7,12 +7,15 @@ part 'category.g.dart';
 class Category {
   @JsonKey(name: 'id')
   int? id;
+  @JsonKey(name: 'org_id')
+  int? orgId;
   @JsonKey(name: 'name')
   String? name;
 
   Category({
     this.id,
     this.name,
+    this.orgId,
   });
 
   factory Category.fromJson(Map<String, dynamic> json) {
