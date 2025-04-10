@@ -12,11 +12,11 @@ part 'update_user_bloc.freezed.dart';
 class UpdateUserBloc extends Bloc<UpdateUserEvent, UpdateUserState> {
   final UpdateUserRepo updateUserRepo;
   UpdateUserBloc(this.updateUserRepo) : super(UpdateUserState.initial()) {
-    on<UpdateUser>((event, emit)async {
+    on<UpdateUser>((event, emit) async {
       emit(state.copyWith(
         isLoading: true,
       ));
-     await updateUserRepo
+      await updateUserRepo
           .userupdateRepo(id: event.id, usermodel: event.model)
           .then((value) {
         value.fold(

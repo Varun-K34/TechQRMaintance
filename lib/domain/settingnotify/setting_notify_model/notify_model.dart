@@ -1,7 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/organizationmodel/organization_model/organization_model/organization.dart';
 
-
 part 'notify_model.g.dart';
 
 @JsonSerializable()
@@ -28,7 +27,8 @@ class NotifyModel {
     this.organization,
   });
 
-  factory NotifyModel.fromJson(Map<String, dynamic> json) => _$NotifyModelFromJson(json);
+  factory NotifyModel.fromJson(Map<String, dynamic> json) =>
+      _$NotifyModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$NotifyModelToJson(this);
 }

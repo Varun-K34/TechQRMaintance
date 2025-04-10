@@ -11,6 +11,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:techqrmaintance/application/area_bloc/area_bloc.dart' as _i175;
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart'
     as _i600;
 import 'package:techqrmaintance/application/brandnadmodel/brand_and_model_bloc.dart'
@@ -57,6 +58,7 @@ import 'package:techqrmaintance/application/update_user_bloc/update_user_bloc.da
     as _i208;
 import 'package:techqrmaintance/application/updateservicebloc/update_service_req_bloc.dart'
     as _i188;
+import 'package:techqrmaintance/domain/araemodel/get_area_repo.dart' as _i431;
 import 'package:techqrmaintance/domain/authregmodel/auth_repo.dart' as _i291;
 import 'package:techqrmaintance/domain/catagorymodel/catagory_get_repo.dart'
     as _i185;
@@ -102,6 +104,8 @@ import 'package:techqrmaintance/domain/usermodel/technitian_list_repo.dart'
     as _i740;
 import 'package:techqrmaintance/domain/usermodel/update_user_repo.dart' as _i87;
 import 'package:techqrmaintance/domain/usermodel/user_log_repo.dart' as _i765;
+import 'package:techqrmaintance/infrastructure/areaservices/area_services.dart'
+    as _i154;
 import 'package:techqrmaintance/infrastructure/authservices/auth_services.dart'
     as _i447;
 import 'package:techqrmaintance/infrastructure/brandandmodelservices/brand_services.dart'
@@ -194,6 +198,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i911.SingleUserRepo>(() => _i597.SingleUserServices());
     gh.lazySingleton<_i291.AuthRepoReg>(() => _i447.AuthServices());
     gh.lazySingleton<_i1043.DeiceBrandRepo>(() => _i332.BrandServices());
+    gh.lazySingleton<_i431.GetAreaRepo>(() => _i154.AreaServices());
     gh.lazySingleton<_i231.ServicesReqCallByIdRepo>(
         () => _i681.ServiceReqByIdServices());
     gh.lazySingleton<_i936.DeviceModelRepo>(() => _i1069.ModelServices());
@@ -229,6 +234,7 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i32.GetidregblocBloc(gh<_i1051.GetIdForDeviceRegRepo>()));
     gh.factory<_i300.TechListBloc>(
         () => _i300.TechListBloc(gh<_i740.TechnitianListRepo>()));
+    gh.factory<_i175.AreaBloc>(() => _i175.AreaBloc(gh<_i431.GetAreaRepo>()));
     gh.factory<_i134.CustomerBloc>(
         () => _i134.CustomerBloc(gh<_i509.CustomerRepo>()));
     gh.factory<_i1045.ServiceReqByIdBloc>(

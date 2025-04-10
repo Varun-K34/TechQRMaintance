@@ -16,6 +16,8 @@ class AuthRegModel {
   String? password;
   @JsonKey(name: 'role')
   String? role;
+  @JsonKey(name: 'area_id')
+  String? areaId;
 
   AuthRegModel({
     this.orgId,
@@ -24,6 +26,7 @@ class AuthRegModel {
     this.email,
     this.password,
     this.role = "Technician",
+    this.areaId,
   });
 
   factory AuthRegModel.fromJson(Map<String, dynamic> json) {

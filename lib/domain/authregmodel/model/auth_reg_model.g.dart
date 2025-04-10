@@ -12,6 +12,7 @@ AuthRegModel _$AuthRegModelFromJson(Map<String, dynamic> json) => AuthRegModel(
       email: json['email'] as String?,
       password: json['password'] as String?,
       role: json['role'] as String? ?? "Technician",
+      areaId: json['area_id'] as String?,
     );
 
 Map<String, dynamic> _$AuthRegModelToJson(AuthRegModel instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$AuthRegModelToJson(AuthRegModel instance) =>
       'email': instance.email,
       'password': instance.password,
       'role': instance.role,
+      'area_id': instance.areaId,
     };

@@ -47,11 +47,10 @@ class NotificationController {
     }
   }
 
-  static Future<void> myNotifyScheduleEvery5Seconds({
-    required String title,
-    required String msg,
-    required int interval
-  }) async {
+  static Future<void> myNotifyScheduleEvery5Seconds(
+      {required String title,
+      required String msg,
+      required int interval}) async {
     await AwesomeNotifications().createNotification(
       schedule: NotificationInterval(
         interval: Duration(minutes: interval),

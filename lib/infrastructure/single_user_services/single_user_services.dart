@@ -13,26 +13,34 @@ import 'package:techqrmaintance/infrastructure/api_token_generator.dart';
 class SingleUserServices implements SingleUserRepo {
   ApiServices singleUserApi = ApiServices();
   @override
-  Future<Either<MainFailurs, UserModel>> getSingleUserRepo({required String id}) async{
+  Future<Either<MainFailurs, UserModel>> getSingleUserRepo(
+      {required String id}) async {
     try {
-      final Response  respo= await singleUserApi.dio.get("$kBaseURL$kuserADD/$id");
+      final Response respo =
+          await singleUserApi.dio.get("$kBaseURL$kuserADD/$id");
       if (respo.statusCode == 200) {
-        log("hello",name: "singleUserServices",);
+        log(
+          "hello",
+          name: "singleUserServices",
+        );
         final user = UserModel.fromJson(respo.data['data']);
-        log("User hello: ${user.toJson()}",name: "singleUserServices",);
+        log(
+          "User hello: ${user.toJson()}",
+          name: "singleUserServices",
+        );
         return Right(user);
       } else {
         return Left(MainFailurs.serverFailure());
       }
     } on DioException catch (e) {
-      log('DioException: ${e.message}', error: e,name: "singleUserServices", stackTrace: StackTrace.current);
+      log('DioException: ${e.message}',
+          error: e, name: "singleUserServices", stackTrace: StackTrace.current);
       await singleUserApi.clearStoredToken();
       return Left(MainFailurs.serverFailure());
     } catch (e) {
       log('Unexpected error: ${e.toString()}',
-          error: e, stackTrace: StackTrace.current,name: "singleUserServices");
+          error: e, stackTrace: StackTrace.current, name: "singleUserServices");
       return Left(MainFailurs.clientFailure());
     }
   }
-  
 }
