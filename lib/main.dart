@@ -1,6 +1,7 @@
 import 'package:techqrmaintance/Screens/home/adddevicebutton/device_reg_form.dart';
 import 'package:techqrmaintance/Screens/splash/splash_screen.dart';
 import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart';
+import 'package:techqrmaintance/application/area_bloc/area_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/brandnadmodel/brand_and_model_bloc.dart';
 import 'package:techqrmaintance/application/catagorybloc/catogory_bloc.dart';
@@ -116,6 +117,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<SingleUserBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => getit<AreaBloc>(),
         ),
       ],
       child: MaterialApp(

@@ -72,6 +72,12 @@ class DropDownSearchWidget extends StatelessWidget {
               log(techid);
               controller?.text = techid;
             }
+          } else if (key == Key("area")) {
+            if (value != null) {
+              final areaid = RegExp(r'^\d+').firstMatch(value)?.group(0) ?? '';
+              log(areaid);
+              controller?.text = areaid;
+            }
           }
         },
         popupProps: PopupProps.bottomSheet(

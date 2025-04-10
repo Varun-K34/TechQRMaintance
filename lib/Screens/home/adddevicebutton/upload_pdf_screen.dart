@@ -191,7 +191,6 @@ class UploadPdfScreen extends StatelessWidget {
     context
         .read<PdfUploadBloc>()
         .add(PdfUploadEvent.pdfUpload(model: datamodel));
-    
   }
 
   void finishpressed(BuildContext context) {

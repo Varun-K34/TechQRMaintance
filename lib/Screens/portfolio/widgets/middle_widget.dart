@@ -11,13 +11,14 @@ class MiddleWidget extends StatelessWidget {
     super.key,
     required this.name,
     required this.org,
-    required this.role, required this.state,
+    required this.role,
+    required this.state,
   });
 
   final String name;
   final String org;
   final String role;
-  final SingleUserState  state;
+  final SingleUserState state;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +49,6 @@ class MiddleWidget extends StatelessWidget {
                 },
               ),
             ),
-
             ContainerInsidevaluesWidgets(
               icon: Icons.account_circle_outlined,
               text: name.toUpperCase(),

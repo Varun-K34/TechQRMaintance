@@ -6,6 +6,7 @@ import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_textfield.dart';
 import 'package:techqrmaintance/Screens/Widgets/drop_down_widget.dart';
 import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
+import 'package:techqrmaintance/application/area_bloc/area_bloc.dart';
 import 'package:techqrmaintance/application/authbloc/authbloc_bloc.dart';
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
@@ -19,12 +20,14 @@ class SignupScreen extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  final TextEditingController areaController = TextEditingController();
 
   SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AreaBloc>().add(AreaEvent.getArea());
       context
           .read<OranizationBloc>()
           .add(OranizationEvent.getOrganizationEvent());
@@ -44,86 +47,126 @@ class SignupScreen extends StatelessWidget {
         ),
         backgroundColor: primaryWhite,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          //dropdown search
-          BlocBuilder<OranizationBloc, OranizationState>(
-            builder: (context, state) {
-              if (state.isFailure) {
-                CustomSnackbar.shows(context, message: "somting went wrong");
-              }
-              return DropDownSearchWidget(
-                key: Key("org"),
-                iconprefix: Icons.business,
-                controller: orgidcontroller,
-                dropdownLabel: "organization",
-                scarchLabel: "Search organization",
-                states: state.organizationList.data
-                        ?.map((e) => "(${e.id}) ${e.orgName}")
-                        .toList() ??
-                    [],
-              );
-            },
-          ),
-
-          CustomTextField(
-            hintText: "username",
-            controller: _usernameController,
-            curveRadius: 30,
-            boolVal: false,
-          ),
-          CustomTextField(
-            hintText: "email",
-            controller: _emailController,
-            curveRadius: 30,
-            boolVal: false,
-          ),
-          CustomTextField(
-            hintText: "phone",
-            controller: _phoneController,
-            curveRadius: 30,
-            boolVal: false,
-          ),
-          CustomTextField(
-            hintText: "password",
-            controller: _passwordController,
-            curveRadius: 30,
-            boolVal: false,
-          ),
-          CustomTextField(
-            hintText: "confirm password",
-            controller: _confirmPasswordController,
-            curveRadius: 30,
-            boolVal: false,
-          ),
-          BlocListener<AuthblocBloc, AuthblocState>(
-            listener: (context, state) {
-              if (state.isError) {
-                CustomSnackbar.shows(context,
-                    message: "Oops! Something went wrong. Please try again.");
-              }
-            },
-            child: BlocBuilder<AuthblocBloc, AuthblocState>(
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            //dropdown search
+            BlocBuilder<OranizationBloc, OranizationState>(
               builder: (context, state) {
-                return state.isloading == true
-                    ? CircularProgressIndicator()
-                    : CustomMaterialButton(
-                        text: "Sign Up",
-                        onPressed: state.isloading
-                            ? () {}
-                            : () => onPressedSignup(context),
-                      );
+                // if (state.isFailure) {
+                //   CustomSnackbar.shows(context, message: "somting went wrong");
+                // }
+
+                return DropDownSearchWidget(
+                  key: Key("org"),
+                  iconprefix: Icons.business,
+                  controller: orgidcontroller,
+                  dropdownLabel: "organization",
+                  scarchLabel: "Search organization",
+                  states: state.organizationList.data
+                          ?.map((e) => "(${e.id}) ${e.orgName}")
+                          .toList() ??
+                      [],
+                );
               },
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-        ],
+            SizedBox(
+              height: 20,
+            ),
+            BlocBuilder<AreaBloc, AreaState>(
+              builder: (context, state) {
+                final araeli = state.areaList
+                    .map((area) =>
+                        "${area.id} ${area.areaName} org: ${area.organization?.orgName}")
+                    .toList();
+
+                return DropDownSearchWidget(
+                  key: Key("area"),
+                  iconprefix: Icons.business,
+                  controller: areaController,
+                  dropdownLabel: "Area",
+                  scarchLabel: "Search Area",
+                  states: araeli,
+                );
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            CustomTextField(
+              hintText: "username",
+              controller: _usernameController,
+              curveRadius: 30,
+              boolVal: false,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            CustomTextField(
+              hintText: "email",
+              controller: _emailController,
+              curveRadius: 30,
+              boolVal: false,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            CustomTextField(
+              hintText: "phone",
+              controller: _phoneController,
+              curveRadius: 30,
+              boolVal: false,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            CustomTextField(
+              hintText: "password",
+              controller: _passwordController,
+              curveRadius: 30,
+              boolVal: false,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            CustomTextField(
+              hintText: "confirm password",
+              controller: _confirmPasswordController,
+              curveRadius: 30,
+              boolVal: false,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            BlocListener<AuthblocBloc, AuthblocState>(
+              listener: (context, state) {
+                if (state.isError) {
+                  CustomSnackbar.shows(context,
+                      message: "Oops! Something went wrong. Please try again.");
+                }
+              },
+              child: BlocBuilder<AuthblocBloc, AuthblocState>(
+                builder: (context, state) {
+                  return state.isloading == true
+                      ? CircularProgressIndicator()
+                      : CustomMaterialButton(
+                          text: "Sign Up",
+                          onPressed: state.isloading
+                              ? () {}
+                              : () => onPressedSignup(context),
+                        );
+                },
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -153,11 +196,11 @@ class SignupScreen extends StatelessWidget {
       return;
     }
     final model = AuthRegModel(
-      orgId: int.parse(orgid),
-      full_name: username,
-      email: email,
-      password: password,
-    );
+        orgId: int.parse(orgid),
+        full_name: username,
+        email: email,
+        password: password,
+        areaId: areaController.text);
     log(model.toJson().toString());
     context.read<AuthblocBloc>().add(
           AuthblocEvent.signup(

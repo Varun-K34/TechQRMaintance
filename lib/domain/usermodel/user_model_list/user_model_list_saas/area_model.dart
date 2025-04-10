@@ -12,14 +12,12 @@ class AreaModel {
   String? areaName;
   @JsonKey(name: 'description')
   String? description;
-  
 
   AreaModel({
     this.id,
     this.orgId,
     this.areaName,
     this.description,
-    
   });
 
   factory AreaModel.fromJson(Map<String, dynamic> json) =>
