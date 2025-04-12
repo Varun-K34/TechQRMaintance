@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:ffi';
+import 'dart:io';
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:techqrmaintance/domain/organizationmodel/organization_model/organization_model/organization.dart';
@@ -56,6 +57,9 @@ class ServicesModel {
   Device? device;
   @JsonKey(name: 'technician')
   Technician? technician;
+  // New field for handling the image file
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  File? completionPhotoFile; 
 
   ServicesModel({
     this.id,
@@ -84,6 +88,7 @@ class ServicesModel {
     this.status,
     this.completionNotes,
     this.completionPhotoUrl,
+    this.completionPhotoFile,
     this.completedAt,
     this.assignedTechnician,
     this.newPartsUsed,

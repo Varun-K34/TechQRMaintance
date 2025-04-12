@@ -786,6 +786,15 @@ class NotificationScreen extends StatelessWidget {
                                           AfteAcceptRejectEvent.accept(
                                               servid:
                                                   notification.id.toString()));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text('Service accepted'),
+                                          backgroundColor: Colors.green,
+                                        ),
+                                      );
+
+                                      Navigator.of(context).pop();
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(
@@ -826,6 +835,15 @@ class NotificationScreen extends StatelessWidget {
                                           AfteAcceptRejectEvent.reject(
                                               servid:
                                                   notification.id.toString()));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text('Service rejected'),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+
+                                      Navigator.of(context).pop();
                                     },
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(

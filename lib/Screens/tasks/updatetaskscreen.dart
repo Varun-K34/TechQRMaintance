@@ -300,7 +300,8 @@
 //         ));
 //   }
 // }
-
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
@@ -318,32 +319,39 @@ import 'package:techqrmaintance/application/updateservicebloc/update_service_req
 import 'package:techqrmaintance/core/colors.dart';
 import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 
-class UpdateTaskScreen extends StatelessWidget {
+class UpdateTaskScreen extends StatefulWidget {
   final String id;
-  UpdateTaskScreen({
-    super.key,
-    required this.id,
-  });
 
-  // Controllers for the text fields
+  const UpdateTaskScreen({super.key, required this.id});
+
+  @override
+  State<UpdateTaskScreen> createState() => _UpdateTaskScreenState();
+}
+
+class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
+  final ImagePicker picker = ImagePicker();
+  File? selectedImage;
+
   final TextEditingController completedDateController = TextEditingController();
   final TextEditingController statusController = TextEditingController();
   final TextEditingController completionNoteController =
       TextEditingController();
   final TextEditingController techController = TextEditingController();
 
-  // Define consistent colors
-  final Color primaryBlueColor = Color(0xFF195E8E);
-  final Color lightBlueColor = Color(0xFFE7F0F7);
-  final Color lightGreyColor = Color(0xFFF5F5F5);
-  final Color midGreyColor = Color(0xFF6B7280);
-  final Color darkGreyColor = Color(0xFF4B5563);
+  final Color primaryBlueColor = const Color(0xFF195E8E);
+  final Color lightBlueColor = const Color(0xFFE7F0F7);
+  final Color lightGreyColor = const Color(0xFFF5F5F5);
+  final Color midGreyColor = const Color(0xFF6B7280);
+  final Color darkGreyColor = const Color(0xFF4B5563);
+
+  List<int>? newpart;
 
   @override
-  Widget build(BuildContext context) {
-    List<int>? newpart;
+  void initState() {
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
+        final context = this.context;
         context.read<TechListBloc>().add(TechListEvent.getTechlist());
         context.read<InventryBloc>().add(InventryEvent.getInventry());
         context.read<SpblocBloc>().add(SpblocEvent.getSpStoredData());
@@ -354,7 +362,10 @@ class UpdateTaskScreen extends StatelessWidget {
             );
       },
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightGreyColor,
       appBar: AppBar(
@@ -387,11 +398,11 @@ class UpdateTaskScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Section header container
                 Container(
                   width: double.infinity,
                   color: lightBlueColor,
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                   child: Text(
                     spstate.user.role == "Area Manager"
                         ? "Assignment Details"
@@ -403,13 +414,11 @@ class UpdateTaskScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // completion date - only for technicians
                       if (spstate.user.role != "Area Manager")
                         _buildInputField(
                           icon: Icons.calendar_today_outlined,
@@ -426,10 +435,7 @@ class UpdateTaskScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-
-                      SizedBox(height: 16),
-
-                      // Technician selection for Area Manager
+                      const SizedBox(height: 16),
                       if (spstate.user.role == "Area Manager")
                         _buildInputField(
                           icon: Icons.person_outline,
@@ -451,7 +457,7 @@ class UpdateTaskScreen extends StatelessWidget {
                                   controller: techController,
                                   serarchbox: true,
                                   states: technamelist,
-                                  key: Key("tech"),
+                                  key: const Key("tech"),
                                   dropdownLabel: "Select Technician",
                                   iconprefix: Icons.person_outline,
                                 ),
@@ -459,8 +465,6 @@ class UpdateTaskScreen extends StatelessWidget {
                             },
                           ),
                         ),
-
-                      // Status dropdown for technicians
                       if (spstate.user.role != "Area Manager")
                         _buildInputField(
                           icon: Icons.flag_outlined,
@@ -472,17 +476,14 @@ class UpdateTaskScreen extends StatelessWidget {
                             child: DropDownSearchWidget(
                               controller: statusController,
                               serarchbox: false,
-                              states: ["In Progress", "Completed"],
-                              key: Key("status"),
+                              states: const ["In Progress", "Completed"],
+                              key: const Key("status"),
                               dropdownLabel: "Select Status",
                               iconprefix: Icons.flag_outlined,
                             ),
                           ),
                         ),
-
-                      SizedBox(height: 16),
-
-                      // Inventory selection for technicians
+                      const SizedBox(height: 16),
                       if (spstate.user.role != "Area Manager")
                         _buildInputField(
                           icon: Icons.inventory_2_outlined,
@@ -493,7 +494,6 @@ class UpdateTaskScreen extends StatelessWidget {
                                   .where((item) =>
                                       item.orgId == spstate.user.orgId)
                                   .map((e) => "${e.id} ${e.name}")
-                                  .whereType<String>()
                                   .toList();
 
                               return Theme(
@@ -513,24 +513,19 @@ class UpdateTaskScreen extends StatelessWidget {
                             },
                           ),
                         ),
-
-                      SizedBox(height: 16),
-
-                      // Notes section for technicians
+                      const SizedBox(height: 16),
                       if (spstate.user.role != "Area Manager")
                         _buildInputField(
                           icon: Icons.note_outlined,
                           label: "Completion Notes",
                           child: CustomTextField(
                             controller: completionNoteController,
-                            hintText: "Enter notes about task completion",
+                            hintText: "Enter..",
                             curveRadius: 10,
                             boolVal: false,
                             maxLine: 5,
                           ),
                         ),
-
-                      // Help text for notes (like the PIN help text in the image)
                       if (spstate.user.role != "Area Manager")
                         Padding(
                           padding: const EdgeInsets.only(left: 36.0, top: 8),
@@ -543,10 +538,42 @@ class UpdateTaskScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-
-                      SizedBox(height: 40),
-
-                      // Submit button section
+                      const SizedBox(height: 15),
+                      if (spstate.user.role != "Area Manager")
+                        _buildInputField(
+                          icon: Icons.image_outlined,
+                          label: "Completion Photo",
+                          child: GestureDetector(
+                            onTap: () async {
+                              final picked = await picker.pickImage(
+                                  source: ImageSource.gallery);
+                              if (picked != null) {
+                                setState(() {
+                                  selectedImage = File(picked.path);
+                                });
+                              }
+                            },
+                            child: Container(
+                              height: 150,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: primaryBlueColor),
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                              ),
+                              child: selectedImage != null
+                                  ? Image.file(selectedImage!,
+                                      fit: BoxFit.cover)
+                                  : Center(
+                                      child: Text(
+                                        "Tap to select image",
+                                        style: TextStyle(color: midGreyColor),
+                                      ),
+                                    ),
+                            ),
+                          ),
+                        ),
+                      const SizedBox(height: 40),
                       Center(
                         child: BlocBuilder<UpdateServiceReqBloc,
                             UpdateServiceReqState>(
@@ -560,7 +587,7 @@ class UpdateTaskScreen extends StatelessWidget {
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 context.read<ServiceReqByIdBloc>().add(
                                       ServiceReqByIdEvent.getservicebyid(
-                                          id: id),
+                                          id: widget.id),
                                     );
                                 context
                                     .read<ServiceRequestBloc>()
@@ -600,7 +627,7 @@ class UpdateTaskScreen extends StatelessWidget {
                                         spstate.user.role == "Area Manager"
                                             ? "Assign Task"
                                             : "Update Task",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.white,
@@ -635,13 +662,13 @@ class UpdateTaskScreen extends StatelessWidget {
           child: Row(
             children: [
               Icon(icon, size: 18, color: primaryBlueColor),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 label,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: darkGreyColor,
+                  color: primaryBlue,
                 ),
               ),
             ],
@@ -674,28 +701,12 @@ class UpdateTaskScreen extends StatelessWidget {
 
     if (pickedDate != null) {
       final DateTime now = DateTime.now();
-
-      // Format the current time in "HH:mm:ss"
-      String formattedTime = "${now.hour.toString().padLeft(2, '0')}:"
+      String formattedDateTime =
+          "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-"
+          "${pickedDate.day.toString().padLeft(2, '0')} "
+          "${now.hour.toString().padLeft(2, '0')}:"
           "${now.minute.toString().padLeft(2, '0')}:"
           "${now.second.toString().padLeft(2, '0')}";
-
-      // Combine date and time into one DateTime
-      final DateTime fullDateTime = DateTime(
-        pickedDate.year,
-        pickedDate.month,
-        pickedDate.day,
-        now.hour,
-        now.minute,
-        now.second,
-      );
-
-      // Format full date and time in "yyyy-MM-dd HH:mm:ss"
-      String formattedDateTime =
-          "${fullDateTime.year}-${fullDateTime.month.toString().padLeft(2, '0')}-"
-          "${fullDateTime.day.toString().padLeft(2, '0')} "
-          "$formattedTime";
-
       completedDateController.text = formattedDateTime;
     }
   }
@@ -705,7 +716,12 @@ class UpdateTaskScreen extends StatelessWidget {
     String status = statusController.text;
     String completionNote = completionNoteController.text;
 
-    DateTime? completedDateTime;
+    if (completedDate.isEmpty || status.isEmpty || completionNote.isEmpty) {
+      CustomSnackbar.shows(context, message: "All fields are required.");
+      return;
+    }
+
+    DateTime completedDateTime;
     try {
       completedDateTime = DateTime.parse(completedDate);
     } catch (e) {
@@ -713,33 +729,20 @@ class UpdateTaskScreen extends StatelessWidget {
       return;
     }
 
-    if (completedDate.isEmpty) {
-      CustomSnackbar.shows(context, message: "Completed Date is empty");
-      return;
-    }
-
-    if (status.isEmpty) {
-      CustomSnackbar.shows(context, message: "Status is empty");
-      return;
-    }
-
-    if (completionNote.isEmpty) {
-      CustomSnackbar.shows(context, message: "Completion Note is empty");
-      return;
-    }
-
     final ServicesModel model = ServicesModel.create(
-        completedAt: completedDateTime,
-        status: status,
-        completionNotes: completionNote,
-        newPartsUsed: newpart);
+      completedAt: completedDateTime,
+      status: status,
+      completionNotes: completionNote,
+      newPartsUsed: newpart,
+      completionPhotoFile: selectedImage, // Add this to your model accordingly
+    );
 
-    context
-        .read<UpdateServiceReqBloc>()
-        .add(UpdateServiceReqEvent.updateService(
-          id: id,
-          model: model,
-        ));
+    context.read<UpdateServiceReqBloc>().add(
+          UpdateServiceReqEvent.updateService(
+            id: widget.id,
+            model: model,
+          ),
+        );
   }
 
   void onmanagerupdate(BuildContext context) {
@@ -749,18 +752,17 @@ class UpdateTaskScreen extends StatelessWidget {
       return;
     }
 
-    // Extract ID from the selected technician string
     final String idPart = technitianid.split(' ').first;
 
     final ServicesModel model = ServicesModel.create(
       assignedTechnician: int.parse(idPart),
     );
 
-    context
-        .read<UpdateServiceReqBloc>()
-        .add(UpdateServiceReqEvent.updateService(
-          id: id,
-          model: model,
-        ));
+    context.read<UpdateServiceReqBloc>().add(
+          UpdateServiceReqEvent.updateService(
+            id: widget.id,
+            model: model,
+          ),
+        );
   }
 }
