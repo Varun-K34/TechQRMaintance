@@ -20,6 +20,8 @@ DeviceModelSaas _$DeviceModelSaasFromJson(Map<String, dynamic> json) =>
       installationDate: json['installation_date'] as String?,
       warrantyPeriod: (json['warranty_period'] as num?)?.toInt(),
       freeMaintenance: (json['free_maintenance'] as num?)?.toInt(),
+      floor: (json['floor'] as num?)?.toInt(),
+      room: json['room'] as String?,
       locationDetails: json['location_details'] as String?,
       organization: json['organization'] == null
           ? null
@@ -54,6 +56,8 @@ Map<String, dynamic> _$DeviceModelSaasToJson(DeviceModelSaas instance) =>
       'installation_date': instance.installationDate,
       'warranty_period': instance.warrantyPeriod,
       'free_maintenance': instance.freeMaintenance,
+      'floor': instance.floor,
+      'room': instance.room,
       'location_details': instance.locationDetails,
       'organization': instance.organization,
       'customer': instance.customer,

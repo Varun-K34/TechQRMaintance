@@ -32,6 +32,8 @@ class DeviceRegFormScreen extends StatelessWidget {
   final TextEditingController regByController = TextEditingController();
   final TextEditingController locController = TextEditingController();
   final TextEditingController expiryController = TextEditingController();
+  final TextEditingController floorController = TextEditingController();
+  final TextEditingController roomController = TextEditingController();
   final TextEditingController installationController = TextEditingController();
   final TextEditingController freeMaintenanceController =
       TextEditingController();
@@ -270,6 +272,24 @@ class DeviceRegFormScreen extends StatelessWidget {
                     curve: 20,
                     valEdit: false,
                   ),
+                  HintAndTextFieldWidget(
+                    textController: floorController,
+                    hintText: "Enter Floor",
+                    labelText: "Floor",
+                    containerLen: 60,
+                    curve: 20,
+                    valEdit: false,
+                  ),
+
+                  HintAndTextFieldWidget(
+                    textController: roomController,
+                    hintText: "Enter Room",
+                    labelText: "Room",
+                    containerLen: 60,
+                    curve: 20,
+                    valEdit: false,
+                  ),
+
                   SizedBox(
                     height: 10,
                   ),
@@ -364,6 +384,7 @@ class DeviceRegFormScreen extends StatelessWidget {
     final String wExpiry = expiryController.text.trim();
     final String installationdate = installationController.text.trim();
     final String freemaintenance = freeMaintenanceController.text.trim();
+    final String floor = floorController.text.trim();
 
     if (brand.isEmpty) {
       CustomSnackbar.shows(
@@ -452,6 +473,21 @@ class DeviceRegFormScreen extends StatelessWidget {
       );
       return;
     }
+    if (floor.isEmpty) {
+      CustomSnackbar.shows(
+        buttoncontext,
+        message: "Please enter the floor.",
+      );
+      return;
+    }
+
+    if (roomController.text.isEmpty) {
+      CustomSnackbar.shows(
+        buttoncontext,
+        message: "Please enter the room.",
+      );
+      return;
+    }
 
     final DeviceModelSaas regModel = DeviceModelSaas.create(
       brand: brand,
@@ -462,6 +498,8 @@ class DeviceRegFormScreen extends StatelessWidget {
       installationDate: installationdate,
       warrantyPeriod: int.parse(wExpiry),
       freeMaintenance: int.parse(freemaintenance),
+      floor: int.parse(floor),
+      room: roomController.text,
       locationDetails: locController.text,
       categoryId: catagoryController.text,
       customerId: regBy,

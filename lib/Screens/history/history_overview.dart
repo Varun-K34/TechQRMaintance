@@ -67,6 +67,8 @@ class HistoryOverviewScreen extends StatelessWidget {
                       state.servicesModel.device?.warrantyPeriod.toString(),
                   freeMaintenance:
                       state.servicesModel.device?.freeMaintenance.toString(),
+                  floor: state.servicesModel.device?.floor,
+                  room: state.servicesModel.device?.room,
                   location: state.servicesModel.device?.locationDetails,
                 ),
                 const SizedBox(height: 16),

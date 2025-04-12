@@ -36,6 +36,10 @@ class DeviceModelSaas {
   int? warrantyPeriod;
   @JsonKey(name: 'free_maintenance')
   int? freeMaintenance;
+  @JsonKey(name: 'floor') 
+  int? floor;
+  @JsonKey(name: 'room') 
+  String? room;
   @JsonKey(name: 'location_details')
   String? locationDetails;
   @JsonKey(name: 'organization')
@@ -64,6 +68,8 @@ class DeviceModelSaas {
     this.installationDate,
     this.warrantyPeriod,
     this.freeMaintenance,
+    this.floor, 
+    this.room,  
     this.locationDetails,
     this.organization,
     this.customer,
@@ -85,6 +91,8 @@ class DeviceModelSaas {
     this.installationDate,
     this.warrantyPeriod,
     this.freeMaintenance,
+    this.floor, 
+    this.room,  
     this.locationDetails,
   });
 

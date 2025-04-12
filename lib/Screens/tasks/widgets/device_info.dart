@@ -10,6 +10,9 @@ class Deviceinfo extends StatelessWidget {
   final String? warranty;
   final String? freeMaintenance;
   final String? location;
+  final int? floor;
+  final String? room;
+
   const Deviceinfo({
     super.key,
     required this.catagory,
@@ -18,6 +21,8 @@ class Deviceinfo extends StatelessWidget {
     required this.warranty,
     required this.freeMaintenance,
     required this.location,
+    required this.floor,
+    required this.room,
   });
 
   @override
@@ -89,6 +94,18 @@ class Deviceinfo extends StatelessWidget {
                   label: 'Free Maintenance:',
                   value: freeMaintenance ?? "no free maintenance",
                   icon: Icons.build,
+                ),
+                Divider(),
+                InfoRowWidget(
+                  label: 'Floor:',
+                  value: floor?.toString() ?? "no floor",
+                  icon: Icons.layers,
+                ),
+                Divider(),
+                InfoRowWidget(
+                  label: 'Room:',
+                  value: room ?? "no room",
+                  icon: Icons.meeting_room,
                 ),
                 Divider(),
                 InfoRowWidget(

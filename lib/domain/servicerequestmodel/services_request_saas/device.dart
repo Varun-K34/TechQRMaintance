@@ -30,6 +30,10 @@ class Device {
   int? warrantyPeriod;
   @JsonKey(name: 'free_maintenance')
   int? freeMaintenance;
+  @JsonKey(name: 'floor')
+  int? floor;
+  @JsonKey(name: 'room')
+  String? room;
   @JsonKey(name: 'location_details')
   String? locationDetails;
   @JsonKey(name: 'category')
@@ -48,6 +52,8 @@ class Device {
     this.installationDate,
     this.warrantyPeriod,
     this.freeMaintenance,
+    this.floor,
+    this.room,
     this.locationDetails,
     this.category,
   });
