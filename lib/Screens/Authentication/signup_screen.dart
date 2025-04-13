@@ -59,7 +59,7 @@ class SignupScreen extends StatelessWidget {
             BlocBuilder<OranizationBloc, OranizationState>(
               builder: (context, state) {
                 // if (state.isFailure) {
-                //   CustomSnackbar.shows(context, message: "somting went wrong");
+                //   CustomSnackbar.shows(context, message: "somting went wrong.");
                 // }
 
                 return DropDownSearchWidget(
