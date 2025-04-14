@@ -334,6 +334,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
 
   final TextEditingController completedDateController = TextEditingController();
   final TextEditingController statusController = TextEditingController();
+  final TextEditingController StartedDateController = TextEditingController();
   final TextEditingController completionNoteController =
       TextEditingController();
   final TextEditingController techController = TextEditingController();
@@ -430,6 +431,23 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                             boolVal: true,
                             sufficChild: IconButton(
                               onPressed: () => onSelectDate(context),
+                              icon: Icon(Icons.calendar_today_outlined,
+                                  color: primaryBlueColor),
+                            ),
+                          ),
+                        ),
+                      const SizedBox(height: 16),
+                      if (spstate.user.role != "Area Manager")
+                        _buildInputField(
+                          icon: Icons.calendar_today_outlined,
+                          label: "Started Date",
+                          child: CustomTextField(
+                            controller: StartedDateController,
+                            hintText: "Select date",
+                            curveRadius: 10,
+                            boolVal: true,
+                            sufficChild: IconButton(
+                              onPressed: () => onStartSelectDate(context),
                               icon: Icon(Icons.calendar_today_outlined,
                                   color: primaryBlueColor),
                             ),
@@ -715,6 +733,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
     String completedDate = completedDateController.text;
     String status = statusController.text;
     String completionNote = completionNoteController.text;
+    final startDate = StartedDateController.text;
 
     if (completedDate.isEmpty || status.isEmpty || completionNote.isEmpty) {
       CustomSnackbar.shows(context, message: "All fields are required.");
@@ -728,6 +747,13 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
       CustomSnackbar.shows(context, message: "Invalid Completed Date format");
       return;
     }
+    DateTime startDateTime;
+    try {
+      startDateTime = DateTime.parse(startDate);
+    } catch (e) {
+      CustomSnackbar.shows(context, message: "Invalid Completed Date format");
+      return;
+    }
 
     final ServicesModel model = ServicesModel.create(
       completedAt: completedDateTime,
@@ -735,6 +761,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
       completionNotes: completionNote,
       newPartsUsed: newpart,
       completionPhotoFile: selectedImage, // Add this to your model accordingly
+      startedAt: startDateTime,
     );
 
     context.read<UpdateServiceReqBloc>().add(
@@ -764,5 +791,37 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
             model: model,
           ),
         );
+  }
+  
+  Future<void> onStartSelectDate(BuildContext context) async{
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime.now().subtract(const Duration(days: 30)),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: primaryBlueColor,
+              onPrimary: Colors.white,
+            ),
+            dialogBackgroundColor: Colors.white,
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (pickedDate != null) {
+      final DateTime now = DateTime.now();
+      String formattedDateTime =
+          "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-"
+          "${pickedDate.day.toString().padLeft(2, '0')} "
+          "${now.hour.toString().padLeft(2, '0')}:"
+          "${now.minute.toString().padLeft(2, '0')}:"
+          "${now.second.toString().padLeft(2, '0')}";
+      StartedDateController.text = formattedDateTime;
+    }
   }
 }
