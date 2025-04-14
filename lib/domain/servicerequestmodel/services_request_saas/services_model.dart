@@ -92,6 +92,7 @@ class ServicesModel {
     this.completedAt,
     this.assignedTechnician,
     this.newPartsUsed,
+    this.startedAt,
   });
 
   factory ServicesModel.fromJson(Map<String, dynamic> json) {
