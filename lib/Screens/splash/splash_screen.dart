@@ -85,9 +85,9 @@ class _SplashScreenState extends State<SplashScreen> {
                                 radius: 100,
                                 backgroundColor: primaryWhite,
                                 child: Image.asset(
-                                  "assets/images/settings.png",
-                                  height: 80,
-                                  width: 80,
+                                  "assets/images/logo-dark.png",
+                                  height: 90,
+                                  width: 90,
                                 ),
                               ),
                               SizedBox(

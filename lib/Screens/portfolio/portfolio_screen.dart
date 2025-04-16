@@ -201,6 +201,8 @@
 //   }
 // }
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -216,10 +218,12 @@ import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.da
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
+import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/tech_perfomence_user_model.dart';
 
 class PortfolioScreen extends StatefulWidget {
   final String id;
-  const PortfolioScreen({super.key, required this.id});
+  final List<String>? perfomencedetails;
+  const PortfolioScreen({super.key, required this.id, this.perfomencedetails});
 
   @override
   State<PortfolioScreen> createState() => _PortfolioScreenState();
@@ -376,89 +380,85 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
   Widget _buildPerformanceSection() {
     return BlocBuilder<SingleUserBloc, SingleUserState>(
       builder: (context, spstate) {
-        return BlocBuilder<TechPerfomenceBloc, TechPerfomenceState>(
-          builder: (context, state) {
-            if (state.isFailure) {
-              return _buildErrorContainer("Performance metrics not available");
-            }
+        if (spstate.isError) {
+          return _buildErrorContainer("Performance metrics not available");
+        }
 
-            if (state.isLoading) {
-              return _buildCard(
-                padding: const EdgeInsets.symmetric(vertical: 40),
-                child: Center(
-                  child: CircleSkeleton(size: 150),
+        if (spstate.isLoading) {
+          return _buildCard(
+            padding: const EdgeInsets.symmetric(vertical: 40),
+            child: Center(
+              child: CircleSkeleton(size: 150),
+            ),
+          );
+        }
+
+        final List<TechPerfomenceUserModel>? perfolist =
+            spstate.user.techperfomenceusermodel;
+        final noData = perfolist == null ||
+            perfolist.isEmpty ||
+            (perfolist[0].totalCompletedServices == 0 &&
+                perfolist[0].customerFeedbackRating == null &&
+                perfolist[0].averageCompletionTime == null);
+
+        if (noData) {
+          return _buildErrorContainer(
+              "Insufficient data to generate performance metrics");
+        }
+
+        return spstate.user.role == "Area Manager"
+            ? const SizedBox.shrink()
+            : _buildCard(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    _buildSectionHeader(
+                      icon: Icons.analytics_rounded,
+                      title: "Performance Metrics",
+                      centered: true,
+                    ),
+                    const SizedBox(height: 24),
+                    TechnicianPieChart(
+                      completedServices:
+                          perfolist[0].totalCompletedServices ?? 0,
+                      avgTime: double.parse(
+                          perfolist[0].averageCompletionTime ?? '0'),
+                      feedbackRating:
+                          perfolist[0].customerFeedbackRating != null
+                              ? double.parse(
+                                  perfolist[0].customerFeedbackRating ?? '0')
+                              : 0,
+                    ),
+                    const SizedBox(height: 24),
+                    _buildMetricsCard(
+                      icon: Icons.task_alt_rounded,
+                      title: "Completed Services",
+                      value: "${perfolist[0].totalCompletedServices ?? 0}",
+                      iconColor: const Color(0xFF4CAF50),
+                      bgColor: const Color(0xFFEAF7EC),
+                    ),
+                    const SizedBox(height: 14),
+                    _buildMetricsCard(
+                      icon: Icons.timer_outlined,
+                      title: "Average Completion Time",
+                      value:
+                          "${perfolist[0].averageCompletionTime ?? 'N/A'} hours",
+                      iconColor: const Color(0xFF2196F3),
+                      bgColor: const Color(0xFFE3F2FD),
+                    ),
+                    const SizedBox(height: 14),
+                    _buildMetricsCard(
+                      icon: Icons.star_rate_rounded,
+                      title: "Customer Feedback Rating",
+                      value: perfolist[0].customerFeedbackRating != null
+                          ? "${perfolist[0].customerFeedbackRating}/5"
+                          : "N/A",
+                      iconColor: const Color(0xFFF9A825),
+                      bgColor: const Color(0xFFFFF8E1),
+                    ),
+                  ],
                 ),
               );
-            }
-
-            final noData = state.techPerfimence.totalCompletedServices == 0 &&
-                state.techPerfimence.customerFeedbackRating == null &&
-                state.techPerfimence.averageCompletionTime == null;
-
-            if (noData) {
-              return _buildErrorContainer(
-                  "Insufficient data to generate performance metrics");
-            }
-
-            return spstate.user.role == "Area Manager"
-                ? const SizedBox.shrink()
-                : _buildCard(
-                    padding: const EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        _buildSectionHeader(
-                          icon: Icons.analytics_rounded,
-                          title: "Performance Metrics",
-                          centered: true,
-                        ),
-                        const SizedBox(height: 24),
-                        TechnicianPieChart(
-                          completedServices: 10,
-                          avgTime: double.parse(
-                              state.techPerfimence.averageCompletionTime ??
-                                  '5'),
-                          feedbackRating: state
-                                      .techPerfimence.customerFeedbackRating ==
-                                  null
-                              ? 12
-                              : double.parse(
-                                  state.techPerfimence.customerFeedbackRating ??
-                                      '12'),
-                        ),
-                        const SizedBox(height: 24),
-                        _buildMetricsCard(
-                          icon: Icons.task_alt_rounded,
-                          title: "Completed Services",
-                          value:
-                              "${state.techPerfimence.totalCompletedServices}",
-                          iconColor: const Color(0xFF4CAF50),
-                          bgColor: const Color(0xFFEAF7EC),
-                        ),
-                        const SizedBox(height: 14),
-                        _buildMetricsCard(
-                          icon: Icons.timer_outlined,
-                          title: "Average Completion Time",
-                          value:
-                              "${state.techPerfimence.averageCompletionTime ?? 'N/A'} hours",
-                          iconColor: const Color(0xFF2196F3),
-                          bgColor: const Color(0xFFE3F2FD),
-                        ),
-                        const SizedBox(height: 14),
-                        _buildMetricsCard(
-                          icon: Icons.star_rate_rounded,
-                          title: "Customer Feedback Rating",
-                          value: state.techPerfimence.customerFeedbackRating !=
-                                  null
-                              ? "${state.techPerfimence.customerFeedbackRating}/5"
-                              : "N/A",
-                          iconColor: const Color(0xFFF9A825),
-                          bgColor: const Color(0xFFFFF8E1),
-                        ),
-                      ],
-                    ),
-                  );
-          },
-        );
       },
     );
   }

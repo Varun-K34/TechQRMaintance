@@ -382,11 +382,11 @@ class _HomeState extends State<Home> {
                   titlePadding: EdgeInsets.only(left: 16, bottom: 16),
                   title: Row(
                     children: [
-                      BlocBuilder<SpblocBloc, SpblocState>(
+                      BlocBuilder<SingleUserBloc, SingleUserState>(
                         builder: (context, state) {
                           return GestureDetector(
                             onTap: () => onPressProfile(
-                                context, state.userData.toString()),
+                                context, state.user.id.toString(), state.user.techperfomenceusermodel!.expand((e) => [e.totalCompletedServices.toString(), e.averageCompletionTime?.toString() ?? '', e.customerFeedbackRating?.toString() ?? '']).toList()),
                             child: Container(
                               padding: EdgeInsets.all(12),
                               decoration: BoxDecoration(
@@ -777,8 +777,8 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void onPressProfile(BuildContext context, String id) {
-    Navigator.of(context).push(createRoute(PortfolioScreen(id: id)));
+  void onPressProfile(BuildContext context, String id,List<String> performanceList) {
+    Navigator.of(context).push(createRoute(PortfolioScreen(id: id, perfomencedetails: performanceList,)));
   }
 
   Future<void> onRefresh() async {

@@ -300,6 +300,7 @@
 //         ));
 //   }
 // }
+import 'dart:developer';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -462,7 +463,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                             builder: (context, state) {
                               final List<String> technamelist = state.techlist
                                   .where((onlytech) =>
-                                      onlytech.role == "Technician")
+                                      onlytech.role == "Technician"&& spstate.user.orgId == onlytech.orgId)
                                   .map((tech) => "${tech.id} ${tech.fullName}")
                                   .toList();
 
@@ -763,6 +764,15 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
       completionPhotoFile: selectedImage, // Add this to your model accordingly
       startedAt: startDateTime,
     );
+
+    // log('Model Details: Completed At: ${model.completedAt}, '
+    //   'Status: ${model.status}, '
+    //   'Completion Notes: ${model.completionNotes}, '
+    //   'New Parts Used: ${model.newPartsUsed}, '
+    //   'Completion Photo File: ${model.completionPhotoFile?.path}, '
+    //   'Started At: ${model.startedAt}');
+
+      
 
     context.read<UpdateServiceReqBloc>().add(
           UpdateServiceReqEvent.updateService(
