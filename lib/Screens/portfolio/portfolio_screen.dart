@@ -419,13 +419,15 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
                     ),
                     const SizedBox(height: 24),
                     TechnicianPieChart(
-                      completedServices: perfolist[0].totalCompletedServices ?? 0,
+                      completedServices:
+                          perfolist[0].totalCompletedServices ?? 0,
                       avgTime: double.parse(
                           perfolist[0].averageCompletionTime ?? '0'),
-                      feedbackRating: perfolist[0].customerFeedbackRating != null
-                          ? double.parse(
-                              perfolist[0].customerFeedbackRating ?? '0')
-                          : 0,
+                      feedbackRating:
+                          perfolist[0].customerFeedbackRating != null
+                              ? double.parse(
+                                  perfolist[0].customerFeedbackRating ?? '0')
+                              : 0,
                     ),
                     const SizedBox(height: 24),
                     _buildMetricsCard(

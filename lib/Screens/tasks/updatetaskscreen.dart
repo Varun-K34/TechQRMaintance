@@ -462,7 +462,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
                             builder: (context, state) {
                               final List<String> technamelist = state.techlist
                                   .where((onlytech) =>
-                                      onlytech.role == "Technician")
+                                      onlytech.role == "Technician"&& spstate.user.orgId == onlytech.orgId)
                                   .map((tech) => "${tech.id} ${tech.fullName}")
                                   .toList();
 
