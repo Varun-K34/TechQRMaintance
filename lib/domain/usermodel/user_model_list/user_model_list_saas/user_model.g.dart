@@ -21,7 +21,11 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       area: json['area'] == null
           ? null
           : AreaModel.fromJson(json['area'] as Map<String, dynamic>),
-    );
+    )..techperfomenceusermodel = (json['technician_performance']
+            as List<dynamic>?)
+        ?.map(
+            (e) => TechPerfomenceUserModel.fromJson(e as Map<String, dynamic>))
+        .toList();
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'id': instance.id,
@@ -34,4 +38,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'avatar': instance.avatar,
       'organization': instance.organization,
       'area': instance.area,
+      'technician_performance': instance.techperfomenceusermodel,
     };

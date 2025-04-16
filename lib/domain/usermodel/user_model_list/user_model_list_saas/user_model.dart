@@ -3,6 +3,7 @@ import 'package:techqrmaintance/domain/organizationmodel/organization_model/orga
 import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_model.dart';
 import 'package:techqrmaintance/domain/servicerequestmodel/services_request_saas/services_request_saas.dart';
 import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/area_model.dart';
+import 'package:techqrmaintance/domain/usermodel/user_model_list/user_model_list_saas/tech_perfomence_user_model.dart';
 
 part 'user_model.g.dart';
 
@@ -28,6 +29,8 @@ class UserModel {
   Organization? organization;
   @JsonKey(name: 'area')
   AreaModel? area;
+  @JsonKey(name: 'technician_performance')
+  List<TechPerfomenceUserModel>? techperfomenceusermodel;
 
   UserModel({
     this.id,
