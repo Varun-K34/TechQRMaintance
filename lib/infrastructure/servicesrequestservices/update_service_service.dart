@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -24,6 +23,8 @@ class UpdateServiceService implements ServiceUpdateRepo {
       Map<String, dynamic> updateserviceJson = servicesModel.toJson();
       updateserviceJson.removeWhere((key, value) => value == null);
 
+      log(updateserviceJson.toString());
+
       FormData formData;
 
       if (servicesModel.completionPhotoFile != null) {
@@ -32,16 +33,38 @@ class UpdateServiceService implements ServiceUpdateRepo {
           filename: servicesModel.completionPhotoFile!.path.split('/').last,
         );
 
-        formData = FormData.fromMap({
-          ...updateserviceJson,
-          "completion_photo_url": imageFile,
+        // Handle lists for FormData (fix for new_parts_used type fields)
+        final Map<String, dynamic> processedMap = {};
+        updateserviceJson.forEach((key, value) {
+          if (value is List) {
+            for (var i = 0; i < value.length; i++) {
+              processedMap['$key[$i]'] = value[i];
+            }
+          } else {
+            processedMap[key] = value;
+          }
         });
+
+        processedMap["completion_photo_url"] = imageFile;
+        formData = FormData.fromMap(processedMap);
       } else {
-        formData = FormData.fromMap(updateserviceJson);
+        // Handle lists for FormData (fix for new_parts_used type fields)
+        final Map<String, dynamic> processedMap = {};
+        updateserviceJson.forEach((key, value) {
+          if (value is List) {
+            for (var i = 0; i < value.length; i++) {
+              processedMap['$key[$i]'] = value[i];
+            }
+          } else {
+            processedMap[key] = value;
+          }
+        });
+
+        formData = FormData.fromMap(processedMap);
       }
 
       final Response response = await updatapi.dio.post(
-        '$kBaseURL$kServices$id?_method=PUT', // In case backend uses POST with method override
+        '$kBaseURL$kServices$id?_method=PUT', // Using method override for PUT
         data: formData,
         onSendProgress: onProgress,
         options: Options(
