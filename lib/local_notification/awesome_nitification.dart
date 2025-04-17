@@ -20,6 +20,7 @@ class NotificationController {
                 channelName: 'Alerts',
                 channelDescription: 'Notification tests as alerts',
                 playSound: true,
+                soundSource: 'resource://raw/callmeoriginalringtone',
                 onlyAlertOnce: true,
                 groupAlertBehavior: GroupAlertBehavior.Children,
                 importance: NotificationImportance.High,
@@ -53,7 +54,7 @@ class NotificationController {
       required int interval}) async {
     await AwesomeNotifications().createNotification(
       schedule: NotificationInterval(
-        interval: Duration(minutes: interval),
+        interval: Duration(minutes: 1),
         timeZone: await AwesomeNotifications().getLocalTimeZoneIdentifier(),
         repeats: true,
       ),
