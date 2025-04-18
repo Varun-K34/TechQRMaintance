@@ -32,7 +32,7 @@ class BuildTimelineMain extends StatelessWidget {
         ? '${dateFormat.format(completed!)} at ${timeFormat.format(completed!)}'
         : 'N/A';
     final preferredDate =
-        preferred != null ? '$preferred at $preferred' : 'N/A';
+        preferred != null ? '$preferred at $perferstarttime' : 'N/A';
     return Card(
       elevation: 2,
       margin: const EdgeInsets.all(12),

@@ -17,3 +17,4 @@ const kDoc = 'api/documents';
 const kinventry = "api/inventories";
 const kSettingNotify = "api/settings";
 const karea = "api/areas";
+const kAttentance = "api/attendance/mark";

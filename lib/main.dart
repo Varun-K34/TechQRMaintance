@@ -13,6 +13,7 @@ import 'package:techqrmaintance/application/docuploadbloc/doc_upload_bloc.dart';
 import 'package:techqrmaintance/application/getidregbloc/getidregbloc_bloc.dart';
 import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
+import 'package:techqrmaintance/application/mark_attentance_user_bloc/mark_attentance_user_bloc.dart';
 import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart';
 import 'package:techqrmaintance/application/notify_setting_bloc/notify_setting_bloc.dart';
 import 'package:techqrmaintance/application/orgganizationbloc/oranization_bloc.dart';
@@ -127,6 +128,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => getit<AreaBloc>(),
+        ),
+         BlocProvider(
+          create: (context) => getit<MarkAttentanceUserBloc>(),
         ),
       ],
       child: MaterialApp(

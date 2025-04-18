@@ -275,6 +275,7 @@ import 'package:techqrmaintance/Screens/home/widgets/grid_button.dart';
 import 'package:techqrmaintance/Screens/home/widgets/skelton_home.dart';
 import 'package:techqrmaintance/Screens/home/widgets/task_summary.dart';
 import 'package:techqrmaintance/Screens/portfolio/portfolio_screen.dart';
+import 'package:techqrmaintance/application/mark_attentance_user_bloc/mark_attentance_user_bloc.dart';
 import 'package:techqrmaintance/application/notify_setting_bloc/notify_setting_bloc.dart';
 import 'package:techqrmaintance/application/servicesrequest/service_request_bloc.dart';
 import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
@@ -386,7 +387,7 @@ class _HomeState extends State<Home> {
                         builder: (context, state) {
                           return GestureDetector(
                             onTap: () => onPressProfile(
-                                context, state.user.id.toString(), state.user.techperfomenceusermodel!.expand((e) => [e.totalCompletedServices.toString(), e.averageCompletionTime?.toString() ?? '', e.customerFeedbackRating?.toString() ?? '']).toList()),
+                                context, state.user.id.toString(),),
                             child: Container(
                               padding: EdgeInsets.all(12),
                               decoration: BoxDecoration(
@@ -777,8 +778,9 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void onPressProfile(BuildContext context, String id,List<String> performanceList) {
-    Navigator.of(context).push(createRoute(PortfolioScreen(id: id, perfomencedetails: performanceList,)));
+  void onPressProfile(BuildContext context, String id,) {
+    //context.read<MarkAttentanceUserBloc>().add(MarkAttentanceUserEvent.markattentance(presentOrNot: "login"));
+    Navigator.of(context).push(createRoute(PortfolioScreen(id: id, )));
   }
 
   Future<void> onRefresh() async {

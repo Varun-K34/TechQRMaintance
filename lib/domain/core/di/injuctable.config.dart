@@ -35,6 +35,8 @@ import 'package:techqrmaintance/application/GetLocation/get_location_bloc.dart'
 import 'package:techqrmaintance/application/inventry_bloc/inventry_bloc.dart'
     as _i585;
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart' as _i651;
+import 'package:techqrmaintance/application/mark_attentance_user_bloc/mark_attentance_user_bloc.dart'
+    as _i879;
 import 'package:techqrmaintance/application/modelandbrand/model_and_brand_bloc.dart'
     as _i561;
 import 'package:techqrmaintance/application/notify_setting_bloc/notify_setting_bloc.dart'
@@ -72,6 +74,8 @@ import 'package:techqrmaintance/domain/core/getidfordevicereg/get_id_for_device_
     as _i1051;
 import 'package:techqrmaintance/domain/core/getlocation/get_loc_repo.dart'
     as _i399;
+import 'package:techqrmaintance/domain/core/mark_attentence/mark_attentance_repo.dart'
+    as _i805;
 import 'package:techqrmaintance/domain/core/requestqrrepo/req_scan_qr_repo.dart'
     as _i279;
 import 'package:techqrmaintance/domain/core/splashcheck/splash_check.dart'
@@ -113,6 +117,8 @@ import 'package:techqrmaintance/infrastructure/afterserviceacceptandrejectservic
     as _i388;
 import 'package:techqrmaintance/infrastructure/areaservices/area_services.dart'
     as _i154;
+import 'package:techqrmaintance/infrastructure/attantance_services/attentance_services.dart'
+    as _i739;
 import 'package:techqrmaintance/infrastructure/authservices/auth_services.dart'
     as _i447;
 import 'package:techqrmaintance/infrastructure/brandandmodelservices/brand_services.dart'
@@ -195,6 +201,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i600.ServiceRequestBloc(gh<_i1064.ServicesRequestRepo>()));
     gh.lazySingleton<_i5.TechPerfomenceRepo>(
         () => _i986.TechPerfomenceServices());
+    gh.lazySingleton<_i805.MarkAttentanceRepo>(
+        () => _i739.AttentanceServices());
     gh.lazySingleton<_i87.UpdateUserRepo>(() => _i511.UserUpdateServices());
     gh.lazySingleton<_i740.TechnitianListRepo>(
         () => _i775.Tecnitiandropdownservices());
@@ -226,6 +234,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i306.GetLocationBloc(gh<_i399.GetLocationRepo>()));
     gh.factory<_i651.LogblocBloc>(
         () => _i651.LogblocBloc(gh<_i765.UserLogRepo>()));
+    gh.factory<_i879.MarkAttentanceUserBloc>(
+        () => _i879.MarkAttentanceUserBloc(gh<_i805.MarkAttentanceRepo>()));
     gh.factory<_i437.PdfUploadBloc>(
         () => _i437.PdfUploadBloc(gh<_i641.UploadPdfRepo>()));
     gh.factory<_i585.InventryBloc>(
