@@ -20,6 +20,7 @@ class NotificationController {
                 channelName: 'Alerts',
                 channelDescription: 'Notification tests as alerts',
                 playSound: true,
+                soundSource: 'resource://raw/callmeoriginalringtone',
                 onlyAlertOnce: true,
                 groupAlertBehavior: GroupAlertBehavior.Children,
                 importance: NotificationImportance.High,

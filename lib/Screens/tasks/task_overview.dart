@@ -131,6 +131,7 @@ class TaskOverviewScreen extends StatelessWidget {
                   started: state.servicesModel.startedAt,
                   completed: state.servicesModel.completedAt,
                   preferred: state.servicesModel.preferredTimeslot,
+                  perferstarttime: state.servicesModel.preferedstarttime,
                 ),
                 const SizedBox(height: 16),
                 Deviceinfo(
