@@ -54,7 +54,7 @@ class NotificationController {
       required int interval}) async {
     await AwesomeNotifications().createNotification(
       schedule: NotificationInterval(
-        interval: Duration(minutes: 1),
+        interval: Duration(minutes: interval),
         timeZone: await AwesomeNotifications().getLocalTimeZoneIdentifier(),
         repeats: true,
       ),

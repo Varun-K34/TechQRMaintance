@@ -8,12 +8,14 @@ class BuildTimelineMain extends StatelessWidget {
   final DateTime? started;
   final DateTime? completed;
   final String? preferred;
+  final String? perferstarttime;
   const BuildTimelineMain({
     super.key,
     required this.created,
     required this.started,
     this.completed,
     required this.preferred,
+    this.perferstarttime,
   });
 
   @override
@@ -29,9 +31,8 @@ class BuildTimelineMain extends StatelessWidget {
     final completedDate = completed != null
         ? '${dateFormat.format(completed!)} at ${timeFormat.format(completed!)}'
         : 'N/A';
-    // final preferredDate = preferred != null
-    //     ? '${dateFormat.format(preferred!)} at ${timeFormat.format(preferred!)}'
-    //     : 'N/A';
+    final preferredDate =
+        preferred != null ? '$preferred at $preferred' : 'N/A';
     return Card(
       elevation: 2,
       margin: const EdgeInsets.all(12),
@@ -95,7 +96,7 @@ class BuildTimelineMain extends StatelessWidget {
                 const SizedBox(height: 4),
                 Timelineinfo(
                   label: 'Preferred:',
-                  value: preferred ?? " No date",
+                  value: preferredDate == 'N/A' ? "No Data" : preferredDate,
                   icon: Icons.access_time,
                 ),
               ],
