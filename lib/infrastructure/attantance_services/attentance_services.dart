@@ -26,6 +26,7 @@ class AttentanceServices implements MarkAttentanceRepo {
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
         final extension = pickedFile.path.split('.').last.toLowerCase();
+        log(extension);
         final mimeType = extension == 'png' ? 'image/png' : 'image/jpeg';
          base64String = "data:$mimeType;base64,${base64Encode(bytes)}";
       }
