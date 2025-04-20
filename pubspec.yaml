@@ -55,6 +55,7 @@ dependencies:
   awesome_notifications_core: ^0.10.1
   awesome_notifications: ^0.10.1
   url_launcher: ^6.3.1
+  image: ^4.5.4
   
   
 

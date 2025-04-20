@@ -7,7 +7,7 @@ import 'package:techqrmaintance/core/strings.dart';
 
 class CompletionDetailes extends StatelessWidget {
   final String? notes;
-  final List<int>? partsUsed;
+  final List<String>? partsUsed;
   final String? completionPhotoUrl;
   const CompletionDetailes({
     super.key,

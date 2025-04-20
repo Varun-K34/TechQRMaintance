@@ -181,6 +181,7 @@ import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/area_manager/manager_home/manager_home_screen.dart';
 import 'package:techqrmaintance/Screens/home/home.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
+import 'package:techqrmaintance/application/mark_attentance_user_bloc/mark_attentance_user_bloc.dart';
 import 'package:techqrmaintance/core/colors.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -338,62 +339,64 @@ class LoginScreen extends StatelessWidget {
 
   // Login button with BLoC integration
   Widget _buildLoginButton(BuildContext context) {
-    return BlocListener<LogblocBloc, LogblocState>(
-      listener: (context, state) {
-        if (state.isFailure) {
-          CustomSnackbar.shows(
-            context,
-            message: "Oops! Something went wrong. Please try again.",
-          );
-        } else if (state.isSuccess) {
-          // Navigate to the appropriate home screen based on user role
-          if (state.userModelLists.role == "Technician") {
-            Navigator.of(context).pushAndRemoveUntil(
-              createRoute(Home()),
-              (route) => false,
-            );
-          } else if (state.userModelLists.role == "Area Manager") {
-            Navigator.of(context).pushAndRemoveUntil(
-              createRoute(ManagerHomeScreen()),
-              (route) => false,
-            );
-          }
-        }
-      },
-      child: BlocBuilder<LogblocBloc, LogblocState>(
-        builder: (context, state) {
-          return state.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : SizedBox(
-                  width: double.infinity,
-                  height: 55,
-                  child: ElevatedButton(
-                    key: const Key('loginButton'),
-                    onPressed: () => _handleLogin(context),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryBlue,
-                      foregroundColor: Colors.white,
-                      elevation: 5,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      shadowColor: primaryBlue.withOpacity(0.5),
-                    ),
-                    child: const Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1.5,
-                      ),
-                    ),
-                  ),
+    return 
+        
+         BlocListener<LogblocBloc, LogblocState>(
+          listener: (context, state) {
+            if (state.isFailure) {
+              CustomSnackbar.shows(
+                context,
+                message: "Oops! Something went wrong. Please try again.",
+              );
+            } else if (state.isSuccess) {
+              // Navigate to the appropriate home screen based on user role
+              if (state.userModelLists.role == "Technician") {
+                Navigator.of(context).pushAndRemoveUntil(
+                  createRoute(Home()),
+                  (route) => false,
                 );
-        },
-      ),
-    );
+              } else if (state.userModelLists.role == "Area Manager") {
+                Navigator.of(context).pushAndRemoveUntil(
+                  createRoute(ManagerHomeScreen()),
+                  (route) => false,
+                );
+              }
+            }
+          },
+          child: BlocBuilder<LogblocBloc, LogblocState>(
+            builder: (context, state) {
+              return state.isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : SizedBox(
+                      width: double.infinity,
+                      height: 55,
+                      child: ElevatedButton(
+                        key: const Key('loginButton'),
+                        onPressed: () => _handleLogin(context),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryBlue,
+                          foregroundColor: Colors.white,
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          shadowColor: primaryBlue.withOpacity(0.5),
+                        ),
+                        child: const Text(
+                          'LOGIN',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.5,
+                          ),
+                        ),
+                      ));
+            },
+          ),
+        );
+      
   }
 
   // Sign up option row
@@ -422,7 +425,7 @@ class LoginScreen extends StatelessWidget {
   }
 
   // Handle login logic
-  void _handleLogin(BuildContext context) {
+  void _handleLogin(BuildContext context) async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
@@ -449,13 +452,17 @@ class LoginScreen extends StatelessWidget {
 
     // Store credentials in shared preferences
     if (password.isNotEmpty && email.isNotEmpty) {
-      _storeCredentials(email, password);
+      await _storeCredentials(email, password);
     }
 
+    
+
     // Trigger login event in bloc
-    context.read<LogblocBloc>().add(
-          LogblocEvent.login(email: email),
-        );
+    if (context.mounted) {
+      context.read<LogblocBloc>().add(
+            LogblocEvent.login(email: email),
+          );
+    }
   }
 
   // Store user credentials
@@ -465,4 +472,6 @@ class LoginScreen extends StatelessWidget {
     await prefs.setString('password', password);
     log("saving completed successfully");
   }
+ 
+  
 }

@@ -16,44 +16,43 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$MarkAttentanceUserEvent {
-  String get presentOrNot => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String presentOrNot) markattentance,
+    required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String presentOrNot)? markattentance,
+    TResult? Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String presentOrNot)? markattentance,
+    TResult Function()? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MarkAttentance value) markattentance,
+    required TResult Function(Reset value) reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MarkAttentance value)? markattentance,
+    TResult? Function(Reset value)? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MarkAttentance value)? markattentance,
+    TResult Function(Reset value)? reset,
     required TResult orElse(),
   }) =>
-      throw _privateConstructorUsedError;
-
-  /// Create a copy of MarkAttentanceUserEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  $MarkAttentanceUserEventCopyWith<MarkAttentanceUserEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -62,8 +61,6 @@ abstract class $MarkAttentanceUserEventCopyWith<$Res> {
   factory $MarkAttentanceUserEventCopyWith(MarkAttentanceUserEvent value,
           $Res Function(MarkAttentanceUserEvent) then) =
       _$MarkAttentanceUserEventCopyWithImpl<$Res, MarkAttentanceUserEvent>;
-  @useResult
-  $Res call({String presentOrNot});
 }
 
 /// @nodoc
@@ -79,27 +76,13 @@ class _$MarkAttentanceUserEventCopyWithImpl<$Res,
 
   /// Create a copy of MarkAttentanceUserEvent
   /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? presentOrNot = null,
-  }) {
-    return _then(_value.copyWith(
-      presentOrNot: null == presentOrNot
-          ? _value.presentOrNot
-          : presentOrNot // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
-  }
 }
 
 /// @nodoc
-abstract class _$$MarkAttentanceImplCopyWith<$Res>
-    implements $MarkAttentanceUserEventCopyWith<$Res> {
+abstract class _$$MarkAttentanceImplCopyWith<$Res> {
   factory _$$MarkAttentanceImplCopyWith(_$MarkAttentanceImpl value,
           $Res Function(_$MarkAttentanceImpl) then) =
       __$$MarkAttentanceImplCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({String presentOrNot});
 }
@@ -166,6 +149,7 @@ class _$MarkAttentanceImpl implements MarkAttentance {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String presentOrNot) markattentance,
+    required TResult Function() reset,
   }) {
     return markattentance(presentOrNot);
   }
@@ -174,6 +158,7 @@ class _$MarkAttentanceImpl implements MarkAttentance {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String presentOrNot)? markattentance,
+    TResult? Function()? reset,
   }) {
     return markattentance?.call(presentOrNot);
   }
@@ -182,6 +167,7 @@ class _$MarkAttentanceImpl implements MarkAttentance {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String presentOrNot)? markattentance,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (markattentance != null) {
@@ -194,6 +180,7 @@ class _$MarkAttentanceImpl implements MarkAttentance {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(MarkAttentance value) markattentance,
+    required TResult Function(Reset value) reset,
   }) {
     return markattentance(this);
   }
@@ -202,6 +189,7 @@ class _$MarkAttentanceImpl implements MarkAttentance {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(MarkAttentance value)? markattentance,
+    TResult? Function(Reset value)? reset,
   }) {
     return markattentance?.call(this);
   }
@@ -210,6 +198,7 @@ class _$MarkAttentanceImpl implements MarkAttentance {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(MarkAttentance value)? markattentance,
+    TResult Function(Reset value)? reset,
     required TResult orElse(),
   }) {
     if (markattentance != null) {
@@ -223,15 +212,118 @@ abstract class MarkAttentance implements MarkAttentanceUserEvent {
   const factory MarkAttentance({required final String presentOrNot}) =
       _$MarkAttentanceImpl;
 
-  @override
   String get presentOrNot;
 
   /// Create a copy of MarkAttentanceUserEvent
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MarkAttentanceImplCopyWith<_$MarkAttentanceImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ResetImplCopyWith<$Res> {
+  factory _$$ResetImplCopyWith(
+          _$ResetImpl value, $Res Function(_$ResetImpl) then) =
+      __$$ResetImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ResetImplCopyWithImpl<$Res>
+    extends _$MarkAttentanceUserEventCopyWithImpl<$Res, _$ResetImpl>
+    implements _$$ResetImplCopyWith<$Res> {
+  __$$ResetImplCopyWithImpl(
+      _$ResetImpl _value, $Res Function(_$ResetImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of MarkAttentanceUserEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$ResetImpl implements Reset {
+  const _$ResetImpl();
+
+  @override
+  String toString() {
+    return 'MarkAttentanceUserEvent.reset()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ResetImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String presentOrNot) markattentance,
+    required TResult Function() reset,
+  }) {
+    return reset();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String presentOrNot)? markattentance,
+    TResult? Function()? reset,
+  }) {
+    return reset?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String presentOrNot)? markattentance,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(MarkAttentance value) markattentance,
+    required TResult Function(Reset value) reset,
+  }) {
+    return reset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(MarkAttentance value)? markattentance,
+    TResult? Function(Reset value)? reset,
+  }) {
+    return reset?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(MarkAttentance value)? markattentance,
+    TResult Function(Reset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Reset implements MarkAttentanceUserEvent {
+  const factory Reset() = _$ResetImpl;
 }
 
 /// @nodoc

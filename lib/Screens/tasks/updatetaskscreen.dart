@@ -346,7 +346,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
   final Color midGreyColor = const Color(0xFF6B7280);
   final Color darkGreyColor = const Color(0xFF4B5563);
 
-  List<int>? newpart;
+  List<String>? newpart;
 
   @override
   void initState() {
@@ -730,7 +730,7 @@ class _UpdateTaskScreenState extends State<UpdateTaskScreen> {
     }
   }
 
-  void onUpdate(BuildContext context, List<int> newpart) {
+  void onUpdate(BuildContext context, List<String> newpart) {
     String completedDate = completedDateController.text;
     String status = statusController.text;
     String completionNote = completionNoteController.text;

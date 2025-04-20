@@ -210,10 +210,12 @@ import 'package:techqrmaintance/Screens/Authentication/login_screen.dart';
 import 'package:techqrmaintance/Screens/Widgets/custom_button.dart';
 import 'package:techqrmaintance/Screens/Widgets/page_route_animation.dart';
 import 'package:techqrmaintance/Screens/Widgets/skelton.dart';
+import 'package:techqrmaintance/Screens/Widgets/snakbar_widget.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/middle_widget.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/pichart.dart';
 import 'package:techqrmaintance/Screens/portfolio/widgets/top_widget.dart';
 import 'package:techqrmaintance/application/logbloc/logbloc_bloc.dart';
+import 'package:techqrmaintance/application/mark_attentance_user_bloc/mark_attentance_user_bloc.dart';
 import 'package:techqrmaintance/application/single_user_bloc/single_user_bloc.dart';
 import 'package:techqrmaintance/application/spbloc/spbloc_bloc.dart';
 import 'package:techqrmaintance/application/techperfomancebloc/tech_perfomence_bloc.dart';
@@ -274,6 +276,8 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  _markattentance(),
+                  const SizedBox(height: 20),
                   _buildProfileSection(),
                   const SizedBox(height: 20),
                   _buildDetailsSection(),
@@ -583,8 +587,7 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
             createRoute(LoginScreen()),
             (route) => false,
           );
-          final clearsp = await SharedPreferences.getInstance();
-          await clearsp.clear();
+          _clearSharedPreferences();
         },
       ),
     );
@@ -732,5 +735,109 @@ class _PortfolioScreenState extends State<PortfolioScreen> {
         ],
       ),
     );
+  }
+
+  _clearSharedPreferences() async {
+    final clearsp = await SharedPreferences.getInstance();
+    await clearsp.clear();
+  }
+
+  Widget _markattentance() {
+    return _buildCard(
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        BlocBuilder<MarkAttentanceUserBloc, MarkAttentanceUserState>(
+          builder: (context, state) {
+            if (state.success.isNotEmpty) {
+              WidgetsBinding.instance.addPostFrameCallback(
+                (_) {
+                  CustomSnackbar.shows(context, message: state.success);
+                  context
+                      .read<MarkAttentanceUserBloc>()
+                      .add(MarkAttentanceUserEvent.reset());
+                },
+              );
+            } else if (state.isFailure) {
+              WidgetsBinding.instance.addPostFrameCallback(
+                (_) {
+                  CustomSnackbar.shows(context,
+                      message: "attantance mark fail");
+                  context
+                      .read<MarkAttentanceUserBloc>()
+                      .add(MarkAttentanceUserEvent.reset());
+                },
+              );
+            }
+            return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green, // Button background color
+                minimumSize: Size(150, 40), // Increased width and height
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12), // Rounded edges
+                ),
+              ),
+              onPressed: () {
+                context.read<MarkAttentanceUserBloc>().add(
+                    MarkAttentanceUserEvent.markattentance(
+                        presentOrNot: "login"));
+              },
+              child: Text(
+                "Start",
+                style: TextStyle(
+                  color: primaryWhite,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          },
+        ),
+        BlocBuilder<MarkAttentanceUserBloc, MarkAttentanceUserState>(
+          builder: (context, state) {
+            if (state.success.isNotEmpty) {
+              WidgetsBinding.instance.addPostFrameCallback(
+                (_) {
+                  CustomSnackbar.shows(context, message: state.success);
+                  context
+                      .read<MarkAttentanceUserBloc>()
+                      .add(MarkAttentanceUserEvent.reset());
+                },
+              );
+            } else if (state.isFailure) {
+              WidgetsBinding.instance.addPostFrameCallback(
+                (_) {
+                  CustomSnackbar.shows(context,
+                      message: "attantance mark fail");
+                  context
+                      .read<MarkAttentanceUserBloc>()
+                      .add(MarkAttentanceUserEvent.reset());
+                },
+              );
+            }
+            return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red, // Button background color
+                minimumSize: Size(150, 40), // Increased width and height
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12), // Rounded edges
+                ),
+              ),
+              onPressed: () {
+                context.read<MarkAttentanceUserBloc>().add(
+                    MarkAttentanceUserEvent.markattentance(
+                        presentOrNot: "logout"));
+              },
+              child: Text(
+                "Finish",
+                style: TextStyle(
+                  color: primaryWhite,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            );
+          },
+        ),
+      ],
+    ));
   }
 }

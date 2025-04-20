@@ -22,7 +22,7 @@ ServicesModel _$ServicesModelFromJson(Map<String, dynamic> json) =>
       completionNotes: json['completion_notes'],
       completionPhotoUrl: json['completion_photo_url'] as String?,
       newPartsUsed: (json['new_parts_used'] as List<dynamic>?)
-          ?.map((e) => (e as num).toInt())
+          ?.map((e) => e as String)
           .toList(),
       jobType: json['job_type'] as String?,
       emergency: (json['emergency'] as num?)?.toInt(),
