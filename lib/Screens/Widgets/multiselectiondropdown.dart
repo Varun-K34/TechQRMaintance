@@ -201,7 +201,7 @@ class MultiSelectDropdown<T> extends StatelessWidget {
   final List<T> items;
   final String label;
   final List<T> selectedItems;
-  final Function(List<int>) onSelectionChanged;
+  final Function(List<String>) onSelectionChanged;
 
   // Constructor
   const MultiSelectDropdown({
@@ -416,7 +416,7 @@ class MultiSelectDropdown<T> extends StatelessWidget {
   }
 
   void onChanged(List<T> value) {
-    List<int> selectedNumbers = [];
+    List<String> selectedNumbers = [];
 
     for (var element in value) {
       String itemString = element.toString();
@@ -427,7 +427,7 @@ class MultiSelectDropdown<T> extends StatelessWidget {
 
       if (match != null) {
         int number = int.parse(match.group(0)!);
-        selectedNumbers.add(number);
+        selectedNumbers.add(number.toString());
       }
     }
 

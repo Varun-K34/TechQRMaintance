@@ -39,5 +39,11 @@ class MarkAttentanceUserBloc
             ),
           );
     });
+
+    on<Reset>(
+      (event, emit) {
+        emit(MarkAttentanceUserState.initial());
+      },
+    );
   }
 }

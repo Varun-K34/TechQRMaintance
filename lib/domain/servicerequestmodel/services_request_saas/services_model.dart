@@ -38,7 +38,7 @@ class ServicesModel {
   @JsonKey(name: 'completion_photo_url')
   String? completionPhotoUrl;
   @JsonKey(name: 'new_parts_used')
-  List<int>? newPartsUsed;
+  List<String>? newPartsUsed;
   @JsonKey(name: 'job_type')
   String? jobType;
   @JsonKey(name: 'emergency')
