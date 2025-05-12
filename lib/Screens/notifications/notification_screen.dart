@@ -712,7 +712,7 @@ class NotificationScreen extends StatelessWidget {
                                           const SizedBox(width: 4),
                                           Expanded(
                                             child: Text(
-                                              " ${notification.selectedIssue}",
+                                              " ${notification.selectedIssue?.join(', ') ?? ''}",
                                               style: const TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w600,

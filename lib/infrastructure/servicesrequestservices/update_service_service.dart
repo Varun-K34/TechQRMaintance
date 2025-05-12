@@ -45,7 +45,7 @@ class UpdateServiceService implements ServiceUpdateRepo {
           }
         });
 
-        processedMap["completion_photo_url"] = imageFile;
+        processedMap["completion_photo"] = imageFile;
         formData = FormData.fromMap(processedMap);
       } else {
         // Handle lists for FormData (fix for new_parts_used type fields)

@@ -68,7 +68,7 @@ class TaskOverviewScreen extends StatelessWidget {
                               onPressed: () => onupdateButtonPressed(
                                   context, currentUserId!),
                               child: const Text(
-                                'Edit Task',
+                                'Update',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: primaryWhite,
@@ -92,7 +92,7 @@ class TaskOverviewScreen extends StatelessWidget {
                               onPressed: () => onpreviovstaskButtonPressed(
                                   context, currentUserId!, serialNo),
                               child: const Text(
-                                'Previous Task',
+                                'Previous Histories',
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: primaryWhite,
