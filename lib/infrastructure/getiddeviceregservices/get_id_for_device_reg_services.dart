@@ -14,8 +14,10 @@ import 'package:techqrmaintance/infrastructure/api_token_generator.dart';
 class GetIdForDeviceRegServices implements GetIdForDeviceRegRepo {
   ApiServices getidApi = ApiServices();
   @override
-  Future<Either<MainFailurs, int?>> getIdforRegerpo(
-      {required String email}) async {
+  Future<Either<MainFailurs, int?>> getIdforRegerpo({
+    required String email,
+    required String mobile,
+  }) async {
     try {
       final response = await getidApi.dio.get(kBaseURL + kCustomer);
 
@@ -27,29 +29,31 @@ class GetIdForDeviceRegServices implements GetIdForDeviceRegRepo {
           return Left(MainFailurs.clientFailure());
         }
 
-        // Sanitize the input email
+        // Sanitize inputs
         final sanitizedEmail = email.trim().toLowerCase();
+        final sanitizedMobile = mobile.trim();
 
-        // Log all emails for debugging
-        userList.data!.map((u) => u.email?.toLowerCase()).toList();
+        // Log for debugging
+        log('Searching for email: $sanitizedEmail, mobile: $sanitizedMobile');
 
-        // Find matching user with case-insensitive comparison
+        // Find matching user with case-insensitive email and exact mobile
         final matchingUser = userList.data!.firstWhere(
           (user) =>
               user.email != null &&
-              user.email!.trim().toLowerCase() == sanitizedEmail,
-          orElse: () =>
-              CustomerModelSaas(), // Return empty Customer if not found
+              user.phone != null &&
+              user.email!.trim().toLowerCase() == sanitizedEmail &&
+              user.phone!.trim() == sanitizedMobile,
+          orElse: () => CustomerModelSaas(),
         );
 
-        if (matchingUser.email == null) {
-          log('No user found with email: $sanitizedEmail');
+        if (matchingUser.id == null) {
+          log('No user found matching both email and mobile');
           return Left(MainFailurs.clientFailure());
         }
-        log(matchingUser.id.toString());
+
+        log('User found: ID = ${matchingUser.id}');
         return Right(matchingUser.id);
       } else {
-        //userLogApi.clearStoredToken();
         log('API Error: Status code ${response.statusCode}');
         return Left(MainFailurs.serverFailure());
       }

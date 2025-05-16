@@ -11,6 +11,7 @@ import 'package:techqrmaintance/core/colors.dart';
 
 class CustomerFinder extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
   CustomerFinder({super.key});
 
   @override
@@ -43,6 +44,21 @@ class CustomerFinder extends StatelessWidget {
             controller: emailController,
             hintText: "Enter email",
             curveRadius: 30,
+            boolVal: false,
+            sufficChild: BlocBuilder<GetidregblocBloc, GetidregblocState>(
+              builder: (context, state) {
+                return state.id == null ? SizedBox.shrink() : Icon(Icons.done);
+              },
+            ),
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          CustomTextField(
+            controller: mobileController,
+            hintText: "Enter Mobile Number",
+            curveRadius: 30,
+            keyboardType: TextInputType.phone,
             boolVal: false,
             sufficChild: BlocBuilder<GetidregblocBloc, GetidregblocState>(
               builder: (context, state) {
@@ -98,6 +114,7 @@ class CustomerFinder extends StatelessWidget {
 
   void onPressedFind(BuildContext context, int? id) {
     final email = emailController.text.trim();
+    final mobile = mobileController.text.trim();
     if (email.isEmpty) {
       CustomSnackbar.shows(
         context,
@@ -105,8 +122,15 @@ class CustomerFinder extends StatelessWidget {
       );
       return;
     }
+    if (mobile.isEmpty) {
+      CustomSnackbar.shows(
+        context,
+        message: "Please enter a mobile number.",
+      );
+      return;
+    }
     context.read<GetidregblocBloc>().add(
-          GetidregblocEvent.getid(email: email),
+          GetidregblocEvent.getid(email: email, mobille: mobile),
         );
   }
 

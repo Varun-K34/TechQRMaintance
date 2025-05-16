@@ -66,6 +66,7 @@ class CustomTextField extends StatelessWidget {
   final double curveRadius;
   final Widget? sufficChild;
   final bool boolVal;
+  final TextInputType? keyboardType;
 
   // Constructor
   const CustomTextField({
@@ -78,6 +79,7 @@ class CustomTextField extends StatelessWidget {
     required this.curveRadius,
     this.sufficChild,
     required this.boolVal,
+    this.keyboardType,
   });
 
   @override
@@ -105,6 +107,7 @@ class CustomTextField extends StatelessWidget {
             obscureText: obscureText,
             readOnly: boolVal,
             maxLines: maxLine,
+            keyboardType: keyboardType,
             style: const TextStyle(
               color: primaryBlack,
               fontSize: 16,

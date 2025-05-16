@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$GetidregblocEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email) getid,
+    required TResult Function(String email, String mobille) getid,
     required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email)? getid,
+    TResult? Function(String email, String mobille)? getid,
     TResult? Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email)? getid,
+    TResult Function(String email, String mobille)? getid,
     TResult Function()? reset,
     required TResult orElse(),
   }) =>
@@ -83,7 +83,7 @@ abstract class _$$GetidImplCopyWith<$Res> {
           _$GetidImpl value, $Res Function(_$GetidImpl) then) =
       __$$GetidImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String email});
+  $Res call({String email, String mobille});
 }
 
 /// @nodoc
@@ -100,11 +100,16 @@ class __$$GetidImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? email = null,
+    Object? mobille = null,
   }) {
     return _then(_$GetidImpl(
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      mobille: null == mobille
+          ? _value.mobille
+          : mobille // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -113,14 +118,16 @@ class __$$GetidImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetidImpl implements Getid {
-  const _$GetidImpl({required this.email});
+  const _$GetidImpl({required this.email, required this.mobille});
 
   @override
   final String email;
+  @override
+  final String mobille;
 
   @override
   String toString() {
-    return 'GetidregblocEvent.getid(email: $email)';
+    return 'GetidregblocEvent.getid(email: $email, mobille: $mobille)';
   }
 
   @override
@@ -128,11 +135,12 @@ class _$GetidImpl implements Getid {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetidImpl &&
-            (identical(other.email, email) || other.email == email));
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.mobille, mobille) || other.mobille == mobille));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, email);
+  int get hashCode => Object.hash(runtimeType, email, mobille);
 
   /// Create a copy of GetidregblocEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -145,30 +153,30 @@ class _$GetidImpl implements Getid {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email) getid,
+    required TResult Function(String email, String mobille) getid,
     required TResult Function() reset,
   }) {
-    return getid(email);
+    return getid(email, mobille);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email)? getid,
+    TResult? Function(String email, String mobille)? getid,
     TResult? Function()? reset,
   }) {
-    return getid?.call(email);
+    return getid?.call(email, mobille);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email)? getid,
+    TResult Function(String email, String mobille)? getid,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (getid != null) {
-      return getid(email);
+      return getid(email, mobille);
     }
     return orElse();
   }
@@ -206,9 +214,12 @@ class _$GetidImpl implements Getid {
 }
 
 abstract class Getid implements GetidregblocEvent {
-  const factory Getid({required final String email}) = _$GetidImpl;
+  const factory Getid(
+      {required final String email,
+      required final String mobille}) = _$GetidImpl;
 
   String get email;
+  String get mobille;
 
   /// Create a copy of GetidregblocEvent
   /// with the given fields replaced by the non-null parameter values.
@@ -258,7 +269,7 @@ class _$ResetImpl implements Reset {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String email) getid,
+    required TResult Function(String email, String mobille) getid,
     required TResult Function() reset,
   }) {
     return reset();
@@ -267,7 +278,7 @@ class _$ResetImpl implements Reset {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String email)? getid,
+    TResult? Function(String email, String mobille)? getid,
     TResult? Function()? reset,
   }) {
     return reset?.call();
@@ -276,7 +287,7 @@ class _$ResetImpl implements Reset {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String email)? getid,
+    TResult Function(String email, String mobille)? getid,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
