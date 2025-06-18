@@ -16,7 +16,7 @@ class GetidregblocBloc extends Bloc<GetidregblocEvent, GetidregblocState> {
       emit(state.copyWith(
         isLoading: true,
       ));
-      await getIdRepo.getIdforRegerpo(email: event.email, mobile: event.mobille).then(
+      await getIdRepo.getIdforRegerpo(emailormobile: event.emailormobile, checkString: event.checkString).then(
         (regval) {
           regval.fold(
             (l) {

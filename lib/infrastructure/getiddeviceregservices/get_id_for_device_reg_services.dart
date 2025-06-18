@@ -13,10 +13,11 @@ import 'package:techqrmaintance/infrastructure/api_token_generator.dart';
 @LazySingleton(as: GetIdForDeviceRegRepo)
 class GetIdForDeviceRegServices implements GetIdForDeviceRegRepo {
   ApiServices getidApi = ApiServices();
+
   @override
   Future<Either<MainFailurs, int?>> getIdforRegerpo({
-    required String email,
-    required String mobile,
+    required String emailormobile,
+    required String checkString,
   }) async {
     try {
       final response = await getidApi.dio.get(kBaseURL + kCustomer);
@@ -29,32 +30,34 @@ class GetIdForDeviceRegServices implements GetIdForDeviceRegRepo {
           return Left(MainFailurs.clientFailure());
         }
 
-        // Sanitize inputs
-        final sanitizedEmail = email.trim().toLowerCase();
-        final sanitizedMobile = mobile.trim();
+        // Sanitize input
+        final input = emailormobile.trim();
 
-        // Log for debugging
-        log('Searching for email: $sanitizedEmail, mobile: $sanitizedMobile');
+        CustomerModelSaas? matchingUser;
 
-        // Find matching user with case-insensitive email and exact mobile
-        final matchingUser = userList.data!.firstWhere(
-          (user) =>
-              user.email != null &&
-              user.phone != null &&
-              user.email!.trim().toLowerCase() == sanitizedEmail &&
-              user.phone!.trim() == sanitizedMobile,
-          orElse: () => CustomerModelSaas(),
-        );
-
-        if (matchingUser.id == null) {
-          log('No user found matching both email and mobile');
+        if (checkString.toLowerCase() == 'mobile') {
+          matchingUser = userList.data!.firstWhere(
+            (user) => user.phone != null && user.phone!.trim() == input,
+            orElse: () => CustomerModelSaas(),
+          );
+        } else if (checkString.toLowerCase() == 'email') {
+          final sanitizedEmail = input.toLowerCase();
+          matchingUser = userList.data!.firstWhere(
+            (user) =>
+                user.email != null &&
+                user.email!.trim().toLowerCase() == sanitizedEmail,
+            orElse: () => CustomerModelSaas(),
+          );
+        } else {
           return Left(MainFailurs.clientFailure());
         }
 
-        log('User found: ID = ${matchingUser.id}');
+        if (matchingUser.id == null) {
+          return Left(MainFailurs.clientFailure());
+        }
+
         return Right(matchingUser.id);
       } else {
-        log('API Error: Status code ${response.statusCode}');
         return Left(MainFailurs.serverFailure());
       }
     } on DioException catch (e) {
